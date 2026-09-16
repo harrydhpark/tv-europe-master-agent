@@ -1,0 +1,18 @@
+﻿# Dependencies
+node_modules/
+
+# Logs & Environment
+*.log
+.env
+.DS_Store
+
+# Firebase
+.firebase/
+
+# Bridge Runtime Temporary Files
+agent_bridge/inbox/*
+agent_bridge/outbox/*
+agent_bridge/progress/*
+!agent_bridge/inbox/.gitkeep
+!agent_bridge/outbox/.gitkeep
+!agent_bridge/progress/.gitkeep

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Europe Sales Master AI Agent</title>
+  
+  <!-- LGE Unified Auth Guard (SHA-256 SSO) -->
+  <script src="auth-guard.js"></script>
+
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js 4.4 for Live Interactive Canvas Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+      <div class="brand-section">
+        <div class="brand-logo-badge">LG</div>
+        <div>
+          <span class="brand-title">TV Europe Sales Master AI Agent</span>
+          <span class="brand-subtitle">Strategic Orchestrator</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span>15대 서브 에이전트 연동 가동 중</span>
+        </div>
+
+        <button id="btnNewChat" class="btn-portal-back" style="background:#1E293B; margin-right:4px;" title="새 대화 세션 시작">
+          <i class="ri-refresh-line"></i>
+          <span>새 세션</span>
+        </button>
+
+        <a href="../../00. TV Europe Sales Management Portal/index.html" class="btn-portal-back" title="메인 포털 메뉴로 이동">
+          <i class="ri-arrow-left-line"></i>
+          <span>TV Europe Portal</span>
+        </a>
+
+        <button id="btnOpenSettings" class="btn-icon" title="LLM 엔진 및 API Key 설정">
+          <i class="ri-settings-3-line"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- 3-Column Split Workspace -->
+    <main class="workspace-body">
+      <!-- Left Sidebar: Sub-Agent Monitor & Navigation (290px) -->
+      <aside class="left-sidebar">
+        <div class="sidebar-header">
+          <span class="sidebar-heading">서브 에이전트 실시간 모니터</span>
+          <span class="text-xs text-slate-400 font-mono">15 Agents</span>
+        </div>
+
+        <div class="sidebar-scroll">
+          <!-- Dynamic Agent List (Grouped by Category) -->
+          <div id="agentListContainer">
+            <!-- Rendered by app.js -->
+          </div>
+
+          <!-- Quick Query Prompt Chips -->
+          <div class="quick-chips-box">
+            <span class="category-label">⚡ 빠른 질의 템플릿</span>
+            <button class="chip-btn">📊 유럽 전체 이번 주 종합 Executive Briefing 작성해줘</button>
+            <button class="chip-btn">🏷️ 독일 65인치 OLED 최저가 및 삼성 대비 Price Gap 분석</button>
+            <button class="chip-btn">🎛️ 환율 -3% 절하 및 장려금 1.5%p 상향 시 손익 시뮬레이션</button>
+            <button class="chip-btn">📈 유럽 권역별 재고 주수(WOS) 현황 및 위험 법인 진단</button>
+            <button class="chip-btn">📺 2026 OLED evo G6 vs C6 세부 하드웨어 스펙 비교</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: Master AI Chat Stream & Dispatch Timeline -->
+      <section class="center-chat-area">
+        <div class="chat-header">
+          <div class="chat-header-title">
+            <i class="ri-sparkling-fill text-teal-600"></i>
+            <span>지능형 해외영업 참모 대화창</span>
+          </div>
+          <span class="text-xs text-slate-400">Google Gemini & Local Engine Hybrid</span>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div id="chatMessages" class="chat-messages-container">
+          <!-- Rendered by app.js -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <div class="input-helpers">
+            <div class="mention-shortcuts">
+              <span class="text-xs text-slate-400 mr-1">직접 호출:</span>
+              <button class="mention-chip" data-mention="@KPI">@KPI</button>
+              <button class="mention-chip" data-mention="@PriceTracker">@PriceTracker</button>
+              <button class="mention-chip" data-mention="@Simulator">@Simulator</button>
+              <button class="mention-chip" data-mention="@P&L">@P&L</button>
+              <button class="mention-chip" data-mention="@Spec">@Spec</button>
+              <button class="mention-chip" data-mention="@GfK">@GfK</button>
+              <button class="mention-chip" data-mention="@FX">@FX</button>
+            </div>
+            <span>Shift + Enter 줄바꿈 / Enter 전송</span>
+          </div>
+
+          <div class="input-wrapper">
+            <textarea 
+              id="chatInput" 
+              class="chat-textarea" 
+              placeholder="TV 해외영업 업무(매출 실적, 최저가 비교, 시뮬레이션, 스펙 비교 등)를 자연어로 입력하세요..."
+              rows="1"
+            ></textarea>
+            <button id="sendBtn" class="btn-send" title="전송">
+              <i class="ri-send-plane-2-fill"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Live Artifact & Report Canvas (540px) -->
+      <aside id="canvasArea" class="right-canvas-area">
+        <div class="canvas-header">
+          <div class="canvas-title-box">
+            <i class="ri-layout-grid-line text-teal-600"></i>
+            <span id="canvasTitle" class="canvas-title">종합 분석 아티팩트 캔버스</span>
+          </div>
+
+          <div class="canvas-actions">
+            <button id="btnCopyMarkdown" class="btn-canvas-action" title="마크다운 복사">
+              <i class="ri-file-copy-line"></i>
+              <span>MD 복사</span>
+            </button>
+            <button id="btnPrintPdf" class="btn-canvas-action" title="보고서 인쇄 및 PDF 저장">
+              <i class="ri-printer-line"></i>
+              <span>인쇄/PDF</span>
+            </button>
+            <button id="btnExportCsv" class="btn-canvas-action" title="CSV 데이터 다운로드">
+              <i class="ri-file-excel-line"></i>
+              <span>CSV</span>
+            </button>
+            <button id="btnToggleFullscreen" class="btn-canvas-action" title="캔버스 전체화면">
+              <i class="ri-fullscreen-line"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="canvasBody" class="canvas-body">
+          <div class="canvas-empty-state">
+            <i class="ri-file-chart-line empty-icon"></i>
+            <h4 class="font-bold text-slate-700">분석 아티팩트 대기 중</h4>
+            <p class="text-xs text-slate-500 max-w-xs">
+              챗봇에 질문을 입력하시면 서브 에이전트들이 도출한 정밀 데이터 표, 시뮬레이션 차트, 종합 보고서가 이곳에 실시간 렌더링됩니다.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">AI 오케스트레이션 엔진 설정</h3>
+          <button id="btnCloseSettings" class="btn-icon"><i class="ri-close-line text-slate-500"></i></button>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Google Gemini API Key를 입력하시면 최고 성능의 LLM 추론 및 Function Calling이 활성화됩니다. 미입력 시 고속 로컬 도메인 룰 엔진으로 자동 동작합니다.
+        </p>
+
+        <div class="form-group">
+          <label for="apiKeyInput">Google Gemini API Key</label>
+          <input type="password" id="apiKeyInput" class="form-control" placeholder="AIzaSy...">
+        </div>
+
+        <div class="form-group">
+          <label for="modelSelect">추론 모델 선택</label>
+          <select id="modelSelect" class="form-control">
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (복합 심층 분석용)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash (초고속 실시간 응답)</option>
+            <option value="auto">Auto Router (작업 난이도별 자동 선택)</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btnSaveSettings" class="btn-primary">저장 및 적용</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline Safety Confirmation Modal -->
+    <div id="pipelineModal" class="modal-overlay">
+      <div class="modal-content" style="max-width: 520px;">
+        <div class="modal-header">
+          <h3 class="modal-title" style="color: #A50034; display: flex; align-items: center; gap: 6px;">
+            <i class="ri-shield-check-line"></i>
+            <span>파이프라인 실행 안전 확인 (Safety Check)</span>
+          </h3>
+          <button id="btnClosePipelineModal" class="btn-icon"><i class="ri-close-line text-slate-500"></i></button>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+          대용량 원천 엑셀 가공 및 데이터 덮어쓰기 파이프라인을 실행합니다. 아래 대상 스크립트 및 디렉토리를 확인하신 후 승인하십시오.
+        </p>
+
+        <div id="pipelineModalDetails" class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs font-mono space-y-1 mb-4">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button id="btnCancelPipeline" class="btn-canvas-action">취소</button>
+          <button id="btnConfirmPipeline" class="btn-primary" style="background-color: var(--accent-red);">승인 및 파이프라인 실행</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

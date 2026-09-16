@@ -1,0 +1,25 @@
+{
+  "name": "tv-europe-master-agent",
+  "version": "1.0.0",
+  "description": "TV Europe Sales Master AI Agent - Multi-Agent Orchestrator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "bundle": "node build_bundle.js",
+    "deploy": "node build_bundle.js && firebase deploy --only hosting"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "keywords": [
+    "lge",
+    "tv-europe",
+    "master-agent",
+    "orchestrator",
+    "ai"
+  ],
+  "author": "TV Europe Sales AX Team",
+  "license": "ISC"
+}
