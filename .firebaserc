@@ -1,5 +1,14 @@
-{
+﻿{
   "projects": {
     "default": "kpi-sheet-europe-2026"
+  },
+  "targets": {
+    "kpi-sheet-europe-2026": {
+      "hosting": {
+        "master-agent": [
+          "tv-master-agent-2026"
+        ]
+      }
+    }
   }
 }

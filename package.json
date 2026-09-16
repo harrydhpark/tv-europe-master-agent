@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "tv-europe-master-agent",
   "version": "1.0.0",
   "description": "TV Europe Sales Master AI Agent - Multi-Agent Orchestrator",
@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "bundle": "node build_bundle.js",
-    "deploy": "node build_bundle.js && firebase deploy --only hosting"
+    "deploy": "node build_bundle.js && firebase deploy --only hosting:master-agent"
   },
   "dependencies": {
     "cors": "^2.8.5",
