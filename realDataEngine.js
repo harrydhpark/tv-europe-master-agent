@@ -87,7 +87,13 @@ class RealDataEngine {
     // Period Horizon Parsing
     let period = 'YTD';
     let monthsCount = 0;
-    if (q.includes('3개월') || q.includes('3달') || q.includes('l3m') || q.includes('최근 3') || q.includes('최근3')) {
+    let targetMonth = null;
+    const monthMatch = raw.match(/(\d{1,2})\s*월/);
+    if (monthMatch) {
+      targetMonth = parseInt(monthMatch[1], 10);
+      period = `${targetMonth}월`;
+      monthsCount = 1;
+    } else if (q.includes('3개월') || q.includes('3달') || q.includes('l3m') || q.includes('최근 3') || q.includes('최근3')) {
       period = 'L3M';
       monthsCount = 3;
     } else if (q.includes('1개월') || q.includes('당월') || q.includes('최근 1') || q.includes('최근1') || q.includes('mtd')) {
@@ -113,6 +119,7 @@ class RealDataEngine {
       countryName,
       pnlFolder,
       period,
+      targetMonth,
       monthsCount,
       hasSales,
       hasPnl,
@@ -236,8 +243,13 @@ class RealDataEngine {
       latestYear = pnlData.LATEST_YEAR || 2026;
       latestMonth = pnlData.LATEST_MONTH || 8;
       const allMonthly = pnlData.DATA.standard.monthly_trend || [];
-      const count = monthsCount || 3;
-      recentMonths = allMonthly.slice(-count);
+      if (targetMonth) {
+        const found = allMonthly.find(m => m.month === targetMonth);
+        recentMonths = found ? [found] : allMonthly.slice(-3);
+      } else {
+        const count = monthsCount || 3;
+        recentMonths = allMonthly.slice(-count);
+      }
       kpiSummary = pnlData.DATA.standard.kpi;
     }
 
