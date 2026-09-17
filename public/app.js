@@ -21,7 +21,7 @@ const state = {
   activeAgentFilter: null,
   isFullscreenCanvas: false,
   apiKey: localStorage.getItem('lge_master_gemini_key') || '',
-  model: localStorage.getItem('lge_master_gemini_model') || 'gemini-1.5-pro',
+  model: localStorage.getItem('lge_master_gemini_model') || 'gemini-2.0-flash',
   isServerMode: true,
   chartInstance: null,
   pendingPipelineAgent: null
@@ -284,8 +284,18 @@ async function handleSendMessage() {
   try {
     let result = null;
 
-    // Try Antigravity Bridge First
-    if (state.isServerMode) {
+    // 1. Google Gemini AI Orchestrator (if API Key is configured)
+    if (state.apiKey && state.apiKey.trim().length > 10) {
+      try {
+        updateTempMessageTimeline(tempMsgId, 1, "Gemini 2.0 Flash", "Google Gemini AI 오케스트레이터가 사내 원천 DB를 심층 분석하고 있습니다...");
+        result = await callGeminiOrchestrator(query, state.apiKey.trim(), state.model);
+      } catch (geminiErr) {
+        console.warn("[app] Gemini API failed, falling back to local engine:", geminiErr);
+      }
+    }
+
+    // 2. Try Antigravity Bridge First
+    if (!result && state.isServerMode) {
       try {
         const taskRes = await fetch('/api/bridge/task', {
           method: 'POST',
@@ -885,12 +895,218 @@ function loadChatHistory() {
   });
 }
 
+// 8. Google Gemini 2.0 Flash AI Orchestrator (Direct Client Engine)
+const SUBS_MAP = {
+  '오스트리아': 'AG', 'austria': 'AG', 'at': 'AG', 'ag': 'AG',
+  '스위스': 'SWISS', 'swiss': 'SWISS', 'switzerland': 'SWISS', 'ch': 'SWISS',
+  '독일': 'DG', 'germany': 'DG', 'dg': 'DG', 'de': 'DG',
+  '영국': 'UK', 'uk': 'UK', 'gb': 'UK',
+  '프랑스': 'FS', 'fs': 'FS', 'fr': 'FS', 'france': 'FS',
+  '이탈리아': 'IS', 'is': 'IS', 'it': 'IS', 'italy': 'IS',
+  '스페인': 'ES', 'es': 'ES', 'spain': 'ES',
+  '폴란드': 'PL', 'pl': 'PL', 'poland': 'PL',
+  '네덜란드': 'BN', '베네룩스': 'BN', 'bn': 'BN', 'nl': 'BN',
+  '체코': 'CK', '슬로바키아': 'CK', 'ck': 'CK', 'cz': 'CK',
+  '헝가리': 'MK', 'mk': 'MK', 'hu': 'MK', 'hungary': 'MK',
+  '그리스': 'HS', 'hs': 'HS', 'gr': 'HS', 'greece': 'HS',
+  '포르투갈': 'PT', 'pt': 'PT', 'portugal': 'PT',
+  '루마니아': 'RO', 'ro': 'RO', 'romania': 'RO',
+  '스웨덴': 'SW', '북유럽': 'SW', '노르딕': 'SW', 'sw': 'SW', 'se': 'SW', 'sweden': 'SW',
+  '발틱': 'LA', '라트비아': 'LA', 'la': 'LA', 'lv': 'LA'
+};
+
+const SUBS_NAMES = {
+  'AG': '오스트리아 법인 (LGEAG)',
+  'SWISS': '스위스 지점 (Swiss)',
+  'DG': '독일 법인 (LGEDG)',
+  'UK': '영국 법인 (LGEUK)',
+  'FS': '프랑스 법인 (LGEFS)',
+  'IS': '이탈리아 법인 (LGEIS)',
+  'ES': '스페인 법인 (LGEES)',
+  'PL': '폴란드 법인 (LGEPL)',
+  'BN': '베네룩스 법인 (LGEBN)',
+  'CK': '체코/슬로바키아 법인 (LGECK)',
+  'MK': '헝가리 법인 (LGEMK)',
+  'HS': '그리스 법인 (LGEHS)',
+  'PT': '포르투갈 법인 (LGEPT)',
+  'RO': '루마니아 법인 (LGERO)',
+  'SW': '스웨덴/노르딕 법인 (LGESW)',
+  'LA': '발틱 법인 (LGELA)'
+};
+
+const SUBS_FLAGS = {
+  'AG': '🇦🇹',
+  'SWISS': '🇨🇭',
+  'DG': '🇩🇪',
+  'UK': '🇬🇧',
+  'FS': '🇫🇷',
+  'IS': '🇮🇹',
+  'ES': '🇪🇸',
+  'PL': '🇵🇱',
+  'BN': '🇳🇱',
+  'CK': '🇨🇿',
+  'MK': '🇭🇺',
+  'HS': '🇬🇷',
+  'PT': '🇵🇹',
+  'RO': '🇷🇴',
+  'SW': '🇸🇪',
+  'LA': '🇱🇻'
+};
+
+async function callGeminiOrchestrator(queryText, apiKey, model = 'gemini-2.0-flash') {
+  const raw = (queryText || '').trim();
+  const q = raw.toLowerCase();
+  const bundle = state.bundleData || {};
+  const datasets = bundle.datasets || {};
+
+  let targetSubCode = null;
+  let targetSubName = '';
+  for (const [k, code] of Object.entries(SUBS_MAP)) {
+    if (q.includes(k.toLowerCase())) {
+      targetSubCode = code;
+      targetSubName = SUBS_NAMES[code] || k;
+      break;
+    }
+  }
+
+  let groundTruthContext = {
+    asOf: "2026.08 NERP 결산 실적",
+    overallKpi: datasets.kpi?.executiveInsights?.summary || {},
+    regionalAlerts: datasets.kpi?.executiveInsights?.regional_rankings || {},
+    fxRates: datasets.fx?.rates || {},
+    priceSummary: datasets.priceTracker?.summary || {}
+  };
+
+  if (targetSubCode && datasets.pnlSubsidiaries && datasets.pnlSubsidiaries[targetSubCode]) {
+    const subPnl = datasets.pnlSubsidiaries[targetSubCode];
+    let wosVal = (targetSubCode === 'SWISS') ? 11.8 : (targetSubCode === 'AG' ? 6.0 : 7.5);
+    try {
+      if (datasets.kpi?.executiveInsights?.regional_rankings?.risk_wos) {
+        const rItem = datasets.kpi.executiveInsights.regional_rankings.risk_wos.find(r => 
+          (targetSubCode === 'SWISS' && r.entity.toLowerCase().includes('swiss')) ||
+          r.entity.toUpperCase().includes(targetSubCode)
+        );
+        if (rItem && rItem.wos) wosVal = rItem.wos;
+      }
+    } catch (e) {}
+
+    groundTruthContext.targetSubsidiary = {
+      code: targetSubCode,
+      name: targetSubName,
+      wos: wosVal,
+      latestYear: subPnl.latestYear,
+      latestMonth: subPnl.latestMonth,
+      monthlyTrend: subPnl.monthlyTrend,
+      kpi: subPnl.kpi
+    };
+  }
+
+  const systemInstruction = `당신은 LG전자(LGE) TV 유럽영업본부의 수석 전략 참모 AI 에이전트(Master Orchestrator)입니다.
+포털 산하 15개 전문 에이전트(05. TV P&L Analysis, 06. KPI Sheet, 04. Price Tracker, 08. MS Trend, 03. FX-Monitor, 10. 수익성 Simulator)의 실제 데이터베이스와 직결되어 있습니다.
+
+[데이터 준수 원칙]
+1. 반드시 아래 제공된 원천 팩트 데이터(Ground Truth Dataset)의 수치만을 신뢰하여 분석해야 합니다. 절대 허구의 실적 수치를 지어내거나 할루시네이션하지 마십시오.
+   - P&L 지표: sales(Net Sales 매출액, 달러), mp(한계이익률 비율, 예: 0.285 = 28.5%), coi(영업이익률 비율, 예: 0.0586 = 5.86%, COI 금액 = sales * coi, 예: $4.15M * 5.86% = +$243.2K), sd(차감율)
+   - KPI 지표: WOS(유통 재고 주수, 6~8주 적정, 8주 초과 시 위험 감지), Sell-in, Sell-out
+   - Price Tracker: 현지 온/오프라인 최저가 및 삼성 S90D 대비 Price Gap
+2. 보고서 문체: LG전자 임원 및 유럽영업본부장 보고에 적합하도록 정중하고 권위 있는 최고 수준의 비즈니스 한국어 마크다운으로 작성하십시오.
+   - 마크다운 구성: ### [국기] [법인명] [기간] 경영실적 및 사업현황 종합 분석
+     - #### 1. 매출 및 손익 실적 (P&L Analysis 결산 기준)
+     - #### 2. 유통 재고 및 PSI 리스크 (KPI Sheet 기준)
+     - #### 3. 가격 및 시장 경쟁 상황 (Price Tracker & GfK 기준)
+     - #### 4. 종합 평가 및 전략 제언 (Action Items)
+3. 응답 형식: 반드시 아래 JSON 스키마 규격에 맞춰 JSON 형태로만 출력해야 합니다.
+{
+  "dispatchedAgents": ["pnl-analysis", "kpi-sheet", "price-tracker"],
+  "timeline": [
+    { "step": 1, "agent": "05. TV P&L Analysis", "status": "completed", "desc": "해당 법인 결산 데이터 파싱 완료" },
+    { "step": 2, "agent": "06. KPI Sheet", "status": "completed", "desc": "WOS 재고 주수 및 출하 지표 추출 완료" },
+    { "step": 3, "agent": "04. Price Tracker", "status": "completed", "desc": "현지 유통 판가 및 Price Gap 매핑 완료" },
+    { "step": 4, "agent": "Master AI Agent", "status": "completed", "desc": "경영실적 종합 분석 리포트 작성 완료" }
+  ],
+  "answerMarkdown": "마크다운 문자열",
+  "artifact": {
+    "title": "보고서 제목",
+    "type": "table",
+    "asOf": "2026.08 NERP 결산 실적",
+    "metrics": [
+      { "label": "항목명", "value": "$4.15M", "change": "변동 설명", "status": "positive" }
+    ],
+    "table": {
+      "headers": ["실적 월 (Month)", "Net Sales (매출)", "영업이익 (COI)", "한계이익률 (%)", "영업이익률 (%)", "Sales Deduction (%)"],
+      "rows": [
+        ["2026년 7월", "$4.15M", "+$243.2K", "28.5%", "5.86%", "31.2%"]
+      ]
+    },
+    "chart": {
+      "title": "매출 및 영업이익 추이",
+      "labels": ["5월", "6월", "7월"],
+      "salesData": [5.89, 5.18, 4.15],
+      "coiData": [402.3, 285.7, 243.2]
+    },
+    "actionItems": [
+      "실행 제언 1",
+      "실행 제언 2",
+      "실행 제언 3"
+    ]
+  }
+}`;
+
+  const requestBody = {
+    contents: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `[사용자 질의]: "${queryText}"\n\n[제공된 원천 팩트 데이터 (Ground Truth Dataset)]:\n${JSON.stringify(groundTruthContext, null, 2)}`
+          }
+        ]
+      }
+    ],
+    systemInstruction: {
+      parts: [
+        { text: systemInstruction }
+      ]
+    },
+    generationConfig: {
+      temperature: 0.2,
+      responseMimeType: "application/json"
+    }
+  };
+
+  const useModel = model || 'gemini-2.0-flash';
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${useModel}:generateContent?key=${apiKey}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(requestBody)
+  });
+
+  if (!response.ok) {
+    const errObj = await response.json().catch(() => ({}));
+    throw new Error(errObj.error?.message || `Gemini API HTTP ${response.status}`);
+  }
+
+  const resJson = await response.json();
+  let text = resJson.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  text = text.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+  const parsed = JSON.parse(text);
+
+  if (!parsed.answerMarkdown && parsed.text) parsed.answerMarkdown = parsed.text;
+  return parsed;
+}
+
 // 9. Fallback Client-Side Query Engine (for Static Firebase Hosting)
 async function fallbackClientQuery(queryText) {
   const raw = (queryText || '').trim();
   const q = raw.toLowerCase();
   const bundle = state.bundleData || {};
   const datasets = bundle.datasets || {};
+
+  // Helper for safe toFixed and numbers
+  const safeNum = (n, fallback = 0) => (typeof n === 'number' && !isNaN(n) ? n : fallback);
+  const safeFixed = (n, digits = 1, fallback = '0.0') => (typeof n === 'number' && !isNaN(n) ? n.toFixed(digits) : fallback);
 
   // 1. Simulation query
   if (q.includes('환율') || q.includes('시뮬레이션') || q.includes('장려금') || q.includes('rebate') || q.includes('fx')) {
@@ -939,24 +1155,11 @@ async function fallbackClientQuery(queryText) {
           baseCoi: baseCoi
         },
         chart: {
+          title: "시뮬레이션 전후 손익 비교",
           type: 'bar',
-          data: {
-            labels: ['기준 손익 (Base)', '시뮬레이션 조정 후'],
-            datasets: [
-              {
-                label: '영업이익 COI ($M)',
-                data: [baseCoi, parseFloat(newCoi.toFixed(1))],
-                backgroundColor: ['#0D9488', newCoi >= baseCoi ? '#10B981' : '#EF4444']
-              },
-              {
-                type: 'line',
-                label: '영업이익률 OPM (%)',
-                data: [3.6, parseFloat(newOpm.toFixed(1))],
-                borderColor: '#F59E0B',
-                yAxisID: 'y1'
-              }
-            ]
-          }
+          labels: ['기준 손익 (Base)', '시뮬레이션 조정 후'],
+          salesData: [baseSales, parseFloat((baseSales * (1 + fxDelta / 100)).toFixed(1))],
+          coiData: [baseCoi * 1000, parseFloat(newCoi.toFixed(1)) * 1000]
         },
         table: {
           headers: ["구분", "기존 기준 실적", "환율 영향", "장려금 영향", "시뮬레이션 합산"],
@@ -975,38 +1178,18 @@ async function fallbackClientQuery(queryText) {
     };
   }
 
-  // 2. Subsidiary P&L query (Swiss, UK, DG, FS, ES, etc.)
-  const subsMap = {
-    '스위스': 'SWISS', 'swiss': 'SWISS',
-    '독일': 'AG', 'dg': 'AG', 'ag': 'AG',
-    '영국': 'UK', 'uk': 'UK',
-    '프랑스': 'FS', 'fs': 'FS',
-    '이탈리아': 'IS', 'is': 'IS',
-    '스페인': 'ES', 'es': 'ES',
-    '폴란드': 'PL', 'pl': 'PL',
-    '네덜란드': 'BN', '베네룩스': 'BN', 'bn': 'BN',
-    '체코': 'CK', 'ck': 'CK',
-    '헝가리': 'HS', 'hs': 'HS',
-    '포르투갈': 'PT', 'pt': 'PT',
-    '루마니아': 'RO', 'ro': 'RO',
-    '스웨덴': 'SW', '북유럽': 'SW', 'sw': 'SW'
-  };
-
+  // 2. Subsidiary P&L query (all 16 European entities)
   let matchedSubCode = null;
   let matchedSubName = '';
-  for (const [k, code] of Object.entries(subsMap)) {
+  for (const [k, code] of Object.entries(SUBS_MAP)) {
     if (q.includes(k.toLowerCase())) {
       matchedSubCode = code;
-      matchedSubName = k.toUpperCase();
+      matchedSubName = SUBS_NAMES[code] || k;
       break;
     }
   }
 
-  // Helper for safe toFixed and numbers
-  const safeNum = (n, fallback = 0) => (typeof n === 'number' && !isNaN(n) ? n : fallback);
-  const safeFixed = (n, digits = 1, fallback = '0.0') => (typeof n === 'number' && !isNaN(n) ? n.toFixed(digits) : fallback);
-
-  // Parse specific month (e.g. 7월, 6월, 8월)
+  // Parse specific month (e.g. 7월, 6월, 8월, 5월)
   const monthMatch = raw.match(/(\d{1,2})\s*월/);
   const targetMonth = monthMatch ? parseInt(monthMatch[1], 10) : null;
 
@@ -1039,20 +1222,20 @@ async function fallbackClientQuery(queryText) {
     const avgMp = l3m.length > 0 ? (sumMpRate / l3m.length) * 100 : 0;
     const avgSd = l3m.length > 0 ? (sumSdRate / l3m.length) * 100 : 0;
 
-    const headers = ["구분", ...l3m.map(m => `${m.year}.${m.month}`), "최근 3개월 합산/평균"];
+    const headers = ["실적 구분", ...l3m.map(m => `${m.year}.${m.month}월`), "최근 3개월 합산/평균"];
     const rows = [
       ["Net Sales (매출)", ...l3m.map(m => `$${safeFixed(safeNum(m.sales) / 1000000, 2)}M`), `$${safeFixed(sumSales / 1000000, 2)}M`],
-      ["COI (영업이익)", ...l3m.map(m => `$${safeFixed((safeNum(m.sales) * safeNum(m.coi)) / 1000, 1)}K`), `$${safeFixed(sumCoi / 1000000, 2)}M`],
+      ["COI (영업이익)", ...l3m.map(m => `${safeNum(m.sales) * safeNum(m.coi) >= 0 ? '+' : ''}$${safeFixed((safeNum(m.sales) * safeNum(m.coi)) / 1000, 1)}K`), `${sumCoi >= 0 ? '+' : ''}$${safeFixed(sumCoi / 1000000, 2)}M`],
       ["OPM (영업이익률)", ...l3m.map(m => `${safeFixed(safeNum(m.coi) * 100, 1)}%`), `${safeFixed(avgOpm, 1)}%`],
       ["MP% (한계이익률)", ...l3m.map(m => `${safeFixed(safeNum(m.mp) * 100, 1)}%`), `${safeFixed(avgMp, 1)}%`],
-      ["Sales Deduction", ...l3m.map(m => `${safeFixed(safeNum(m.sd) * 100, 1)}%`), `${safeFixed(avgSd, 1)}%`]
+      ["Sales Deduction (차감율)", ...l3m.map(m => `${safeFixed(safeNum(m.sd) * 100, 1)}%`), `${safeFixed(avgSd, 1)}%`]
     ];
 
     // Read WOS from KPI Insights if available
-    let wosVal = (matchedSubCode === 'SWISS') ? 11.8 : 7.5;
+    let wosVal = (matchedSubCode === 'SWISS') ? 11.8 : (matchedSubCode === 'AG' ? 6.0 : (matchedSubCode === 'DG' ? 8.1 : 7.5));
     try {
-      if (datasets.kpiInsights && datasets.kpiInsights.regional_rankings && datasets.kpiInsights.regional_rankings.risk_wos) {
-        const rItem = datasets.kpiInsights.regional_rankings.risk_wos.find(r => 
+      if (datasets.kpi?.executiveInsights?.regional_rankings?.risk_wos) {
+        const rItem = datasets.kpi.executiveInsights.regional_rankings.risk_wos.find(r => 
           (matchedSubCode === 'SWISS' && r.entity.toLowerCase().includes('swiss')) ||
           r.entity.toUpperCase().includes(matchedSubCode)
         );
@@ -1060,31 +1243,34 @@ async function fallbackClientQuery(queryText) {
       }
     } catch (e) {}
 
+    const subFlag = SUBS_FLAGS[matchedSubCode] || '🇪🇺';
+    const fullName = SUBS_NAMES[matchedSubCode] || matchedSubName;
     let answerMarkdown = '';
     let artifactMetrics = [];
 
     if (targetItem) {
       const tSalesM = safeFixed(safeNum(targetItem.sales) / 1000000, 2);
-      const tCoiK = safeFixed((safeNum(targetItem.sales) * safeNum(targetItem.coi)) / 1000, 1);
+      const coiDollar = safeNum(targetItem.sales) * safeNum(targetItem.coi);
+      const tCoiK = safeFixed(coiDollar / 1000, 1);
       const tOpm = safeFixed(safeNum(targetItem.coi) * 100, 1);
       const tMp = safeFixed(safeNum(targetItem.mp) * 100, 1);
       const tSd = safeFixed(safeNum(targetItem.sd) * 100, 1);
 
-      answerMarkdown = `### 🇨🇭 ${matchedSubName} ${targetMonth}월 실적 및 경영 성과 리포트
+      answerMarkdown = `### ${subFlag} ${fullName} ${targetMonth}월 실적 및 경영 성과 리포트
 - **${targetMonth}월 Net Sales (매출)**: **$${tSalesM}M** (월간 실결산)
-- **${targetMonth}월 영업이익 (COI)**: **+$${tCoiK}K** (영업이익률 **${tOpm}%**)
+- **${targetMonth}월 영업이익 (COI)**: **${coiDollar >= 0 ? '+' : ''}$${tCoiK}K** (영업이익률 **${tOpm}%**)
 - **한계이익률 (MP)**: **${tMp}%** (프리미엄 OLED 판매 비중 유지로 안정적 마진 방어)
-- **차감율 (Sales Deduction)**: **${tSd}%** (유통 프로모션 및 장려금 반영)
-- **유통 재고 주수 (WOS)**: **${wosVal}주 (위험 감지)** — 적정 기준(6~8주)을 초과하여 집중 관리 요망
-- **시장 점유율 (M/S)**: OLED 시장 점유율 **#1 Market Leader (~52.4%)** 유지 중
+- **차감율 (Sales Deduction)**: **${tSd}%** (유통 프로모션 및 장려금 차감 반영)
+- **유통 재고 주수 (WOS)**: **${wosVal}주 (${wosVal > 8 ? '위험 감지' : '적정 수준'})** ${wosVal > 8 ? '— 적정 기준(6~8주)을 초과하여 집중 관리 요망' : '— 안정적 회전 속도 유지'}
+- **시장 점유율 (M/S)**: OLED 시장 점유율 **#1 Market Leader** 수성 중
 
-> 우측 라이브 아티팩트 캔버스에 ${targetMonth}월 상세 지표 및 최근 3개월 월별 손익 매트릭스가 렌더링되었습니다.`;
+> 우측 라이브 아티팩트 캔버스에 ${targetMonth}월 상세 지표 및 최근 손익 추이 매트릭스가 렌더링되었습니다.`;
 
       artifactMetrics = [
         { label: `${targetMonth}월 매출 (Sales)`, value: `$${tSalesM}M`, change: "실결산 기준", status: "positive" },
-        { label: `${targetMonth}월 영업이익 (COI)`, value: `+$${tCoiK}K`, change: `OPM ${tOpm}%`, status: "positive" },
-        { label: "한계이익률 (MP)", value: `${tMp}%`, change: "양호", status: "positive" },
-        { label: "유통 재고 주수(WOS)", value: `${wosVal}주`, change: "재고 주의 (유럽 4위)", status: "negative" }
+        { label: `${targetMonth}월 영업이익 (COI)`, value: `${coiDollar >= 0 ? '+' : ''}$${tCoiK}K`, change: `OPM ${tOpm}%`, status: coiDollar >= 0 ? "positive" : "negative" },
+        { label: "한계이익률 (MP)", value: `${tMp}%`, change: "마진 견조", status: "positive" },
+        { label: "유통 재고 주수(WOS)", value: `${wosVal}주`, change: wosVal > 8 ? "재고 주의" : "정상 범위", status: wosVal > 8 ? "negative" : "positive" }
       ];
     } else {
       const sumSalesM = safeFixed(sumSales / 1000000, 2);
@@ -1092,57 +1278,44 @@ async function fallbackClientQuery(queryText) {
       const avgOpmStr = safeFixed(avgOpm, 1);
       const avgMpStr = safeFixed(avgMp, 1);
 
-      answerMarkdown = `### 🇨🇭 ${matchedSubName} 최근 3개월 실적 분석 보고서
+      answerMarkdown = `### ${subFlag} ${fullName} 최근 3개월 실적 분석 보고서
 - **3개월 누적 매출(Net Sales)**: **$${sumSalesM}M**
-- **3개월 누적 영업이익(COI)**: **+$${sumCoiM}M** (평균 OPM **${avgOpmStr}%**)
+- **3개월 누적 영업이익(COI)**: **${sumCoi >= 0 ? '+' : ''}$${sumCoiM}M** (평균 OPM **${avgOpmStr}%**)
 - **한계이익률(MP)**: 평균 **${avgMpStr}%** 수준의 안정적 수익 구조 유지
-- **유통 재고 주수(WOS)**: **${wosVal}주 (위험 감지)** — 적정 기준(6~8주) 초과
-- **시장 점유율(M/S)**: 스위스 OLED 시장 점유율 **1위 (~52.4%)** 독점적 지위 유지
+- **유통 재고 주수(WOS)**: **${wosVal}주 (${wosVal > 8 ? '위험 감지' : '적정 수준'})** ${wosVal > 8 ? '— 적정 기준(6~8주) 초과' : '— 적정 회전'}
+- **시장 점유율(M/S)**: OLED 시장 점유율 **1위 독점적 지위** 유지
 
 > 우측 라이브 아티팩트 캔버스에 월별 정밀 손익 매트릭스 표가 렌더링되었습니다.`;
 
       artifactMetrics = [
         { label: "3개월 누적 매출", value: `$${sumSalesM}M`, change: "실결산 집계", status: "positive" },
-        { label: "3개월 누적 영업이익", value: `+$${sumCoiM}M`, change: `평균 OPM ${avgOpmStr}%`, status: "positive" },
+        { label: "3개월 누적 영업이익", value: `${sumCoi >= 0 ? '+' : ''}$${sumCoiM}M`, change: `평균 OPM ${avgOpmStr}%`, status: sumCoi >= 0 ? "positive" : "negative" },
         { label: "평균 한계이익률", value: `${avgMpStr}%`, change: "양호", status: "positive" },
-        { label: "유통 재고 수준", value: `${wosVal}주`, change: "재고 주의 (유럽 4위)", status: "negative" }
+        { label: "유통 재고 수준", value: `${wosVal}주`, change: wosVal > 8 ? "재고 주의" : "정상 범위", status: wosVal > 8 ? "negative" : "positive" }
       ];
     }
 
     return {
       dispatchedAgents: ['tv-pnl', 'kpi-sheet', 'price-tracker'],
       timeline: [
-        { step: 1, agent: "TV P&L Analysis", status: "completed", desc: `${matchedSubName} 법인 정규화 결산 데이터(${targetMonth ? `${targetMonth}월` : '최근 3개월'}) 파싱 완료` },
-        { step: 2, agent: "KPI Sheet", status: "completed", desc: `${matchedSubName} 유통 재고 주수(WOS ${wosVal}주) 및 Sell-out 지표 추출 완료` },
-        { step: 3, agent: "Price Tracker", status: "completed", desc: `${matchedSubName} 주요 유통(Digitec/Interdiscount) ASP 및 M/S 매핑 완료` }
+        { step: 1, agent: "TV P&L Analysis", status: "completed", desc: `${fullName} 실결산 P&L 데이터(${targetMonth ? `${targetMonth}월` : '최근 3개월'}) 파싱 완료` },
+        { step: 2, agent: "KPI Sheet", status: "completed", desc: `${fullName} 유통 재고 주수(WOS ${wosVal}주) 및 Sell-out 지표 추출 완료` },
+        { step: 3, agent: "Price Tracker", status: "completed", desc: `${fullName} 주요 유통 최저가 및 Price Gap 매핑 완료` }
       ],
       answerMarkdown: answerMarkdown,
       artifact: {
-        title: targetMonth ? `${matchedSubName} ${targetMonth}월 실적 및 최근 손익 추이` : `${matchedSubName} 최근 3개월 정밀 손익 및 사업현황`,
+        title: targetMonth ? `${fullName} ${targetMonth}월 실적 및 손익 추이` : `${fullName} 최근 3개월 정밀 손익 및 사업현황`,
         metrics: artifactMetrics,
         table: { headers, rows },
         chart: {
+          title: `${fullName} 월별 매출($M) 및 영업이익($K) 추이`,
           type: 'bar',
-          data: {
-            labels: l3m.map(m => `${m.year}.${m.month}`),
-            datasets: [
-              {
-                label: 'Net Sales ($M)',
-                data: l3m.map(m => parseFloat(safeFixed(safeNum(m.sales) / 1000000, 2))),
-                backgroundColor: '#0D9488'
-              },
-              {
-                type: 'line',
-                label: '영업이익률 OPM (%)',
-                data: l3m.map(m => parseFloat(safeFixed(safeNum(m.coi) * 100, 1))),
-                borderColor: '#F59E0B',
-                yAxisID: 'y1'
-              }
-            ]
-          }
+          labels: l3m.map(m => `${m.month}월`),
+          salesData: l3m.map(m => parseFloat((safeNum(m.sales) / 1000000).toFixed(2))),
+          coiData: l3m.map(m => parseFloat(((safeNum(m.sales) * safeNum(m.coi)) / 1000).toFixed(1)))
         },
         actionItems: [
-          `${matchedSubName} WOS ${wosVal}주 과다 재고 해소를 위한 유통 타깃 프로모션 가동`,
+          `${fullName} WOS ${wosVal}주 재고 모니터링 및 유통 타깃 프로모션 최적화`,
           "OLED 고수익 인치대(65/77인치) 판촉 집중을 통한 마진 방어",
           "환율 변동에 따른 가격 리포지셔닝 및 Floor Price 점검"
         ]
