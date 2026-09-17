@@ -1,8 +1,9 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 
 # Logs & Environment
 *.log
+~$*.docx
 .env
 .DS_Store
 

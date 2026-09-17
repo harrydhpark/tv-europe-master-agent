@@ -71,9 +71,10 @@ async function loadAgentsAndStatus() {
       const data = await res.json();
       state.agents = data.agents || [];
       state.isServerMode = true;
-      fetch('master_data_bundle.json').then(r => r.json()).then(bData => {
-        state.bundleData = bData;
-      }).catch(() => {});
+      try {
+        const bRes = await fetch('master_data_bundle.json');
+        state.bundleData = await bRes.json();
+      } catch (_) {}
     } else {
       throw new Error("Server not responding");
     }
@@ -318,18 +319,25 @@ async function handleSendMessage() {
     // Fallback if bridge didn't complete
     if (!result) {
       if (state.isServerMode) {
-        const res = await fetch('/api/query', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query,
-            apiKey: state.apiKey,
-            model: state.model
-          })
-        });
-        const resData = await res.json();
-        result = resData.data;
-      } else {
+        try {
+          const res = await fetch('/api/query', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              query,
+              apiKey: state.apiKey,
+              model: state.model
+            })
+          });
+          const resData = await res.json();
+          if (resData.success && resData.data) {
+            result = resData.data;
+          }
+        } catch (err) {
+          console.warn("[app] /api/query failed, falling back to client engine", err);
+        }
+      }
+      if (!result) {
         result = await fallbackClientQuery(query);
       }
     }
@@ -595,12 +603,14 @@ function renderArtifactToCanvas(artifact) {
             tension: 0.1,
             yAxisID: 'y1'
           }
-        ] : (artifact.chart.datasets || []);
+        ] : (artifact.chart.datasets || (artifact.chart.data && artifact.chart.data.datasets) || []);
+
+        const labels = artifact.chart.labels || (artifact.chart.data && artifact.chart.data.labels) || [];
 
         state.chartInstance = new Chart(ctx, {
           type: artifact.chart.type || 'bar',
           data: {
-            labels: artifact.chart.labels || [],
+            labels,
             datasets
           },
           options: {
@@ -1004,8 +1014,8 @@ async function fallbackClientQuery(queryText) {
     const subData = datasets.pnlSubsidiaries[matchedSubCode];
     const trend = subData.monthlyTrend || [];
     
-    // Check if target month exists in trend
-    const targetItem = targetMonth ? trend.find(m => m.month === targetMonth) : null;
+    // Check if target month exists in trend (get latest year entry)
+    const targetItem = targetMonth ? [...trend].reverse().find(m => m.month === targetMonth) : null;
     const l3m = trend.slice(-3);
 
     // Compute aggregated numbers

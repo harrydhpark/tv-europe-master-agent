@@ -488,7 +488,7 @@ def process_subsidiary_pnl_task(task_id, query, intent):
         all_trends = pnl_data["DATA"]["standard"].get("monthly_trend", [])
         if target_month:
             found = [m for m in all_trends if m.get("month") == target_month]
-            recent_months = found if found else all_trends[-months_count:]
+            recent_months = [found[-1]] if found else all_trends[-months_count:]
         else:
             recent_months = all_trends[-months_count:]
 
