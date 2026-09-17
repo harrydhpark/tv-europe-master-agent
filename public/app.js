@@ -354,9 +354,11 @@ async function handleSendMessage() {
         timestamp: new Date().toLocaleTimeString()
       });
 
-      // Update Live Canvas with Artifact
+      // Update Live Canvas with Artifact or Markdown
       if (result.artifact) {
-        renderArtifactToCanvas(result.artifact);
+        renderArtifactToCanvas(result.artifact, result.answerMarkdown);
+      } else if (result.answerMarkdown) {
+        renderArtifactToCanvas({ title: "안티그래비티 AI 분석 보고서", markdown: result.answerMarkdown }, result.answerMarkdown);
       }
     }
   } catch (error) {
@@ -464,9 +466,29 @@ function formatMarkdown(text) {
 }
 
 // 6. Live Artifact Canvas Rendering
-function renderArtifactToCanvas(artifact) {
+function renderArtifactToCanvas(artifact, answerMarkdown) {
   state.activeArtifact = artifact;
-  elements.canvasTitle.textContent = artifact.title || '종합 분석 아티팩트';
+  elements.canvasTitle.textContent = (artifact && artifact.title) || '안티그래비티 AI 분석 보고서';
+
+  // If artifact is purely markdown or lacks structured components, render full markdown
+  if (!artifact || (!artifact.metrics && !artifact.table && !artifact.chart && !artifact.simulation)) {
+    const mdContent = (artifact && artifact.markdown) || answerMarkdown || '';
+    if (mdContent && typeof marked !== 'undefined') {
+      elements.canvasBody.innerHTML = `
+        <div class="canvas-markdown-box" style="padding:16px; line-height:1.75; font-size:13px; color:#1E293B;">
+          ${marked.parse(mdContent)}
+        </div>
+      `;
+      return;
+    } else if (mdContent) {
+      elements.canvasBody.innerHTML = `
+        <div class="canvas-markdown-box" style="padding:16px; line-height:1.75; font-size:13px; color:#1E293B; white-space:pre-wrap;">
+          ${escapeHtml(mdContent)}
+        </div>
+      `;
+      return;
+    }
+  }
 
   let html = '';
 
