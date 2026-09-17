@@ -76,10 +76,71 @@ function buildBundle() {
   };
 
   // 4. MS Trend
-  console.log('  - Ingesting MS Trend insights & diff...');
+  console.log('  - Ingesting MS Trend insights, diff & time-series...');
+  const msRaw = safeReadJson('../08. MS Trend/ms_trend_data.json', {});
+  const msTimeSeries = {};
+  if (msRaw.regions) {
+    const regionsToExtract = [
+      { key: '유럽', code: 'EU' },
+      { key: 'Switzerland', code: 'SWISS' },
+      { key: 'AG', code: 'AG' },
+      { key: 'DG', code: 'DG' },
+      { key: 'UK (2)', code: 'UK' },
+      { key: 'FS', code: 'FS' },
+      { key: 'IS', code: 'IS' },
+      { key: 'ES', code: 'ES' },
+      { key: 'PL', code: 'PL' },
+      { key: 'BN', code: 'BN' },
+      { key: 'Netherlands', code: 'NL' },
+      { key: 'Belgium', code: 'BE' },
+      { key: 'CZ', code: 'CZ' },
+      { key: 'HS', code: 'HS' },
+      { key: 'RO', code: 'RO' },
+      { key: 'PT', code: 'PT' },
+      { key: 'SW (2)', code: 'SW' }
+    ];
+
+    regionsToExtract.forEach(({ key, code }) => {
+      const reg = msRaw.regions[key];
+      if (!reg || !reg.data) return;
+      msTimeSeries[code] = {
+        regionKey: key,
+        nameEn: reg.region_name_en,
+        nameKr: reg.region_name_kr,
+        metrics: {}
+      };
+
+      reg.data.forEach(r => {
+        const lbls = (r.labels || []).filter(Boolean).join(' ');
+        let mKey = null;
+        if (r.index === 38) mKey = 'lg_oled_ms';
+        else if (r.index === 68) mKey = 'samsung_oled_ms';
+        else if (r.index === 83 || r.index === 96) { if (!msTimeSeries[code].metrics['sony_oled_ms']) mKey = 'sony_oled_ms'; }
+        else if (r.index === 109) mKey = 'philips_oled_ms';
+        else if (r.index === 122) mKey = 'panasonic_oled_ms';
+        else if (r.index === 13) mKey = 'market_oled_weight';
+        else if (r.index === 34) mKey = 'lg_oled_sales';
+        else if (r.index === 64) mKey = 'samsung_oled_sales';
+        else if (r.index === 27) mKey = 'lg_total_ms';
+        else if (r.index === 60) mKey = 'samsung_total_ms';
+
+        if (mKey) {
+          msTimeSeries[code].metrics[mKey] = {
+            index: r.index,
+            label: lbls,
+            y24: r.y24,
+            y25: r.y25,
+            y26: r.y26
+          };
+        }
+      });
+    });
+  }
+
   bundle.datasets.msTrend = {
     insights: safeReadJson('../08. MS Trend/ms_trend_insights.json', {}),
-    diff: safeReadJson('../08. MS Trend/ms_trend_diff.json', {})
+    diff: safeReadJson('../08. MS Trend/ms_trend_diff.json', {}),
+    timeSeries: msTimeSeries
   };
 
   // 5. Advance Profitability (Sample / Summary to keep bundle lean)

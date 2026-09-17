@@ -15,6 +15,10 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 
 app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
