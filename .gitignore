@@ -17,3 +17,8 @@ agent_bridge/progress/*
 !agent_bridge/inbox/.gitkeep
 !agent_bridge/outbox/.gitkeep
 !agent_bridge/progress/.gitkeep
+
+# Python cache & backups
+*.bak
+__pycache__/
+
