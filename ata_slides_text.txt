@@ -1,0 +1,616 @@
+
+================ Slide 1 ================
+  [Text] S95H
+  [Text] S90H
+  [Text] S85H
+  [Text] QN80H
+  [Text] QN70H
+  [Text] M80H
+  [Text] M70H
+  [Text] U80H
+  [Text] R95H
+  [Text] OLED
+  [Text] G6
+  [Text] C6
+  [Text] B6
+  [Text] RGB
+  [Text] Pol-less
+  [Text] Pol-less, 반사율 4.4%
+  [Text] B6* / B6E
+  [Text] 외관화
+  [Text] 외관화
+  [Text] 외관화
+  [Text] Slim Edge
+  [Text] Mini (Direct)
+  [Table]
+    R0: 165Hz | 17.0mm
+    R1: 2,000 / 390nit | 
+  [Table]
+    R0: 165Hz | 39.9mm
+    R1: 1,500 / 290nit | 
+  [Table]
+    R0: 120Hz | 33.9mm
+    R1: 700 / 135nit | 
+  [Table]
+    R0: 주파수 | 두께
+    R1: Peak / 중휘도 | 
+  [Table]
+    R0: 144Hz | 51.3mm
+    R1: 1,000 / 500nit | 
+  [Table]
+    R0: 60Hz | 25.7mm
+    R1: 500/400nit | 
+  [Table]
+    R0: 144Hz | 76.8mm
+    R1: 330nit | 
+  [Table]
+    R0: 60Hz | 76.8mm
+    R1: 330nit | 
+  [Table]
+    R0: 60Hz | 76.8mm
+    R1: 300nit | 
+  [Table]
+    R0: 165Hz | 29.6mm
+    R1: 2,500 / 800nit | 
+  [Table]
+    R0: 165Hz | 24.3mm
+    R1: 3,500 / 1,200nit | 
+  [Table]
+    R0: 165Hz | 45.7mm
+    R1: 1,900 / 700nit | 
+  [Text] 반사율 1.7%
+  [Text] 반사율 1.1%
+  [Text] 반사율 0.3%
+  [Text] OLED C / B 시리즈간 적정 Gap 준수
+  [Text] 1
+  [Table]
+    R0: 144Hz | 45.9mm
+    R1: 900 / 550nit | 
+  [Table]
+    R0: 120Hz | 45.9mm
+    R1: 900 / 550nit | 
+  [Text] [지역별 OLED 라인업 현황]
+  [Text] -
+  [Text] MRGB
+  [Text] UHD
+  [Text] 100
+  [Text] 100
+  [Text] 100
+  [Text] 유럽
+  [Text] 글로벌
+  [Text] S95H
+  [Text] S99H
+  [Text] S95H
+  [Text] S85H
+  [Text] S90H
+  [Text] S85H
+  [Text] S90H
+  [Text] Floating Design
+  [Text] S95F Tool C/O
+  [Text] Floating Design
+  [Text] Laser Slim
+  [Text] Contour
+  [Text] Laser Slim
+  [Text] Contour
+  [Text] 유럽 S99H / 글로벌 S95H
+  [Text] 유럽 S95H
+  [Text] MRGB85
+  [Text] QNED90
+  [Text] QNED85
+  [Text] QNED82
+  [Text] QNED70
+  [Text] NU85 / 80
+  [Text] MRGB95
+  [Text] RGB, 1,980B
+  [Text] BG+KSF, 6B
+  [Text] Mini LED, 외관화
+  [Text] Mini LED (Direct)
+  [Text] 외관화
+  [Text] Slim Edge, 6B
+  [Text] JDM, FALD, 154B
+  [Text] 외관화
+  [Table]
+    R0: 165Hz | 49.9mm
+    R1: 4,000 / 850nit | 
+  [Table]
+    R0: 144Hz | 49.9mm
+    R1: 800 / 500nit | 
+  [Table]
+    R0: 144Hz | 59.9mm
+    R1: 800 / 500 nit | 
+  [Table]
+    R0: 144Hz | 29.7mm
+    R1: 800 / 500nit | 
+  [Table]
+    R0: 144Hz | 67.9mm
+    R1: 350nit | 
+  [Table]
+    R0: 60Hz | 67.9mm
+    R1: 350nit | 
+  [Table]
+    R0: 60Hz | 70.8mm
+    R1: 300nit | 
+  [Table]
+    R0: NU85
+    R1: 70.8mm
+    R2: 300nit
+  [Table]
+    R0: NU80
+    R1: 59.9mm
+    R2: 250nit
+  [Table]
+    R0: 60Hz
+  [Text] R85H
+  [Text] RGB
+  [Text] R80H
+  [Text] BG+KSF
+  [Table]
+    R0: 144Hz | 51.9mm
+    R1: 1,500 / 600nit | 
+  [Table]
+    R0: TBD (2H)
+  [Text] QNED80
+  [Text] 100
+  [Text] 100
+  [Text] 105
+  [Text] 105
+  [Text] 25년96B
+  [Text] - C6 / B6 75” $300, 65/55” $200 Gap 준수   (B 추가하락 방지)- B6 / B6E 포지셔닝 Gap $100 내 운영- 상반기 B6 Pol-less 미출시 지역/국가는  Special 패널價 활용, S85 ATA 100 대응
+  [Text] QNED82 / 70, M80 / 70비 ATA 105
+  [Text] 3
+  [Table]
+    R0: AI 음성인식 미적용
+  [Table]
+    R0: Tool | C6 | B6 | B6E
+    R1: 65" | $697 | $666 | $589
+  [Text] [5월 이동, 3분기 재료비 현황]
+  [Text] - `26년 M70H, ① QD Sheet 삭제                        ② Q7F비 Spec 하향조정                               AI 음성인식 Ready
+  [Text] MRGB85 & QNED90/85 포지셔닝
+  [Text] 2
+  [Text] - QNED90 vs QN80H ATA 100 운영  (QNED85 = QNED90 동등 수준 운영)- MRGB85 중장기 PRM 수립 관점  Good-Better-Best 로직 기반  QNED85 대비 $200 프리미엄 운영
+  [Text] * 북미 / 유럽 Only
+  [Text] QNED
+  [Text] 75” $300 / 65” $200 / 55” $100 Gap
+  [Text] 75” $500 / 65” $300 / 55” $200 Gap
+  [Text] -
+  [Text] 동일포지셔닝
+  [Text] 점검안
+  [Text] 65” 기준
+  [Text] 100
+
+================ Slide 2 ================
+  [Text] (유첨) MRGB 북미 판촉가 기반 포지셔닝 점검
+  [Table]
+    R0: Spec | 판촉가 (Bestbuy 06/09) |  |  |  |  |  | 인치 Premium |  |  |  |  |  | 시리즈 Premium |  |  |  |  |  | LG | Spec
+    R1:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    R2:  | 시리즈인치 | 85/83" | 77/75" | 65" | 55" |  | 시리즈인치 | 85/83" | 77/75" | 65" | 55" |  | 시리즈인치 | 85/83" | 77/75" | 65" | 55" |  |  | 
+    R3:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    R4: 165Hz,17.0mm, 2,000 / 390nit | S95 | $6,499 | $4,499 | $3,399 | $2,499 |  | S95 | $2,000↑ | $1,100↑ | $900↑ |  |  | S95 | $1,200↑ | $800↑ | $700↑ | $500↑ |  | G5 | 165Hz, 24.3mm, 3,500 / 1,200nit
+    R5: 165Hz,39.9mm, 1,500 / 290nit | S90 | $5,299 | $3,699 | $2,699 | $1,999 |  | S90 | $1,600↑ | $1,000↑ | $700↑ |  |  | S90 | $800↑ | $900↑ | $700↑ | $500↑ |  | C5 | 165Hz, 45.7mm, 1,900 / 700nit
+    R6: 120Hz, 33.9mm, 700 / 135nit | S85 | $4,499 | $2,799 | $1,999 | $1,499 |  | S85 | $1,700↑ | $800↑ | $500↑ |  |  | S85 |  |  |  |  |  | B5 | 120Hz, 45.9mm, 900 / 550nit
+    R7:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    R8: 165Hz, 29.6mm, 2,500 / 800nit | R95 | $6,499 | $4,499 | $3,199 |  |  | R95 | $2,000↑ | $1,300↑ | $0↑ |  |  | R95 | $2,500↑ | $1,700↑ | $1,100↑ | $0↑ |  | MRGB95 | 165Hz, 49.9mm, 4,000 / 850nit
+    R9: 144Hz, 51.9mm, 1,500 / 600nit | R85 | $3,999 | $2,799 | $2,099 | $1,599 |  | R85 | $1,200↑ | $700↑ | $500↑ |  |  | R85 | $400↑ | $500↑ | $300↑ | $200↑ |  | MRGB90 예상 | 
+    R10:  | R80 예상 | $3,599 | $2,299 | $1,799 | $1,399 |  | R80 예상 | $1,300↑ | $500↑ | $400↑ |  |  | R80 예상 | $300↑ | $300↑ | $200↑ | $100↑ |  | MRGB85 | 144Hz, 49.9mm, 800 / 500nit
+    R11: 144Hz, 51.3mm, 1,000 / 500nit | QN80H | $3,299 | $1,999 | $1,599 | $1,299 |  | QN80H | $1,300↑ | $400↑ | $300↑ |  |  | QN80H |  |  |  |  |  | QNED90 | 144Hz, 59.9mm, 800 / 500 nit
+    R12:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    R13:  |  |  |  |  |  |  |  |  |  |  |  |  | R85 vs QN80H | $700↑ | $700↑ | $700↑ | $700↑ |  |  | 
+  [Text] MRGB 카테고리 내 경쟁사 High–Mid, 자사 High–Entry 구조로 발생한 Tier Gap을,가상 Line-up 기반 `27년까지 이어지는 시리즈별 Premium / ATA Hierarchy 재정립 후 MRGB 포지셔닝 셋팅
+  [Text] R95
+  [Text] R85
+  [Text] MRGB95
+  [Text] MRGB85
+
+================ Slide 3 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | Sony
+    R1: 모델명 |  | 65G6 | 65S95H (유럽 S99H) | BRAVIA 8 III
+    R2: Image |  |  |  | TBD
+    R3: Design | Type | Wall mount (Gallery Design) | 2 pole (FloatLayer Design) | 
+    R4:  | Depth / Weight | 24.3 mm / 22 kg (W/O Stand) | 26.4 mm / 20.9 kg (W/O Stand) | 
+    R5: Picture | Brightness (L/D) | 3,500 / 2,500 / 1,200 / 400 | 4,400 / 2,800 / 1,380 / 425 | 
+    R6:  | Engine | α11 AI Processor 4K Gen3 (O26) | NQ4 AI Gen3 Processor | 
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | HDR10 / HDR 10+ Advanced / HLG | 
+    R8:  | Color gamut | Perfect Black & Perfect Color | Color Booster Pro | 
+    R9:  | Anti Reflection. (반사율) | Reflection Free Premium (반사율 0.23%) | Matte Display (Glare Free, 반사율 1.78%) | 
+    R10:  | Refresh Rate (VRR) | 120Hz (up to 165Hz) | 120Hz (up to 165Hz) | 
+    R11: Audio | Output | 60W, 4.2Ch | 70W, 4.2.2Ch | 
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect | Dolby Atmos / Adaptive Sound Pro / OTS+/ Q-Symphony | 
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | 
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | 
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | 
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | 
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | 
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Generative Wallpaper) | 
+    R19:  | AI Upscaling | AI Dual Super Upscaling | AI Football Mode Pro, 4K AI Upscaling Pro | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | 
+    R21:  | Security | LG Shield | SS KNOX | 
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | 
+    R23: Gaming | Certification | G-SYNC / FreeSync Premium | G-SYNC / FreeSync Premium pro | 
+    R24:  | Motion booster | - | Motion Xcelerator 165 | 
+    R25: Connectivity | Remote | Magic Remote | BT SolarCell™ Remote (TM2660H) | 
+    R26:  | HDMI  / USB | 4 (v2.1) / 3 | 4 (Ver x) / 3 | 
+    R27:  | Wifi / BT | Wifi 6E / BT5.3 | Wifi 6E / BT5.3 | 
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] 1) Free Ad-Supported Streaming TV  2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] Wireless One Connect Box ready
+  [Text] OLED
+  [Text] 북미 Wifi 5
+
+================ Slide 4 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | Sony
+    R1: 모델명 |  | 65C6 | 65S90H (시리즈 : 83/77/65/55/48/42") | 
+    R2: Image |  |  |  | TBD
+    R3: Design | Type | 1 Pole stand (Ultra Slim design) | 1 pole stand (Laser Slim Design) | 
+    R4:  | Depth / Weight | 45.1mm / 16.6 kg (W/O Stand) | 39.9mm / 19.1 kg (W/O Stand) | 
+    R5: Picture | Brightness (L/D) | 1,710 / 1,350 / 700 / 250 | 2,950 / 1,670 / 815 / 304 | 
+    R6:  | Engine | α11 AI Processor 4K Gen3 (O26) | NQ4 AI Gen3 Processor | 
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | HDR10 / HDR 10+ Advanced / HLG | 
+    R8:  | Color gamut | Perfect Black & Perfect Color | Color Booster Pro | 
+    R9:  | Anti Reflection. (반사율) | 반사율 1.1% | Matte Display (Glare Free, 반사율 1.71%) | 
+    R10:  | Refresh Rate (VRR) | 120Hz (up to 165Hz) | 120Hz (up to 165Hz) | 
+    R11: Audio | Output | 40W, 2.2Ch | 40W, 2.1Ch | 
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect | Dolby Atmos / Adaptive Sound Pro / OTS Lite/ Q-Symphony | 
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | 
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | 
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | 
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | 
+    R17:  | Gallery experience | Gallery+ | Art Store 없음 (Art Mode 없음) | 
+    R18:  | Generative AI contents | Gen AI ART2)  : Gallery+ GeminiGen AI Music | - | 
+    R19:  | AI Upscaling | AI Dual Super Upscaling | AI Football Mode Pro, 4K AI Upscaling Pro | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | 
+    R21:  | Security | LG Shield | SS KNOX | 
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | 
+    R23: Gaming | Certification | G-SYNC / FreeSync Premium | G-SYNC / FreeSync Premium pro | 
+    R24:  | Motion booster | - | Motion Xcelerator 165 | 
+    R25: Connectivity | Remote | Magic Remote | BT SolarCell™ Remote (TM2660H) | 
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 4 (Ver x) / 3 | 
+    R27:  | Wifi / BT | Wifi 6E / BT5.3 | Wifi 6E / BT5.3 | 
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] 65”기준
+  [Text] OLED
+  [Text] 유럽 S94/93/92H 외 (Variation)
+  [Text] 북미 Wifi 5
+
+================ Slide 5 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | Sony
+    R1: 모델명 |  | 65B6 | 65S85H (시리즈 : 83/77/65/55/48") | BRAVIA 6
+    R2: Image |  |  |  | TBD
+    R3: Design | Type | 2 Pole stand (Ultra Slim design) | 2 pole stand (Contour Design) | 
+    R4:  | Depth / Weight | 45.9 mm / 17.1 kg (W/O Stand) | 33.8 mm / 17.4 kg (W/O Stand) | 
+    R5: Picture | Brightness (L/D) | 900 / 720 / 550 / 135 | 1,000 / 150 (TBD) | 
+    R6:  | Engine | α8 AI Processor 4K Gen3 (K26) | NQ4 AI Gen2 Processor | 
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | HDR10 / HDR 10+ Advanced / HLG | 
+    R8:  | Color gamut | Perfect Black & ViVid Color | Color Booster Pro | 
+    R9:  | Anti Reflection. (반사율) | 반사율 4.4% | Glossy (Not Matte Display) | 
+    R10:  | Refresh Rate (VRR) | 120Hz (up to 120Hz) | 120Hz (up to 120Hz) | 
+    R11: Audio | Output | 20W, 2.0Ch | 20W, 2.0Ch | 
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect | Dolby Atmos / Adaptive Sound Pro / OTS Lite/ Q-Symphony | 
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | 
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | 
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | 
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | 
+    R17:  | Gallery experience | Gallery+ | Art Store 없음 (Art Mode 없음) | 
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | - | 
+    R19:  | AI Upscaling | AI Super Upscaling | AI Football Mode Pro, 4K AI Upscaling | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | 
+    R21:  | Security | LG Shield | SS KNOX | 
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | 
+    R23: Gaming | Certification | G-SYNC / FreeSync Premium | G-SYNC / FreeSync Premium | 
+    R24:  | Motion booster | - | Motion Xcelerator 120 | 
+    R25: Connectivity | Remote | Magic Remote | BT SolarCell™ Remote (TM2660H) | 
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 4 (Ver x) / 2 | 
+    R27:  | Wifi / BT | Wifi 6E / BT5.3 | Wifi 6E / BT5.3 | 
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] OLED
+  [Text] S83/82H 외 (Variation)
+  [Text] 북미 Wifi 5
+
+================ Slide 6 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 86MRGB95B | 85R95H (시리즈 : 85/75/65") | 85C8L (시리즈 : 98/85/75/65") | 85UR9S (시리즈 : 85/75/65")
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 1 Pole stand | 1 pole stand, (Infinity Air Design), Wireless One Connect Box ready | 1 Pole Stand (ZeroBorder Design) | 1 Pole Stand
+    R4:  | Depth / Weight | 45.7 mm / 56.1 kg (W/O Stand) | 29.9 mm / 37.9 kg (W/O Stand) | 53.0 mm / 38.9kg (W/O Stand) | 47 mm / 47.4 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | Micro RGB, Full Array Local Dimming,4000 / 850 (1980B) | Micro RGB, Full Array Local Dimming,2,500 / 800 | SQD Mini-LED QLED, Full Array Local Dimming* Rtings 기준, L/D 65" 2040B2% 4,968 / 10% 4,124 / 25% 2,478 / 50% 1,397 / 100% 727 cd/m² | RGB Mini LED, Full Array Local Dimminig,5,000 nits
+    R6:  | Engine | α11 AI Processor 4K Gen3 (O26) | Micro RGB AI Engine Pro | TSR AI Pro Processor | Hi-View AI Engine RGB
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | HDR10 / HDR 10+ Advanced / HLG | Dolby Vision, HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | RGB Primary Color UltraTriple 100% Color Coverage | Micro RGB Precision Color 100 / Micro RGB Color Booster Pro  (≥100% BT.2020 color area) | TCL Deep Color System*Rtings 65" 기준 DCI-P3 92.63% / BT.2020 81.21% | -
+    R9:  | Anti Reflection. (반사율) | 반사율 2% | Matte Display(Glare Free) | WHVA 2.0 Ultra Panel | Obsidian Panel
+    R10:  | Refresh Rate (VRR) | 120Hz (VRR 165Hz) | 165Hz (VRR Support) | 144Hz  (up tp 288Hz) | 180Hz  (up tp 180Hz)
+    R11: Audio | Output | 40W, 2.2Ch | 70W, 4.2.2Ch | - | 90W, 4.1.2Ch
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / DAFC | Dolby Atmos / Adaptive Sound Pro / OTS+ / Q-Symphony | Dolby Atmos, DAFC, DTS:X, IMAX Enhanced | Dolby Atmos, DTS Virtual:X, IMAX Enhanced
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Google Assistant, Amazon Alexa | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | Not Found | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | Art Gallery | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Gererative Wallpaper) | AI Art | -
+    R19:  | AI Upscaling | AI Dual Super Upscaling | AI Football Mode Pro, 4K AI Upscaling Pro |  | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home | Google Home
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | TCLtv+ | -
+    R23: Gaming | Certification | - / FreeSync Premium | FreeSync Premium Pro | FreeSync Premium Pro | FreeSync Premium Pro
+    R24:  | Motion booster | Motion Booster 330 | Motion Xcelerator 165 +DLG 240Hz | Game Accelerator 288 | -
+    R25: Connectivity | Remote | Magic Remote | BT SolarCell™ Remote (TM2660H) | Backlit Voice Remote (RC933B) | Backlit Voice Control
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 4 (Ver x) / 2 | 4 (v2.1) / 2 | 3 (v2.1) / 2 / DisplayPort 1
+    R27:  | Wifi / BT | Wifi 6E / BT5.3 | Wifi 6E / BT5.3 | Wifi 6 / BT5.4 | Wifi 6E / BT5.4
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] 북미 QM8L
+  [Text] SQD Mini
+  [Text] Micro RGB
+  [Text] 85”, LCD 최상위 모델 기준
+  [Text] R87/86/85H (2 Pole Variation)
+  [Text] 북미 Wifi 5
+
+================ Slide 7 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 86MRGB95B | 85R95H (시리즈 : 85/75/65") | 85RM9L (시리즈 : 115/98/85") | 85UR9S (시리즈 : 100/85/75/65")
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 1 Pole stand | 1 pole stand, (Infinity Air Design), Wireless One Connect Box ready | 2 Pole Stand (ZeroBorder Design) | 1 Pole Stand
+    R4:  | Depth / Weight | 45.7 mm / 56.1 kg (W/O Stand) | 29.9 mm / 37.9 kg (W/O Stand) | 35.0 mm / 50.4 kg (W/O Stand) | 47 mm / 47.4 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | Micro RGB, Full Array Local Dimming,4000 / 850 (1980B) | Micro RGB, Full Array Local Dimming,2,500 / 800 | RGB Mini-LED, Full Array Local Dimmingup to 9,000 nit  (Up to LD 5,600 Zones) | RGB Mini LED, Full Array Local Dimminig,up to 5,000 nits
+    R6:  | Engine | α11 AI Processor 4K Gen3 (O26) | Micro RGB AI Engine Pro | TSR AI Pro Processor | Hi-View AI Engine RGB
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | HDR10 / HDR 10+ Advanced / HLG | Dolby Vision, HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | RGB Primary Color Ultra DCI-P3 99% / BT.2020 90%Triple 100% Color Coverage | Micro RGB Precision Color 100 / Micro RGB Color Booster Pro  (≥100% BT.2020 color area) | TCL Deep Color System(BT.2020 100%) | -
+    R9:  | Anti Reflection. (반사율) | 반사율 2% | Matte Display(Glare Free) | WHVA 2.0 Ultra Panel + Low Reflection | Obsidian Panel
+    R10:  | Refresh Rate (VRR) | 120Hz (VRR 165Hz) | 165Hz (VRR Support) | 144Hz  (up tp 288Hz) | 180Hz  (up tp 180Hz)
+    R11: Audio | Output | 40W, 2.2Ch | 70W, 4.2.2Ch | Not Found | 90W, 4.1.2Ch
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / DAFC | Dolby Atmos / Adaptive Sound Pro / OTS+ / Q-Symphony | Dolby Atmos, DTS:X, IMAX Enhanced | Dolby Atmos, DTS Virtual:X, IMAX Enhanced
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Google Assistant, Amazon Alexa | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | - | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | Art Gallery | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Gererative Wallpaper) | AI Art | -
+    R19:  | AI Upscaling | AI Dual Super Upscaling | AI Football Mode Pro, 4K AI Upscaling Pro |  | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home | Google Home
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | TCLtv+ | -
+    R23: Gaming | Certification | - / FreeSync Premium | FreeSync Premium Pro | FreeSync Premium Pro | FreeSync Premium Pro
+    R24:  | Motion booster | Motion Booster 330 | Motion Xcelerator 165 +DLG 240Hz | Game Accelerator 288 | -
+    R25: Connectivity | Remote | Magic Remote | BT SolarCell™ Remote (TM2660H) | Backlit Voice Remote (RC933B) | Backlit Voice Control
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 4 (Ver x) / 2 | 4 (v2.1) / 2 | 3 (v2.1) / 2 / DisplayPort 1
+    R27:  | Wifi / BT | Wifi 6E / BT5.3 | Wifi 6E / BT5.3 | Wifi 6 / BT5.4 | Wifi 6E / BT5.4
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] Micro RGB
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] 85”기준
+  [Text] 북미 Wifi 5
+
+================ Slide 8 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 65MRGB85B | R80H | 65RM7L (시리즈 : 98/85/75/65") | 
+    R2: Image |  |  | TBD (2H) |  | TBD
+    R3: Design | Type | 1 Pole Stand (Slim Design) |  | 1 Pole Stand (ZeroBorder Design) | 
+    R4:  | Depth / Weight | 49.9 mm / 22.8 kg (W/O Stand) |  | 50.0 mm / 21.1 kg (W/O Stand) | 
+    R5: Picture | Brightness (L/D) | FALD, 800 / 500 (6B) |  | SQD Mini-LED QLED, Full Array Local Dimming* Rtings 기준, L/D 65" 2040B2% 4,968 / 10% 4,124 / 25% 2,478 / 50% 1,397 / 100% 727 cd/m² | 
+    R6:  | Engine | α8 AI Processor 4K Gen3 (K26) |  | TSR AI Pro Processor | 
+    R7:  | HDR | Dolby Vision / HDR10 / HLG |  | Dolby Vision, HDR 10+, HDR 10, HLG | 
+    R8:  | Color gamut | RGB Primary Color ProDCI-P3 97% / BT.2020 75% (100% Color Volume) |  | TCL Deep Color System*Rtings 65" 기준 DCI-P3 92.63% / BT.2020 81.21% | 
+    R9:  | Anti Reflection. (반사율) | - |  | WHVA 2.0 Ultra Panel | 
+    R10:  | Refresh Rate (VRR) | 120Hz (up to 144Hz) |  | 144Hz  (up tp 288Hz) | 
+    R11: Audio | Output | 20W, 2.0Ch |  | - | 
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect |  | Dolby Atmos, DAFC, DTS:X, IMAX Enhanced, ONKYO 2.1 Hi-Fi System | 
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) |  | Google TV | 
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini |  | Google Assistant, Amazon Alexa | 
+    R15:  | Voice ID | Yes (Personalized Recommendation) |  | - | 
+    R16:  | Mobile Connectivity | Airplay, Google Cast |  | Airplay, Google Cast | 
+    R17:  | Gallery experience | Gallery+ |  | Art Gallery | 
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music |  | AI Art | 
+    R19:  | AI Upscaling | AI Super Upscaling |  | - | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) |  | Google Home | 
+    R21:  | Security | LG Shield |  | - | 
+    R22:  | FAST1) | LG Channels |  | TCLtv+ | 
+    R23: Gaming | Certification | G-SYNC / FreeSync Premium |  | FreeSync Premium Pro | 
+    R24:  | Motion booster | Motion Booster 288 |  | Game Accelerator 288 | 
+    R25: Connectivity | Remote | Magic Remote |  | Backlit Voice Remote (RC933B) | 
+    R26:  | HDMI  / USB | 3 (v2.1) / 1 |  | 4 (v2.1) / 2 | 
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 |  | Wifi 6 / BT5.4 | 
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] BGB+KSF
+  [Text] BG+KSF
+  [Text] BG+KSF
+  [Text] Mini RGB
+  [Text] MRGB87/88B (파생)
+
+================ Slide 9 ================
+  [Table]
+    R0: 브랜드 |  | LG | LG | SS | Hisense
+    R1: 모델명 |  | 65QNED90B | 65QNED85B | 65QN80H (시리즈 : 100/85/75/65/55") | 65U7S Pro (시리즈 : 100/85/75/65/55")
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 1 Pole Stand (Slim Design) | 1 pole (Slim Edge Design) | 2 pole stand (Monolith Edge Design) | 1 Pole Stand
+    R4:  | Depth / Weight | 58.5 mm / 17.6 kg (W/O Stand) | 29.7mm / 22.5Kg (26.3Kg) | 50.8 mm / 17.2 kg (W/O Stand) | 59 mm / 18.6 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | FALD, 800 / 500 (154B) | 800 / 500 nit | FALD, 1,000 / 500 (96B) | FALD, up to 3,000 nits (Local Dimiming TBD)
+    R6:  | Engine | α8 AI Processor 4K Gen2 (K24) | α8 AI Processor Gen3 (K26) | NQ4 AI Gen2 Processor | Hi-View AI Engine Pro
+    R7:  | HDR | Dolby Vision / HDR10 / HLG | Dolby Vision / HDR10 Pro / HLG | HDR10 / HDR 10+ Advanced / HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | Dynamic QNED ColorDCI-P3 93% / BT.2020 73% (100% Color Volume) | QNED Dynamic ColorDCI-P3 95% / BT.2020 73%(100% Color Volume) | Color Booster Pro | Hi-QLED Color
+    R9:  | Anti Reflection. (반사율) | - | - | Glossy (Not Matte Display) | Anti-Reflection & Glare-Free
+    R10:  | Refresh Rate (VRR) | 120Hz (up to 144Hz) | 120Hz (Up to 144Hz) | 144Hz (VRR Support) | 165Hz (up to 330Hz)
+    R11: Audio | Output | 40W, 2.2Ch | 20W, 2.0CH | 30W, 2.0Ch | 50W, 2.1.2Ch
+    R12:  | Surround | Dolby Atmos / AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect | α8 AI Sound Pro (Virtual 9.1.2 Up-mix) /AI Acoustic Tuning / Dolby Atmos / WOW Orchestra | Dolby Atmos / Adaptive Sound Pro / OTS Lite / Q-Symphony | Dolby Atmos, DTS Virtual:X, IMAX Enhanced
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes (Personalized Recommendation) | Yes | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast
+    R17:  | Gallery experience | Gallery+ | Gallery+ | Art Store Yes (Art Mode 없음) | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Gererative Wallpaper) | -
+    R19:  | AI Upscaling | AI Super Upscaling | AI Super Upscaling | AI Football Mode Pro, 4K AI Upscaling | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home
+    R21:  | Security | LG Shield | LG Shield | SS KNOX | -
+    R22:  | FAST1) | LG Channels | LG Channels | Samsung TV Plus | -
+    R23: Gaming | Certification | G-SYNC / FreeSync Premium | FreeSync Premium | FreeSync Premium Pro | FreeSync Premium Pro
+    R24:  | Motion booster | Motion Booster 330 | Motion Booster 288 | Motion Xcelerator 144 + DLG 240Hz | Motion Rate 330
+    R25: Connectivity | Remote | Magic Remote | Magic Remote | BT Simple Remote (TM2280A) - w/ AI Button | Voice Control
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 4 (v2.1) / 2 | 4 (Ver x) / 2 | 4 (v2.1) / 2
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 | Wifi 5 / BT5.3 | Wifi 6E / BT5.3 | Wifi 5 / BT5.3
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] QNED evo
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] ULED Mini
+  [Text] 65”기준
+  [Text] Neo QLED
+  [Text] QN84/83/82H (Variation)
+  [Text] 유럽 QNED86/87B (1 Pole)
+
+================ Slide 10 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 65QNED85B | 65QN70H (시리즈 : 85/75/65/55/50/43") | 65C6K Pro (시리즈 : 98/85/75/65/55/50") | 65U7S (시리즈 : 85/75/65/55")
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 1 pole (Slim Edge Design) | 1 pole stand (Air Slim Design) | 1 Pole Stand | 1 Pole Stand
+    R4:  | Depth / Weight | 29.7mm / 22.5Kg (26.3Kg) | 25.4 mm / 20.8 kg (W/O Stand) | 56 mm / 17 kg (W/O Stand) | 66.0 mm / 18.5 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | 800 / 500 nit | Edge, 500 / 400 (24B) | 1,000 nit (420B) | 1,400 nit
+    R6:  | Engine | α8 AI Processor Gen3 (K26) | NQ4 AI Gen 1 Processor | AiPQ Processor | Hi-View AI Engine
+    R7:  | HDR | Dolby Vision / HDR10 Pro / HLG | HDR10 / HDR 10+ / HLG | HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | QNED Dynamic ColorDCI-P3 95% / BT.2020 73%(100% Color Volume) | Color Booster Pro | Colorful Quantum Crystal | Hi-QLED Color
+    R9:  | Anti Reflection. (반사율) | - | Glossy (Not Matte Display) | HVA Panel | -
+    R10:  | Refresh Rate (VRR) | 120Hz (Up to 144Hz) | 60Hz | 144Hz  (up tp 288Hz) | 144Hz  (up tp 144Hz)
+    R11: Audio | Output | 20W, 2.0CH | 20W, 2.0Ch | 40W, 2.1Ch | 40W, 2.1 Ch
+    R12:  | Surround | α8 AI Sound Pro (Virtual 9.1.2 Up-mix) /AI Acoustic Tuning / Dolby Atmos / WOW Orchestra | Adaptive Sound Plus / OTS Lite / Q-Symphony | Dolby Atmos, DAFC, DTS:X, IMAX Enhanced,ONKYO 2.1 Hi-Fi System | Dolby Atmos, DTS Virtual:X, IMAX Enhanced
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Google Assistant | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | - | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | AirPlay
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | Art Gallery | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Gererative Wallpaper) | AI Art Agent | -
+    R19:  | AI Upscaling | AI Super Upscaling | AI Football Mode Pro, 4K Upscaling |  | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home | Amazon Alexa
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | TCLtv+ | -
+    R23: Gaming | Certification | FreeSync Premium | - / - | FreeSync Premium Pro | FreeSync Premium Pro
+    R24:  | Motion booster | Motion Booster 288 | Motion Xcelerator + DLG 120Hz | Game Accelerator 288 | Not Found
+    R25: Connectivity | Remote | Magic Remote | BT Simple Remote (TM2280A) - w/ AI Button | Backlit Voice Remote (RC923A) | Voice Control
+    R26:  | HDMI  / USB | 4 (v2.1) / 2 | 3 (Ver x) / 2 | 4 (v2.1) / 2 | 4 (v2.1 2ea / v2.0 2ea) / 2
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 | Wifi 5 / BT5.3 | Wifi 5 / BT5.4 | Wifi 6 / BT5.3
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] QNED evo
+  [Text] ULED Mini
+  [Text] Neo QLED
+  [Text] QD Mini
+  [Text] QNED86/87B (1 Pole)
+  [Text] QN71/73/74H (1 Pole) / QN72/73H (2 Pole)
+
+================ Slide 11 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 65QNED82B | 65M80H (시리즈 : 85/75/65/55") | 65P8L (시리즈 : 98/85/75/65/55/50") | 65E8S (시리즈 : 100/85/75/65/55/50")
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 2 Pole Stand (Slim Unibody Design) | 2 pole stand (Metal Stream Design) | 2 Pole Stand | 2 Pole Stand
+    R4:  | Depth / Weight | 67.9 mm / 16.5 kg (W/O Stand) | 76.2 mm / 14.1 kg (W/O Stand) | 63.0 mm / 30.3 kg (W/O Stand) | 59.0 mm / 18.3 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | 350 (No Local Dimming) | 330 (No Local Dimming) | 450 nit (112B) | -
+    R6:  | Engine | α8 AI Processor Gen3 (K26) | NQ4 AI Gen2 Processor | AiPQ Processor | Hi-View AI Engine
+    R7:  | HDR | HDR10 / HLG | HDR10 / HDR 10+ / HLG | Dolby Vision, HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | Dynamic QNED Color ProDCI-P3 95% / BT.2020 73%(100% Color Volume) | Color Booster Pro | Colorful Quantum Crystal | Hi-QLED Color
+    R9:  | Anti Reflection. (반사율) | - | Glossy (Not Matte Display) | HVA Panel | -
+    R10:  | Refresh Rate (VRR) | 120Hz (VRR 144Hz) | 144Hz (VRR Support) | 144Hz  (up tp 288Hz) | 144Hz  (up tp 144Hz)
+    R11: Audio | Output | 20W, 2.0Ch | 20W, 2.0Ch | 40W, 2.1Ch | 40W, 2.1 Ch
+    R12:  | Surround | AI Sound Pro (Virtual 11.1.2 Up-mix)/ WOW Orchestra / Dolby Atmos FlexConnect | Adaptive Sound Plus / OTS Lite / Q-Symphony | Dolby Atmos, DTS:X, IMAX Enhanced,ONKYO 2.1 Hi-Fi System | Dolby Atmos, DTS Virtual:X, IMAX Enhanced
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Google Assistant | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | - | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | AirPlay
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | Art Gallery | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | Gen AI ART (Gererative Wallpaper) | AI Art Agent | -
+    R19:  | AI Upscaling | AI Super Upscaling | AI Football Mode Pro, 4K AI Upscaling | - | -
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home | Amazon Alexa
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | TCLtv+ | -
+    R23: Gaming | Certification | FreeSync Premium | FreeSync Premium | FreeSync Premium | FreeSync Premium
+    R24:  | Motion booster | Motion Booster 288 | Motion Xcelerator 144 + DLG 240Hz | Game Accelerator 288 | -
+    R25: Connectivity | Remote | Magic Remote | BT Simple Remote (TM2280A) - w/ AI Button | Voice Control | Voice Control
+    R26:  | HDMI  / USB | 3 (v2.1) / 1 | 3 (Ver x) / 1 | 4 (v2.1 2ea, v2.0 2ea) / 2 | 4 (v2.1 2ea, v2.0 2ea) / 2
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 | Wifi 5 / BT5.3 | Wifi 5 / BT5.4 | Wifi 5 / BT5.3
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] QNED evo
+  [Text] 북미 U6SF Pro
+  [Text] QNED83B (1 Pole)
+  [Text] M90/84/83/82H (Variation)
+
+================ Slide 12 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 65QNED70B | 65M70H (시리즈 : 85/75/65/55/50/43") | P7L | Q7S (시리즈: 85/75/65/55/50/43”)
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 2 Pole Stand (Linear flow design) | 2 Pole Stand (Metal Stream design) | 2 Pole Stand | 2 Pole Stand
+    R4:  | Depth / Weight | 70.8 mm / 13.9 kg (W/O Stand) | 76.8 mm / 14.2 kg (W/O Stand) | 83.1 mm / 15.8 kg (W/O Stand) | 70.0 mm / 12.6 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | 300 (No Local Dimming) | 330 (No Local Dimming) | 400 | -
+    R6:  | Engine | α7 AI Processor 4K Gen9 (K25Lp) | Mini LED Processor 4K | AiPQ Processor | Hi-View AI Engine
+    R7:  | HDR | HDR10 / HLG | HDR10 / HDR 10+ / HLG | Dolby Vision, HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | Dynamic QNED ColorDCI-P3 93% / BT.2020 70% (100% Color Volume) | Pure Spectrum Color | Colorful Quantum Crystal | Hi-QLED Color
+    R9:  | Anti Reflection. (반사율) | - | Glossy (Not Matte Display) | HVA Panel | -
+    R10:  | Refresh Rate (VRR) | 60Hz | 60Hz | 60Hz | 60Hz
+    R11: Audio | Output | 20W, 2.0Ch | 20W, 2.0Ch | 30W, 2.0Ch | 30W, 2 Ch
+    R12:  | Surround | AI Sound Pro (Virtual 9.1.2 Up-mix)/ WOW Orchestra | OTS Lite / Q-Symphony | Dolby Atmos, DTS:X, ONKYO 2.0 Hi-Fi System | Dolby Atmos
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini | Google Assistant | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | - | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | AirPlay
+    R17:  | Gallery experience | Gallery+ | Art Store Yes (Art Mode 없음) | Art Gallery | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | - | - | -
+    R19:  | AI Upscaling | 4K Super Upscaling | 4K Upscaling |  | 
+    R20:  | Smart Home | LG ThinQ, Google Home, Homey3) | SmartThings | Google Home | Amazon Alexa
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | TCLtv+ | -
+    R23: Gaming | Certification | - / - | - | - | -
+    R24:  | Motion booster | - | Motion Xcelerator + DLG 120Hz | - | -
+    R25: Connectivity | Remote | Magic Remote | IR Simple Remote (TM2240A) - No AI Button | Voice Control | Voice Control
+    R26:  | HDMI  / USB | 3 (v2.1) / 1 | 3 (Ver x) / 1 | 3 (v2.1 1ea, v2.0 2ea) / 2 | 3 (v2.0) / 2
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 | Wifi 5 / BT5.3 | Wifi 5 / BT5.4 | Wifi 5 / BT 5.3
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available 3) US, KR only
+  [Text] QNED
+  [Text] M74/73/72/71/1EH (Variation)
+
+================ Slide 13 ================
+  [Table]
+    R0: 브랜드 |  | LG | SS | TCL | Hisense
+    R1: 모델명 |  | 65NU850B | 65U8000H (시리즈: 85/75/70/65/58/55/50/43") | P6L (시리즈: 75/65/55”) | A6S (시리즈: 85/75/65/58/55/50/43”)
+    R2: Image |  |  |  |  | 
+    R3: Design | Type | 2 Pole Stand (Linear flow design) | 2 Pole Stand (Metal Stream design) | 2 Pole Stand (Metallic Bezel-less Design) | 2 Pole Stand
+    R4:  | Depth / Weight | 70.8 mm / 13.9 kg (W/O Stand) | 76.8 mm / 14.2 kg (W/O Stand) | 73 mm / 12.2 kg (W/O Stand) | 70 mm / 12.6 kg (W/O Stand)
+    R5: Picture | Brightness (L/D) | 300 (No Local Dimming 0B) | 300 (No Local Dimming) | 280 (No Local Dimming) | -
+    R6:  | Engine | α7 AI Processor 4K Gen9 (K25Lp) | Crystal Processor 4K | AiPQ Processor | Hi-View AI Engine
+    R7:  | HDR | HDR10 / HLG | HDR10 / HDR 10+ / HLG | HDR 10+, HDR 10, HLG | Dolby Vision, HDR10, HDR10+, HLG
+    R8:  | Color gamut | - | - | - | Hi-QLED Color
+    R9:  | Anti Reflection. (반사율) | - | - | HVA Panel | -
+    R10:  | Refresh Rate (VRR) | 60Hz | 60Hz | 60Hz | 60Hz
+    R11: Audio | Output | 20W, 2.0Ch | 20W, 2.0Ch | 20W, 2.0Ch | 20W, 2 Ch
+    R12:  | Surround | AI Sound Pro (Virtual 9.1.2 Up-mix)/ WOW Orchestra | Adaptive Sound / OTS Lite / Q-Symphony | Dolby Audio | DTS Virtual:X
+    R13: Smart | OS / Upgrade | webOS26 , Re:New Program (~5 years) | Tizen , up to 7years | Google TV | VIDAA
+    R14:  | Voice Search | ThinQ & GPT, Copilot, Gemini | Bixby & Gemini, Copilot , Perplexity | Google Assistant, Amazon Alexa | Amazon Alexa, Vidaa Voice
+    R15:  | Voice ID | Yes (Personalized Recommendation) | Yes | - | -
+    R16:  | Mobile Connectivity | Airplay, Google Cast | Airplay, Google Cast | Airplay, Google Cast | AirPlay
+    R17:  | Gallery experience | Gallery+ | - | - | -
+    R18:  | Generative AI contents | Gen AI ART2) : Gallery+ GeminiGen AI Music | - | - | -
+    R19:  | AI Upscaling | 4K Super Upscaling | 4K Upscaling |  | 
+    R20:  | Smart Home | LG ThinQ | SmartThings | Google Home | Amazon Alexa
+    R21:  | Security | LG Shield | SS KNOX | - | -
+    R22:  | FAST1) | LG Channels | Samsung TV Plus | - | -
+    R23: Gaming | Certification | - / - | - | - | -
+    R24:  | Motion booster | - | Motion Xcelerator + DLG 120Hz | DLG 120Hz | -
+    R25: Connectivity | Remote | Standard Remote (Magic Remote Ready) | IR Simple Remote (TM2240A) - No AI Button | Voice Control | Voice Control
+    R26:  | HDMI  / USB | 3 (v2.0) / 1 | 3 (v x.x) / 1 | 3 (v2.1) / 2 | 3 (v2.0) / 2
+    R27:  | Wifi / BT | Wifi 5 / BT5.3 | Wifi 5 / BT5.3 | Wifi 5 / BT5.4 | Wifi 5 / BT 5.3
+  [Text] ’26년 스펙 경쟁력 비교
+  [Text] 65”기준
+  [Text] Nano 4K UHD
+  [Text] 1) Free Ad-Supported Streaming TV 2) This feature is only supported in countries where webOS Pay is available
+  [Text] V6D
+  [Text] U8020/8072/8079/8090/8092/8099H (Variation)

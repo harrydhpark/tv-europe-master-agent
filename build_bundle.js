@@ -29,7 +29,7 @@ function safeReadJson(relPath, defaultValue = null) {
   return defaultValue;
 }
 
-function buildBundle() {
+async function buildBundle() {
   console.log('🚀 [Master Agent] Compiling multi-agent static bundle...');
   ensureDir(PUBLIC_DIR);
 
@@ -163,6 +163,7 @@ function buildBundle() {
     { code: 'AG', folder: '01. AG' },
     { code: 'BN', folder: '02. BN' },
     { code: 'CK', folder: '03. CK' },
+    { code: 'DG', folder: '04. DG' },
     { code: 'SWISS', folder: '05. Swiss' },
     { code: 'ES', folder: '06. ES' },
     { code: 'FS', folder: '07. FS' },
@@ -174,7 +175,8 @@ function buildBundle() {
     { code: 'PT', folder: '13. PT' },
     { code: 'RO', folder: '14. RO' },
     { code: 'SW', folder: '15. SW' },
-    { code: 'UK', folder: '16. UK' }
+    { code: 'UK', folder: '16. UK' },
+    { code: 'RA', folder: '17. RA' }
   ];
 
   pnlFolders.forEach(({ code, folder }) => {
@@ -189,8 +191,61 @@ function buildBundle() {
     }
   });
 
-  // Write bundle to public
-  const jsonStr = JSON.stringify(bundle, null, 2);
+  // 7. DuckDB Central Analytics Metadata & Quality Gate Status
+  const duckdbPath = path.resolve(__dirname, 'data/master_analytics.duckdb');
+  if (fs.existsSync(duckdbPath)) {
+    try {
+      console.log('  - Ingesting DuckDB central sync status & anomaly alerts...');
+      const duckdb = require('duckdb');
+      const db = new duckdb.Database(duckdbPath, duckdb.OPEN_READONLY);
+      
+      const queryAsync = (sql) => new Promise((resolve) => {
+        db.all(sql, (err, rows) => resolve(err ? [] : rows));
+      });
+
+      const [syncStatuses, alerts, rowCounts] = await Promise.all([
+        queryAsync('SELECT agent_id, status, quality_gate_passed, latest_data_period, record_count, last_sync_timestamp FROM agent_sync_status ORDER BY last_sync_timestamp DESC'),
+        queryAsync('SELECT alert_type, severity, entity, description, change_pct, created_at FROM data_anomaly_alerts ORDER BY created_at DESC LIMIT 20'),
+        queryAsync('SELECT count(*) as cnt FROM fact_prices_daily')
+      ]);
+
+      bundle.analyticsMeta = {
+        duckDbActive: true,
+        totalTrackedPrices: rowCounts[0]?.cnt || 0,
+        syncStatuses: syncStatuses,
+        anomalyAlerts: alerts
+      };
+    } catch (e) {
+      console.warn('  [!] DuckDB metadata extraction skipped:', e.message);
+    }
+  }
+
+  // 8. Strategic Reports Knowledge Base Catalog
+  const catalogPath = path.resolve(__dirname, 'data/strategic_reports_catalog.json');
+  if (fs.existsSync(catalogPath)) {
+    try {
+      console.log('  - Ingesting Strategic Reports Knowledge Base summary...');
+      const cat = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+      bundle.datasets.strategicKnowledge = {
+        totalReports: cat.totalReports,
+        totalSlides: cat.totalSlides,
+        reports: (cat.reports || []).map(r => ({
+          report_id: r.report_id,
+          report_name: r.report_name,
+          report_date: r.report_date,
+          meeting_type: r.meeting_type,
+          total_slides: r.total_slides
+        }))
+      };
+    } catch (e) {
+      console.warn('  [!] Strategic catalog bundling skipped:', e.message);
+    }
+  }
+
+  // Write bundle to public (handling BigInt from DuckDB)
+  const jsonStr = JSON.stringify(bundle, (key, value) =>
+    typeof value === 'bigint' ? Number(value) : value
+  , 2);
   fs.writeFileSync(OUTPUT_BUNDLE_PATH, jsonStr, 'utf8');
 
   const sizeKb = (Buffer.byteLength(jsonStr, 'utf8') / 1024).toFixed(1);

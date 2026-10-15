@@ -1,4 +1,4 @@
-﻿# TV Europe Sales Master AI Agent (tv-europe-master-agent)
+# TV Europe Sales Master AI Agent (tv-europe-master-agent)
 
 **TV Europe Sales Management Portal 산하 17개 전문 서브 에이전트를 총괄 지휘하는 AI 오케스트레이터 및 안티그래비티 에이전틱 브릿지 시스템**
 
@@ -80,15 +80,24 @@ node server.js
 │   ├── index.html            # 3단 스플릿 메인 UI
 │   ├── master_data_bundle.json # 사전 빌드 정규화 데이터 번들
 │   └── styles.css            # Stitch Strategic Insight 디자인 시스템 스타일
+├── Task/                     # 질의응답 및 생성 산출물 영구 아카이브 저장소
+│   ├── README.md             # 전체 Task 인덱스 및 실행 레지스트리
+│   ├── 20260917_스위스7월경영실적/ # 스위스 7월 경영실적 Q&A 및 워드 보고서
+│   ├── 20260917_그리스8월경영실적/ # 그리스 8월 경영실적 Q&A 및 워드 보고서
+│   └── 20260917_체코판매모델진단/ # 체코 2026년 판매모델 진단 Q&A 및 워드 보고서
+├── scripts/                  # 파이프라인 및 유틸리티 스크립트
+│   ├── archive_task.js       # 질의응답 및 산출물 자동 아카이빙 유틸리티
+│   ├── init_master_db.py     # 마스터 DuckDB 초기화 스크립트
+│   └── sync_master_db.py     # 원천 데이터 동기화 스크립트
 ├── agentRegistry.js          # 17개 서브 에이전트 메타데이터 및 도구 명세
-├── antigravity_worker.py     # 원천 DB 직접 파싱 및 브릿지 태스크 프로세서
 ├── build_bundle.js           # 정적 호스팅용 종합 데이터 번들 빌더
 ├── firebase.json             # Firebase Hosting 배포 설정
 ├── localRuleEngine.js        # 오프라인 로컬 규칙 및 시나리오 처리 엔진
 ├── package.json              # 프로젝트 메타데이터 및 스크립트 정의
 ├── PRD_Master_Agent.md       # 마스터 에이전트 요구사항 정의서 (PRD)
 ├── realDataEngine.js         # 실시간 형제 데이터 디렉터리 인덱서
-└── server.js                 # Express API 백엔드 서버 (Port 5050)
+├── server.js                 # Express API 백엔드 서버 (Port 5050)
+└── watch_bridge.js           # 안티그래비티 상시 세션 감시기 및 태스크 디스패처
 ```
 
 ---

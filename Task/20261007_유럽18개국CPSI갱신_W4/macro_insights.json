@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-10-07T17:39:53.194810",
+  "total_gdmi": 86640,
+  "total_yoy": -11.78,
+  "weighted_wos": 8.0,
+  "corp_comments": {
+    "AG": "당주 판매 1,310대(전년비 -13.7%)로 전년비 다소 조정을 받았으나, 최근 4주 평균(1,416대)은 견조하며 WOS 5.6주로 재고 리스크 없이 타이트하게 통제되고 있습니다.",
+    "BN": "당주 판매 5,059대(전년비 +60.9%, 계획비 208.7%)로 강력한 성장 모멘텀을 기록하였으며, WOS 5.6주로 건전한 재고 밸런스를 유지하고 있습니다.",
+    "CK": "당주 판매 2,490대(전년비 -5.7%)로 판매가 둔화되었으며, WOS 8.3주로 주의(Warning) 수준입니다. 공급 볼륨 최적화 및 유통 채널 협의가 권고됩니다.",
+    "DG": "당주 판매 8,959대(전년비 -23.4%, 계획비 161.9%)로 부진한 가운데, 채널 재고 WOS가 10.0주로 심각(Critical) 수준입니다. 채널 공급 억제 및 프로모션 긴급 투입이 요구됩니다.",
+    "Swiss": "당주 판매 1,183대(전년비 -2.3%)로 판매가 둔화되었으며, WOS 8.9주로 주의(Warning) 수준입니다. 공급 볼륨 최적화 및 유통 채널 협의가 권고됩니다.",
+    "ES": "당주 판매 10,663대(전년비 +14.3%, 계획비 200.1%)를 달성하였으나, WOS가 9.0주로 Warning 영역에 진입하여 주 단위 재고 소진 추이 모니터링이 필요합니다.",
+    "FS": "당주 판매 4,651대(전년비 -17.8%, 계획비 171.9%)로 부진한 가운데, 채널 재고 WOS가 10.3주로 심각(Critical) 수준입니다. 채널 공급 억제 및 프로모션 긴급 투입이 요구됩니다.",
+    "HS": "당주 판매 2,024대(전년비 +22.0%, 계획비 205.5%)로 강력한 성장 모멘텀을 기록하였으며, WOS 6.8주로 건전한 재고 밸런스를 유지하고 있습니다.",
+    "IS": "당주 판매 5,280대(전년비 -47.0%)로 판매가 둔화되었으며, WOS 9.5주로 주의(Warning) 수준입니다. 공급 볼륨 최적화 및 유통 채널 협의가 권고됩니다.",
+    "LA": "당주 판매 2,034대(전년비 -6.5%)로 전년비 다소 조정을 받았으나, 최근 4주 평균(1,948대)은 견조하며 WOS 7.4주로 재고 리스크 없이 타이트하게 통제되고 있습니다.",
+    "MK": "당주 판매 7,471대(전년비 -1.1%)로 전년비 다소 조정을 받았으나, 최근 4주 평균(7,546대)은 견조하며 WOS 7.1주로 재고 리스크 없이 타이트하게 통제되고 있습니다.",
+    "PL": "당주 판매 2,735대(전년비 -4.2%)로 판매가 둔화되었으며, WOS 8.6주로 주의(Warning) 수준입니다. 공급 볼륨 최적화 및 유통 채널 협의가 권고됩니다.",
+    "PT": "당주 판매 3,819대(전년비 -39.1%)로 전년비 다소 조정을 받았으나, 최근 4주 평균(2,878대)은 견조하며 WOS 7.4주로 재고 리스크 없이 타이트하게 통제되고 있습니다.",
+    "RO": "당주 판매 2,084대(전년비 -32.6%, 계획비 181.1%)로 부진한 가운데, 채널 재고 WOS가 12.1주로 심각(Critical) 수준입니다. 채널 공급 억제 및 프로모션 긴급 투입이 요구됩니다.",
+    "SW": "당주 판매 7,449대(전년비 +15.8%, 계획비 219.6%)로 강력한 성장 모멘텀을 기록하였으며, WOS 6.4주로 건전한 재고 밸런스를 유지하고 있습니다.",
+    "UK": "당주 판매 15,960대(전년비 +9.0%, 계획비 203.9%)로 안정적 판매를 달성하였으며, 채널 재고는 WOS 6.5주로 관리 기준 이내에서 매우 건강하게 운용 중입니다.",
+    "RA": "당주 판매 2,252대(전년비 -37.1%)로 전년비 다소 조정을 받았으나, 최근 4주 평균(4,136대)은 견조하며 WOS 3.1주로 재고 리스크 없이 타이트하게 통제되고 있습니다.",
+    "AK": "당주 판매 1,217대(전년비 -74.6%, 계획비 179.2%)로 부진한 가운데, 채널 재고 WOS가 19.6주로 심각(Critical) 수준입니다. 채널 공급 억제 및 프로모션 긴급 투입이 요구됩니다."
+  },
+  "takeaways_html": "                    <!-- 1. Sell-out Growth Trend -->\n                    <div class=\"bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-primary\">\n                        <div class=\"flex items-center justify-between mb-4\">\n                            <span class=\"text-xs font-bold text-primary/60 uppercase tracking-wider font-mono\">01. 실판매 성장세</span>\n                            <span class=\"px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded uppercase\">Sell-out Trend</span>\n                        </div>\n                        <h4 class=\"text-base font-headline font-bold text-primary mb-3\">유럽 대다수 권역 견조한 YoY 판매 성장 지속</h4>\n                        <div class=\"text-xs text-slate-600 leading-relaxed space-y-2\">\n                            <p class=\"mb-2\"><strong class=\"text-slate-800\">주요 성장 권역</strong>: 베네룩스(<span class=\"text-emerald-600 font-bold\">+60.9%</span>), 그리스(<span class=\"text-emerald-600 font-bold\">+22.0%</span>), 스웨덴(<span class=\"text-emerald-600 font-bold\">+15.8%</span>), 스페인(<span class=\"text-emerald-600 font-bold\">+14.3%</span>), 영국(<span class=\"text-emerald-600 font-bold\">+9.0%</span>) 등 대다수 권역에서 견조한 실판매 성장세를 견인하고 있습니다.</p>\n                            <p class=\"text-slate-500\"><strong class=\"text-slate-700\">역성장 권역</strong>: 카자흐스탄(-74.6%), 이탈리아(-47.0%), 포르투갈(-39.1%), 러시아(-37.1%), 루마니아(-32.6%), 독일(-23.4%), 프랑스(-17.8%), 오스트리아(-13.7%), 라트비아(-6.5%), 체코(-5.7%), 폴란드(-4.2%), 스위스(-2.3%), 헝가리(-1.1%)는 현지 시장 수요 둔화 및 프로모션 시기 조정으로 일시적 역성장을 기록 중입니다.</p>\n                            <p class=\"pt-2 border-t border-slate-100 text-[11px] text-slate-500 font-medium\">유럽 전체 주간 실판매는 <strong class=\"text-primary font-bold\">86,640대</strong>(전년비 <span class=\"font-bold text-slate-700\">-11.8%</span>), 최근 4주 평균은 <strong class=\"text-primary font-bold\">88,236대</strong>(전년비 <span class=\"font-bold text-slate-700\">-2.8%</span>)로 견조한 판매 성장세를 유지하고 있습니다.</p>\n                        </div>\n                    </div>\n\n                    <!-- 2. Channel Inventory Dynamics -->\n                    <div class=\"bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-primary\">\n                        <div class=\"flex items-center justify-between mb-4\">\n                            <span class=\"text-xs font-bold text-primary/60 uppercase tracking-wider font-mono\">02. 재고 증감 흐름</span>\n                            <span class=\"px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded uppercase\">Supply Dynamics</span>\n                        </div>\n                        <h4 class=\"text-base font-headline font-bold text-primary mb-3\">성수기 대비 선제 확충 vs 타이트 재고 슬림화</h4>\n                        <div class=\"text-xs text-slate-600 leading-relaxed space-y-2\">\n                            <p class=\"mb-2\"><strong class=\"text-slate-800\">재고 확충 권역</strong>: 영국(<span class=\"text-blue-600 font-bold\">+30.4k대</span>), 베네룩스(<span class=\"text-blue-600 font-bold\">+13.5k대</span>), 독일(<span class=\"text-blue-600 font-bold\">+10.3k대</span>), 스페인(<span class=\"text-blue-600 font-bold\">+8.2k대</span>), 카자흐스탄(<span class=\"text-blue-600 font-bold\">+2.0k대</span>), 프랑스(<span class=\"text-blue-600 font-bold\">+1.8k대</span>), 오스트리아(<span class=\"text-blue-600 font-bold\">+1.7k대</span>), 그리스(<span class=\"text-blue-600 font-bold\">+0.4k대</span>), 헝가리(<span class=\"text-blue-600 font-bold\">+0.2k대</span>) 등 주요 대형 시장은 하반기 성수기 대비 선제적 재고 빌드업을 진행 중입니다.</p>\n                            <p class=\"text-slate-500\"><strong class=\"text-slate-700\">재고 감축 권역</strong>: 이탈리아(-21.0k대), 러시아(-19.3k대), 루마니아(-10.4k대), 포르투갈(-8.2k대), 폴란드(-5.7k대), 체코(-2.1k대), 스웨덴(-0.6k대), 스위스(-0.5k대), 라트비아(-0.1k대) 등은 타이트한 입고 제어를 통해 유통 재고를 지속 슬림화하고 있습니다.</p>\n                        </div>\n                    </div>\n\n                    <!-- 3. Inventory Health & Action Plans -->\n                    <div class=\"bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-secondary\">\n                        <div class=\"flex items-center justify-between mb-4\">\n                            <span class=\"text-xs font-bold text-primary/60 uppercase tracking-wider font-mono\">03. 건전성 & 관리</span>\n                            <span class=\"px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded uppercase\">Health & Control</span>\n                        </div>\n                        <h4 class=\"text-base font-headline font-bold text-secondary mb-3\">9개국 우수 건전성 유지, 4개국 과다재고 집중 관리</h4>\n                        <div class=\"text-xs text-slate-600 leading-relaxed space-y-2\">\n                            <p class=\"mb-2\"><strong class=\"text-emerald-700\">✓ Healthy (9개국, 8.0주 이하)</strong>: 러시아(3.1주), 오스트리아(5.6주), 베네룩스(5.6주), 스웨덴(6.4주), 영국(6.5주), 그리스(6.8주), 헝가리(7.1주), 라트비아(7.4주), 포르투갈(7.4주)로 최적 수준의 유통 회전율을 보이고 있습니다.</p>\n                            <p class=\"mb-2\"><strong class=\"text-amber-700\">⚠ Warning (5개국, 8.0~10.0주)</strong>: 체코(8.3주), 폴란드(8.6주), 스위스(8.9주), 스페인(9.0주), 이탈리아(9.5주)는 판매 속도 대비 적정 재고 유지를 위한 입고량 미세 조절이 권고됩니다.</p>\n                            <p class=\"text-red-700 font-medium\"><strong class=\"text-red-700\">⛔ Critical (4개국, 10.0주 이상)</strong>: 독일(10.0주), 프랑스(10.3주), 루마니아(12.1주), 카자흐스탄(19.6주)는 판매 부진 모델 타겟 프로모션 및 주간 Sell-in 축소를 통한 적극적 WOS 정상화가 필요합니다.</p>\n                        </div>\n                    </div>",
+  "cards": [
+    {
+      "num": "01",
+      "badge": "Sell-out Trend",
+      "title": "유럽 대다수 권역 견조한 YoY 판매 성장 지속"
+    },
+    {
+      "num": "02",
+      "badge": "Supply Dynamics",
+      "title": "성수기 대비 선제 확충 vs 타이트 재고 슬림화"
+    },
+    {
+      "num": "03",
+      "badge": "Health Diagnosis",
+      "title": "9개국 우수 건전성 유지, 4개국 과다재고 집중 관리"
+    }
+  ]
+}

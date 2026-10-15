@@ -1,0 +1,403 @@
+{
+  "survey_date": "2026-10-08",
+  "run_id": null,
+  "timestamp": "2026-10-08T17:06:21",
+  "total_records_audited": 755,
+  "overall_passed": true,
+  "failed_gates_count": 0,
+  "gates": {
+    "G1": {
+      "gate": "G1",
+      "name": "Live Confirmation Rate (>= 95%)",
+      "passed": true,
+      "details": [
+        {
+          "retailer": "Currys",
+          "total": 157,
+          "delisted": 0,
+          "effective_total": 157,
+          "live_count": 157,
+          "rate_pct": 100.0,
+          "passed": true
+        },
+        {
+          "retailer": "Fnac Darty",
+          "total": 82,
+          "delisted": 0,
+          "effective_total": 82,
+          "live_count": 82,
+          "rate_pct": 100.0,
+          "passed": true
+        },
+        {
+          "retailer": "MediaMarkt",
+          "total": 424,
+          "delisted": 0,
+          "effective_total": 424,
+          "live_count": 424,
+          "rate_pct": 100.0,
+          "passed": true
+        },
+        {
+          "retailer": "MediaWorld",
+          "total": 92,
+          "delisted": 0,
+          "effective_total": 92,
+          "live_count": 92,
+          "rate_pct": 100.0,
+          "passed": true
+        }
+      ]
+    },
+    "G2": {
+      "gate": "G2",
+      "name": "CRITICAL Price Anomalies (Zero Tolerance)",
+      "passed": true,
+      "critical_count": 0,
+      "warn_count": 30,
+      "anomalies": [
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "DE",
+          "retailer": "MediaMarkt",
+          "model_code": "55QNED72B6B",
+          "observed": 849.0,
+          "expected_range": "335.3 ~ 622.7 EUR",
+          "message": "Price shifted by +77.2% vs previous survey (2026-10-06 price: 479.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "DE",
+          "retailer": "MediaMarkt",
+          "model_code": "65QNED72B6B",
+          "observed": 1049.0,
+          "expected_range": "517.3 ~ 960.7 EUR",
+          "message": "Price shifted by +41.9% vs previous survey (2026-10-06 price: 739.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "DE",
+          "retailer": "MediaMarkt",
+          "model_code": "OLED97G67LW",
+          "observed": 29999.0,
+          "expected_range": "3352.7 ~ 6226.5 EUR",
+          "message": "Price shifted by +526.3% vs previous survey (2026-10-06 price: 4789.64 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "IT",
+          "retailer": "MediaWorld",
+          "model_code": "QE77S95FATXZT",
+          "observed": 3721.47,
+          "expected_range": "1843.0 ~ 3422.7 EUR",
+          "message": "Price shifted by +41.3% vs previous survey (2026-10-06 price: 2632.83 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "IT",
+          "retailer": "MediaWorld",
+          "model_code": "50QNED80A6A",
+          "observed": 626.41,
+          "expected_range": "269.3 ~ 500.2 EUR",
+          "message": "Price shifted by +62.8% vs previous survey (2026-10-06 price: 384.75 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ48S92H",
+          "observed": 1288.42,
+          "expected_range": "663.6 ~ 1232.4 EUR",
+          "message": "Price shifted by +35.9% vs previous survey (2026-10-06 price: 947.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ50QN74H",
+          "observed": 693.51,
+          "expected_range": "298.2 ~ 553.8 EUR",
+          "message": "Price shifted by +62.8% vs previous survey (2026-10-06 price: 425.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ55LS03F",
+          "observed": 779.0,
+          "expected_range": "392.0 ~ 728.0 EUR",
+          "message": "Price shifted by +39.1% vs previous survey (2026-10-06 price: 559.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ55LS03HW",
+          "observed": 1405.42,
+          "expected_range": "681.8 ~ 1266.2 EUR",
+          "message": "Price shifted by +44.3% vs previous survey (2026-10-06 price: 973.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ55QN90F",
+          "observed": 1289.0,
+          "expected_range": "560.0 ~ 1040.0 EUR",
+          "message": "Price shifted by +61.1% vs previous survey (2026-10-06 price: 799.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ55S92H",
+          "observed": 1599.0,
+          "expected_range": "735.7 ~ 1366.3 EUR",
+          "message": "Price shifted by +52.1% vs previous survey (2026-10-06 price: 1050.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ55S95F",
+          "observed": 1859.0,
+          "expected_range": "818.4 ~ 1519.8 EUR",
+          "message": "Price shifted by +59.0% vs previous survey (2026-10-06 price: 1169.1 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ65LS03FW",
+          "observed": 1409.66,
+          "expected_range": "699.3 ~ 1298.7 EUR",
+          "message": "Price shifted by +41.1% vs previous survey (2026-10-06 price: 999.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ65QN82H",
+          "observed": 1299.0,
+          "expected_range": "475.3 ~ 882.7 EUR",
+          "message": "Price shifted by +91.3% vs previous survey (2026-10-06 price: 678.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ65S90F",
+          "observed": 1599.0,
+          "expected_range": "860.3 ~ 1597.7 EUR",
+          "message": "Price shifted by +30.1% vs previous survey (2026-10-06 price: 1229.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ65S95F",
+          "observed": 2549.0,
+          "expected_range": "1133.4 ~ 2104.8 EUR",
+          "message": "Price shifted by +57.4% vs previous survey (2026-10-06 price: 1619.1 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ65S99H",
+          "observed": 4059.55,
+          "expected_range": "2078.4 ~ 3859.8 EUR",
+          "message": "Price shifted by +36.7% vs previous survey (2026-10-06 price: 2969.1 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ77S95H",
+          "observed": 2639.48,
+          "expected_range": "2729.3 ~ 5068.7 EUR",
+          "message": "Price shifted by -32.3% vs previous survey (2026-10-06 price: 3899.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ85LS03FW",
+          "observed": 2369.0,
+          "expected_range": "2869.3 ~ 5328.7 EUR",
+          "message": "Price shifted by -42.2% vs previous survey (2026-10-06 price: 4099.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "TQ85QN74H",
+          "observed": 1599.0,
+          "expected_range": "516.0 ~ 958.3 EUR",
+          "message": "Price shifted by +116.9% vs previous survey (2026-10-06 price: 737.18 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED48C5",
+          "observed": 1059.99,
+          "expected_range": "559.3 ~ 1038.7 EUR",
+          "message": "Price shifted by +32.7% vs previous survey (2026-10-06 price: 799.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED55C5",
+          "observed": 1419.99,
+          "expected_range": "699.3 ~ 1298.7 EUR",
+          "message": "Price shifted by +42.1% vs previous survey (2026-10-06 price: 999.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED55C6",
+          "observed": 1308.0,
+          "expected_range": "538.3 ~ 999.7 EUR",
+          "message": "Price shifted by +70.1% vs previous survey (2026-10-06 price: 769.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED55G5",
+          "observed": 1599.0,
+          "expected_range": "839.3 ~ 1558.7 EUR",
+          "message": "Price shifted by +33.4% vs previous survey (2026-10-06 price: 1199.0 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED65G6",
+          "observed": 2599.0,
+          "expected_range": "1390.9 ~ 2583.1 EUR",
+          "message": "Price shifted by +30.8% vs previous survey (2026-10-06 price: 1986.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED77C6",
+          "observed": 2599.0,
+          "expected_range": "1390.9 ~ 2583.1 EUR",
+          "message": "Price shifted by +30.8% vs previous survey (2026-10-06 price: 1986.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "FR",
+          "retailer": "Fnac Darty",
+          "model_code": "OLED83C6",
+          "observed": 3699.0,
+          "expected_range": "1987.3 ~ 3690.7 EUR",
+          "message": "Price shifted by +30.3% vs previous survey (2026-10-06 price: 2838.99 EUR) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "CH",
+          "retailer": "MediaMarkt",
+          "model_code": "QE55S85FAU",
+          "observed": 859.0,
+          "expected_range": "944.3 ~ 1753.7 CHF",
+          "message": "Price shifted by -36.3% vs previous survey (2026-10-06 price: 1349.0 CHF) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "CH",
+          "retailer": "MediaMarkt",
+          "model_code": "QE75QN80FAU",
+          "observed": 1299.0,
+          "expected_range": "1539.3 ~ 2858.7 CHF",
+          "message": "Price shifted by -40.9% vs previous survey (2026-10-06 price: 2199.0 CHF) without promo change"
+        },
+        {
+          "rule": "R1",
+          "severity": "WARN",
+          "country": "CH",
+          "retailer": "MediaMarkt",
+          "model_code": "OLED65B68LA",
+          "observed": 1299.0,
+          "expected_range": "1329.3 ~ 2468.7 CHF",
+          "message": "Price shifted by -31.6% vs previous survey (2026-10-06 price: 1899.0 CHF) without promo change"
+        }
+      ]
+    },
+    "G3": {
+      "gate": "G3",
+      "name": "Model Count Sudden Drop (<= -10%)",
+      "passed": true,
+      "drops": []
+    },
+    "G4": {
+      "gate": "G4",
+      "name": "Independent Ground-Truth Verification (<= 2% Mismatch)",
+      "passed": true,
+      "status": "EVALUATED",
+      "total_sampled": 3,
+      "matches": 3,
+      "mismatches": 0,
+      "mismatch_rate_pct": 0.0,
+      "message": "Mismatch rate: 0.0% (0/3)"
+    },
+    "G5": {
+      "gate": "G5",
+      "name": "Mandatory Provenance & Metadata Completeness",
+      "passed": true,
+      "violations_count": 0,
+      "violations": []
+    },
+    "G6": {
+      "gate": "G6",
+      "name": "Stale Carry-Over / Identical Price Ratio (<= 90%)",
+      "passed": true,
+      "warn": false,
+      "common_count": 728,
+      "identical_count": 258,
+      "identical_ratio_pct": 35.4,
+      "message": "35.4% identical prices vs previous survey (258/728)"
+    },
+    "G7": {
+      "gate": "G7",
+      "name": "Search Listing vs PDP Price Drift (PDP Authoritative)",
+      "passed": true,
+      "drifts_count": 0,
+      "drifts": []
+    }
+  }
+}

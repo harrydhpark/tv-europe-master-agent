@@ -79,6 +79,40 @@ app.post('/api/query', async (req, res) => {
   }
 });
 
+// API 4-1: Strategic Reports FTS Search
+app.get('/api/strategic-reports/search', async (req, res) => {
+  try {
+    const { keyword, subsidiary, limit } = req.query;
+    const results = await ruleEngine.realDataEngine.searchStrategicReports(keyword, {
+      subsidiary,
+      limit: parseInt(limit, 10) || 5
+    });
+    res.json({
+      success: true,
+      count: results ? results.length : 0,
+      keyword: keyword || '',
+      results: results || []
+    });
+  } catch (error) {
+    console.error("[server] /api/strategic-reports/search error:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API 4-2: Strategic Reports Summary & Catalog Stats
+app.get('/api/strategic-reports/summary', async (req, res) => {
+  try {
+    const summary = await ruleEngine.realDataEngine.getStrategicReportsSummary();
+    res.json({
+      success: true,
+      data: summary
+    });
+  } catch (error) {
+    console.error("[server] /api/strategic-reports/summary error:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // API 5: Safe Pipeline Execution Runner
 app.post('/api/pipeline/run', (req, res) => {
   const { agentId, confirmToken } = req.body;
@@ -143,7 +177,7 @@ app.post('/api/pipeline/run', (req, res) => {
 // API 6: Antigravity Bridge Task Creation
 app.post('/api/bridge/task', (req, res) => {
   try {
-    const { query } = req.body;
+    const { query, apiKey } = req.body;
     if (!query) return res.status(400).json({ error: "query is required" });
 
     const taskId = 'task_' + Date.now();
@@ -151,6 +185,7 @@ app.post('/api/bridge/task', (req, res) => {
     const taskData = {
       taskId,
       query,
+      apiKey: apiKey || undefined,
       createdAt: new Date().toISOString()
     };
 
@@ -196,19 +231,135 @@ app.get('/api/bridge/status/:taskId', (req, res) => {
   res.json({ status: "queued" });
 });
 
+// API 8: DuckDB Analytics Status & Quality Gate Report
+app.get('/api/analytics/status', async (req, res) => {
+  const duckdbPath = path.join(__dirname, 'data', 'master_analytics.duckdb');
+  if (!fs.existsSync(duckdbPath)) {
+    return res.status(404).json({ error: "Master DuckDB not initialized yet." });
+  }
+  try {
+    const duckdb = require('duckdb');
+    const db = new duckdb.Database(duckdbPath, duckdb.OPEN_READONLY);
+    const queryAsync = (sql) => new Promise((resolve) => {
+      db.all(sql, (err, rows) => {
+        if (err) console.warn('[server] DuckDB query error:', err.message);
+        resolve(err ? [] : rows);
+      });
+    });
+    const [statuses, alerts, priceCount, pnlCount, selloutCount, msCount] = await Promise.all([
+      queryAsync('SELECT * FROM agent_sync_status ORDER BY last_sync_timestamp DESC'),
+      queryAsync('SELECT * FROM data_anomaly_alerts ORDER BY created_at DESC LIMIT 20'),
+      queryAsync('SELECT count(*) as cnt FROM fact_prices_daily'),
+      queryAsync('SELECT count(*) as cnt FROM fact_pnl_monthly'),
+      queryAsync('SELECT count(*) as cnt FROM fact_sellout_weekly'),
+      queryAsync('SELECT count(*) as cnt FROM fact_market_share')
+    ]);
+    const serializeRows = (rows) => rows.map(row => {
+      const clean = {};
+      for (const [k, v] of Object.entries(row)) {
+        clean[k] = typeof v === 'bigint' ? Number(v) : v;
+      }
+      return clean;
+    });
+
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      agentSyncStatus: serializeRows(statuses),
+      anomalyAlerts: serializeRows(alerts),
+      tableCounts: {
+        fact_prices_daily: Number(priceCount[0]?.cnt || 0),
+        fact_pnl_monthly: Number(pnlCount[0]?.cnt || 0),
+        fact_sellout_weekly: Number(selloutCount[0]?.cnt || 0),
+        fact_market_share: Number(msCount[0]?.cnt || 0)
+      }
+    });
+  } catch (e) {
+    res.status(500).json({ success: false, error: e.message });
+  }
+});
+
+// SSE Clients & Broadcast Function
+let sseClients = [];
+function broadcastSSE(payload) {
+  const data = JSON.stringify(payload);
+  sseClients.forEach(client => {
+    try {
+      client.write(`data: ${data}\n\n`);
+    } catch (e) {}
+  });
+}
+
+// API 9: Real-time Server-Sent Events (SSE) Stream for Dashboard Toasts
+app.get('/api/events', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+  res.write(`data: ${JSON.stringify({ event: 'CONNECTED', timestamp: new Date().toISOString() })}\n\n`);
+  sseClients.push(res);
+
+  req.on('close', () => {
+    sseClients = sseClients.filter(c => c !== res);
+  });
+});
+
+// API 10: One-Click Firebase Hosting Deploy
+app.post('/api/analytics/deploy', (req, res) => {
+  console.log('🚀 [Deploy] Triggering Firebase Hosting deployment...');
+  const proc = spawn('cmd.exe', ['/c', 'firebase deploy --only hosting:master-agent'], { cwd: __dirname });
+
+  let output = '';
+  proc.stdout.on('data', d => { output += d.toString(); });
+  proc.stderr.on('data', d => { output += d.toString(); });
+
+  proc.on('close', code => {
+    if (code === 0) {
+      console.log('✅ [Deploy] Firebase deployment successful!');
+      broadcastSSE({ event: 'DEPLOY_COMPLETED', timestamp: new Date().toISOString() });
+      res.json({ success: true, message: "Firebase deployment completed successfully!" });
+    } else {
+      console.error('❌ [Deploy] Firebase deployment failed:', output);
+      res.status(500).json({ success: false, error: output });
+    }
+  });
+});
+
 // Fallback to index.html for SPA
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start Server
+// Start Server & Initialize File Watcher
 if (require.main === module) {
+  const { ExcelSourceWatcher } = require('./scripts/fileWatcher');
+  const watcher = new ExcelSourceWatcher();
+  
+  watcher.on('sync_started', data => {
+    console.log(`[SSE] Sync Started: ${data.agentId} (${data.fileName})`);
+    broadcastSSE({ event: 'SYNC_STARTED', ...data });
+  });
+
+  watcher.on('sync_completed', data => {
+    console.log(`[SSE] Sync Completed: ${data.agentId} (${data.fileName})`);
+    broadcastSSE({ event: 'SYNC_COMPLETED', ...data });
+  });
+
+  watcher.on('sync_failed', data => {
+    console.log(`[SSE] Sync Failed: ${data.agentId} (${data.fileName})`);
+    broadcastSSE({ event: 'SYNC_FAILED', ...data });
+  });
+
   app.listen(PORT, () => {
     console.log(`========================================================`);
     console.log(`🤖 TV Europe Master AI Agent Server Running`);
     console.log(`🌐 URL: http://localhost:${PORT}`);
     console.log(`📊 Registered Sub-Agents: ${AGENTS.length}`);
     console.log(`========================================================`);
+
+    // Start background file watcher
+    watcher.start();
   });
 }
 

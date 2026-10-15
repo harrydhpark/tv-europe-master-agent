@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F(x) Tracker - Exchange Rate Monitoring Dashboard</title>
+    <!-- Google Fonts Inter & Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css?v=2.5.0">
+  <!-- Search Engine Crawling & Indexing Complete Blocker -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <span class="material-icons-outlined menu-icon">menu</span>
+            <div class="logo-container">
+                <span class="logo-text-f">F</span>
+                <span class="logo-text-x">(x)</span>
+                <span class="logo-text-tracker">Tracker</span>
+            </div>
+            <span class="badge">Business 2.0</span>
+        </div>
+        
+        <div class="header-center">
+            <div class="search-box">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" id="ai-search-input" placeholder="EUR의 지난달 평균 환율은? / 최근 KRW 변동 폭이 가장 컸던 날은?" autocomplete="off">
+                <button id="ai-search-btn" class="search-btn">질문하기</button>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <span class="material-icons-outlined header-action-icon" title="알림">notifications</span>
+            <span class="material-icons-outlined header-action-icon" title="설정">settings</span>
+            <div class="user-avatar" title="Harry's Finance">H</div>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-title">모니터링 통화</div>
+            <nav class="currency-nav" id="currency-list">
+                <!-- Dynamic Sidebar Navigation Items -->
+                <div class="nav-skeleton"></div>
+                <div class="nav-skeleton"></div>
+                <div class="nav-skeleton"></div>
+            </nav>
+            <div class="sidebar-footer">
+                <p class="footer-time">기준시각: <span id="current-local-time">2026-10-14 18:00:00</span></p>
+                <p class="footer-status"><span class="status-dot"></span> System Live</p>
+                <p class="footer-share"><span class="material-icons-outlined share-icon-mini">folder_zip</span> 간편 공유: <span id="share-url" title="static 폴더를 압축(Zip)하여 동료에게 전달하면, 동료가 별도 설치 없이 index.html을 더블클릭해서 바로 사용할 수 있습니다.">static.zip 폴더 전달 (더블클릭 실행)</span></p>
+            </div>
+        </aside>
+
+        <!-- Main Panel Content -->
+        <main class="app-main">
+            <!-- AI Featured Snippet Answer Box (Appears when search is executed) -->
+            <div id="ai-answer-card" class="ai-answer-card hidden">
+                <div class="ai-answer-header">
+                    <div class="ai-badge">
+                        <span class="material-icons-outlined ai-icon">psychology</span>
+                        <span>AI 환율 Q&A 답변</span>
+                    </div>
+                    <button id="close-ai-answer" class="close-btn">
+                        <span class="material-icons-outlined">close</span>
+                    </button>
+                </div>
+                <div class="ai-answer-body">
+                    <p id="ai-answer-text">질문에 대한 답변이 여기에 표시됩니다.</p>
+                </div>
+                <div class="ai-answer-footer">
+                    <span class="source-info">출처: F(x) Tracker DB 실시간 산출 데이터</span>
+                </div>
+            </div>
+
+            <!-- Currency Dashboard View -->
+            <div class="dashboard-header">
+                <div class="currency-profile">
+                    <h1 id="selected-currency-name">대한민국 원 (USD/KRW)</h1>
+                    <p id="selected-currency-symbol" class="currency-pair-symbol">USD/KRW</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-outline" id="refresh-data-btn">
+                        <span class="material-icons-outlined btn-icon">refresh</span>새로고침
+                    </button>
+                    <button class="btn btn-primary" id="export-csv-btn">
+                        <span class="material-icons-outlined btn-icon">download</span>CSV 내보내기
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Info Cards -->
+            <div class="info-cards-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="info-card-title">최신 고시 환율</span>
+                        <span class="material-icons-outlined info-card-icon text-blue">trending_up</span>
+                    </div>
+                    <div class="info-card-value" id="card-latest-rate">-</div>
+                    <div class="info-card-sub" id="card-latest-date">-</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="info-card-title">당월 누적 평균 환율</span>
+                        <span class="material-icons-outlined info-card-icon text-green">functions</span>
+                    </div>
+                    <div class="info-card-value text-bold" id="card-june-avg">-</div>
+                    <div class="info-card-sub">당월 1일부터 오늘까지 누적 평균</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="info-card-title">전월 평균 환율</span>
+                        <span class="material-icons-outlined info-card-icon text-gray">history</span>
+                    </div>
+                    <div class="info-card-value" id="card-may-avg">-</div>
+                    <div class="info-card-sub">전월 월간 실적 평균</div>
+                </div>
+            </div>
+
+            <!-- Chart & Commentary Analysis Section -->
+            <div class="analysis-grid">
+                <!-- Interactive Chart Card -->
+                <div class="analysis-card chart-card">
+                    <div class="card-header-with-action">
+                        <div>
+                            <h2 class="analysis-card-title" id="chart-main-title">환율 추이 및 전망 시각화 (Forecast Trend)</h2>
+                            <span class="chart-legend-info" id="chart-sub-info">* 점선(Dashed)은 당월 말 및 4Q 예측선</span>
+                        </div>
+                        <div class="chart-view-toggle">
+                            <button type="button" class="toggle-btn active" id="btn-view-2026">
+                                <span class="material-icons-outlined" style="font-size: 14px; vertical-align: middle;">calendar_today</span> 2026년 상세
+                            </button>
+                            <button type="button" class="toggle-btn" id="btn-view-5yr">
+                                <span class="material-icons-outlined" style="font-size: 14px; vertical-align: middle;">insights</span> 최근 5개년 (2022~2026)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="rateTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Commentary Panel -->
+                <div class="commentary-panel">
+                    <!-- FX Trend Analysis Card -->
+                    <div class="commentary-card">
+                        <div class="commentary-card-header text-lg-red">
+                            <span class="material-icons-outlined commentary-icon">analytics</span>
+                            <h3>환율 동향 분석</h3>
+                        </div>
+                        <div class="commentary-card-body" id="text-macro-drivers">
+                            데이터를 불러오는 중입니다...
+                        </div>
+                        <div class="commentary-card-footer" style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed var(--border-color); font-size: 11px; color: var(--text-secondary);">
+                            <span class="material-icons-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px;">info</span>
+                            전망치 근거: <strong id="text-forecast-source" style="color: var(--text-primary);">-</strong>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Forecast Card (10월, 11월, 12월, 4Q) -->
+                    <div class="commentary-card monthly-forecast-card" style="margin-top: 14px;">
+                        <div class="commentary-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <span class="material-icons-outlined commentary-icon" style="color: #0d9488;">trending_up</span>
+                                <h3 style="color: #0f172a; font-size: 15px;">10월 이후 월별 전망 요약</h3>
+                            </div>
+                            <span class="badge-source" id="badge-forecast-agency" style="font-size: 11px; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Bloomberg/IB</span>
+                        </div>
+                        <div class="forecast-grid" id="forecast-grid">
+                            <div class="forecast-grid-item">
+                                <div class="fg-title">10월말 예상</div>
+                                <div class="fg-value" id="fg-m10">-</div>
+                                <div class="fg-sub" id="fg-m10-change">-</div>
+                            </div>
+                            <div class="forecast-grid-item">
+                                <div class="fg-title">11월 전망</div>
+                                <div class="fg-value" id="fg-m11">-</div>
+                                <div class="fg-sub" id="fg-m11-change">-</div>
+                            </div>
+                            <div class="forecast-grid-item">
+                                <div class="fg-title">12월 전망</div>
+                                <div class="fg-value" id="fg-m12">-</div>
+                                <div class="fg-sub" id="fg-m12-change">-</div>
+                            </div>
+                            <div class="forecast-grid-item highlight">
+                                <div class="fg-title">4Q 평균</div>
+                                <div class="fg-value text-bold" id="fg-q4">-</div>
+                                <div class="fg-sub" id="fg-q4-change">-</div>
+                            </div>
+                        </div>
+                        <div class="commentary-card-footer" style="margin-top: 10px; font-size: 11px; color: var(--text-secondary); display: flex; justify-content: space-between;">
+                            <span>10월말 예상: <strong id="fg-sep-end" style="color: var(--text-primary);">-</strong></span>
+                            <span>3Q 확정 실적 평균: <strong id="fg-q3-avg" style="color: var(--text-primary);">-</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exchange Rate Data Table Container -->
+            <div class="data-table-section">
+                <div class="table-section-header">
+                    <div class="table-title-container">
+                        <h2>환율 세부 명세 표</h2>
+                        <span class="table-subtitle">1월~9월 월평균 실적 요약 및 10월 일별 명세 (주말 및 이동평균선 제외)</span>
+                    </div>
+                    <div class="table-legend">
+                        <span class="legend-item"><span class="legend-dot monthly"></span>월간 평균</span>
+                        <span class="legend-item"><span class="legend-dot" style="background-color: #137333;"></span>공식 실적</span>
+                        <span class="legend-item"><span class="legend-dot" style="background-color: #b06000;"></span>ECB 실시간</span>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="rate-data-table" id="rate-table">
+                        <thead>
+                            <tr>
+                                <th>구분 (기간/일자)</th>
+                                <th class="text-right">환율</th>
+                                <th>표시 단위</th>
+                                <th>데이터 구분</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rate-table-body">
+                            <!-- Dynamic Table Rows -->
+                            <tr>
+                                <td colspan="4" class="text-center">데이터를 불러오는 중입니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="app.js?v=2.5.0"></script>
+</body>
+</html>

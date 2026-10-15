@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <script src="auth-guard.js"></script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Executive Portal | LGE Europe C-PSI Dashboard</title>
+    <script src="portal-topbar.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#051c2c",
+                        "on-primary": "#ffffff",
+                        "secondary": "#a50034",
+                        "surface": "#f6faff",
+                        "surface-variant": "#ebf5ff",
+                        "outline": "#73777d",
+                        "outline-variant": "#c3c7cc",
+                        "error": "#ba1a1a",
+                        "background": "#ffffff",
+                        "primary-hover": "#860027"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["\"Source Serif 4\"", "serif"],
+                        "body": ["Inter", "Noto Sans KR", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #f6faff; color: #051c2c; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; }
+        .sidebar-item.active { background-color: rgba(255, 255, 255, 0.1); border-right: 4px solid #ffffff; }
+        .sub-link.active { color: #ffffff !important; font-weight: 600; }
+        .country-node.active > button { background-color: rgba(255, 255, 255, 0.05); color: #ffffff; }
+    </style>
+  <!-- Search Engine Crawling & Indexing Complete Blocker -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+</head>
+<body class="flex min-h-screen">
+    <!-- Sidebar Navigation -->
+    <aside class="w-72 bg-primary text-white fixed h-screen flex flex-col z-50 shadow-lg">
+        <div class="p-8 border-b border-white/10 flex-shrink-0">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="material-symbols-outlined text-white/80">insights</span>
+                <h1 class="text-xl font-bold tracking-tight">C-PSI Portal</h1>
+            </div>
+            <p class="text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium">LGE Europe TV Portal</p>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-1 overflow-y-auto" id="sidebar-nav">
+            <div class="px-4 pb-4">
+                <button class="sidebar-item active w-full flex items-center gap-4 px-6 py-3.5 rounded transition-all hover:bg-white/5 text-left" id="btn_summary" onclick="showHome()">
+                    <span class="material-symbols-outlined text-sm opacity-50">home</span>
+                    <span class="font-medium text-sm" id="sidebar-home-text">대시보드 포털 홈 (Executive Summary)</span>
+                </button>
+            </div>
+            
+            <div class="px-8 py-2 text-[10px] font-bold text-white/40 uppercase tracking-widest">Regional Dashboards</div>
+            
+            <!-- Austria (오스트리아) -->
+            <div class="country-node" id="node-austria">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('austria')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Austria (오스트리아)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-austria">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-austria">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Benelux (베네룩스) -->
+            <div class="country-node" id="node-benelux">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('benelux')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Benelux (베네룩스)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-benelux">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-benelux">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Czech (체코) -->
+            <div class="country-node" id="node-swissck">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('swissck')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Czech (체코)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-swissck">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-swissck">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Germany (독일) -->
+            <div class="country-node" id="node-germany">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('germany')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Germany (독일)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-germany">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-germany">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Swiss (스위스) -->
+            <div class="country-node" id="node-swiss">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('swiss')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Swiss (스위스)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-swiss">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-swiss">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Spain (스페인) -->
+            <div class="country-node" id="node-spain">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('spain')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Spain (스페인)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-spain">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-spain">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- France (프랑스) -->
+            <div class="country-node" id="node-france">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('france')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>France (프랑스)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-france">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-france">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Greece (그리스) -->
+            <div class="country-node" id="node-greece">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('greece')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Greece (그리스)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-greece">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-greece">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Italy (이탈리아) -->
+            <div class="country-node" id="node-italy">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('italy')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Italy (이탈리아)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-italy">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-italy">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Latvia (라트비아) -->
+            <div class="country-node" id="node-nordicla">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('nordicla')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Latvia (라트비아)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-nordicla">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-nordicla">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Hungary (헝가리) -->
+            <div class="country-node" id="node-hungary">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('hungary')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Hungary (헝가리)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-hungary">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-hungary">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Poland (폴란드) -->
+            <div class="country-node" id="node-poland">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('poland')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Poland (폴란드)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-poland">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-poland">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Portugal (포르투갈) -->
+            <div class="country-node" id="node-portugal">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('portugal')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Portugal (포르투갈)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-portugal">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-portugal">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Romania (루마니아) -->
+            <div class="country-node" id="node-romania">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('romania')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Romania (루마니아)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-romania">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-romania">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- Sweden (스웨덴) -->
+            <div class="country-node" id="node-sweden">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('sweden')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Sweden (스웨덴)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-sweden">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-sweden">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+                        
+            <!-- United Kingdom (영국) -->
+            <div class="country-node" id="node-uk">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('uk')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>United Kingdom (영국)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-uk">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-uk">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            
+            
+                <!-- Russia (러시아) -->
+            <div class="country-node" id="node-russia">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('russia')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Russia (러시아)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-russia">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-russia">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+            <!-- AK (카자흐스탄) -->
+            <div class="country-node" id="node-ak">
+                <button class="w-full flex items-center justify-between px-6 py-3 rounded text-left text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold" onclick="toggleSubmenu('ak')">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-sm opacity-60">location_on</span>
+                        <span>Kazakhstan (카자흐스탄)</span>
+                    </div>
+                    <span class="material-symbols-outlined text-xs transition-transform duration-200" id="arrow-ak">expand_more</span>
+                </button>
+                <div class="sub-menu hidden flex-col pl-12 pr-4 py-1 space-y-1" id="sub-ak">
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Kazakhstan (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'summary', this)">Executive Summary</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Kazakhstan (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'weekly', this)">주간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Kazakhstan (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'monthly', this)">월간 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Kazakhstan (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'channel', this)">유통별 판매 현황</button>
+                    <button class="sub-link w-full text-left text-[11px] text-white/50 hover:text-white py-1 px-2 rounded hover:bg-white/5 transition-all" onclick="showReport('Kazakhstan (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'inventory', this)">재고 관리 대상 모델</button>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="ml-72 flex-1 flex flex-col min-h-screen">
+        <!-- Top Bar Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-40">
+            <div class="flex items-center gap-6">
+                <span class="text-xs font-bold tracking-widest text-slate-400 uppercase">Europe TV Portal</span>
+                <div class="h-4 w-px bg-slate-200"></div>
+                <p class="text-sm font-semibold text-primary" id="page-indicator">대시보드 포털 홈</p>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="text-right">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Report Week</p>
+                    <p class="text-sm font-bold text-primary" id="report-week-header">W41</p>
+                </div>
+                <div class="h-8 w-px bg-slate-200"></div>
+                <!-- Language Switcher [KO | EN] -->
+                <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-300 mr-2">
+                    <button id="btnLangKo" type="button" class="px-2.5 py-1 text-xs font-bold rounded transition bg-primary text-white" onclick="setLanguage('ko')">KO</button>
+                    <button id="btnLangEn" type="button" class="px-2.5 py-1 text-xs font-bold rounded transition text-slate-600 hover:text-slate-900" onclick="setLanguage('en')">EN</button>
+                </div>
+                <button class="hidden items-center gap-2 text-xs font-bold border border-slate-200 rounded px-4 py-2 hover:bg-slate-50 transition-all cursor-pointer" id="btn-back-home" onclick="showHome()">
+                    <span class="material-symbols-outlined text-xs">arrow_back</span> <span id="btn-back-home-text">포털 홈으로</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- View Container -->
+        <div class="flex-1 flex flex-col relative overflow-y-auto">
+            
+            <!-- Home View Container (Executive Summary) -->
+            <div class="p-8 max-w-[1600px] mx-auto w-full flex-1" id="home-view-container">
+                <!-- Welcome Banner -->
+                <div class="bg-primary text-white p-5 rounded-lg shadow-md mb-8 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 id="gdmi-hero-title" class="text-3xl font-headline font-bold mb-3">유럽 TV 주간 C-PSI 현황</h2>
+                        <p id="gdmi-hero-desc" class="text-xs text-white/70 leading-relaxed max-w-4xl">본 포털은 유럽 전체 지점/법인의 주간 Sell-out 실적 흐름 및 채널 재고/WOS 현황을 일원화하여 모니터링하기 위한 시스템입니다. 아래 대시보드 목록에서 국가를 선택하시면 상세 분석 데이터와 탭 전환형 인터랙티브 차트를 확인하실 수 있습니다</p>
+                    </div>
+                    <div class="absolute -right-24 -bottom-24 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+                </div>
+
+                <!-- Executive Summary Comprehensive View -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="px-2.5 py-0.5 bg-primary/10 text-primary text-xs font-bold rounded uppercase tracking-wider">Executive Overview</span>
+                        <span class="text-xs text-slate-300">|</span>
+                        <span id="gdmi-exec-overview" class="text-xs text-slate-500 font-medium">유럽/CIS 18개 지점 및 법인 주간 Sell-out & 채널 재고 일원화 모니터링</span>
+                    </div>
+                    <h2 id="gdmi-grid-title" class="text-2xl font-headline font-bold text-primary">유럽/CIS 실판매 실적 및 유통 재고 현황</h2>
+                </div>
+                
+                <!-- Health Criteria Legend Box -->
+                <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm text-xs">
+                    <span class="font-bold text-slate-700 mr-1 flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm text-slate-400">info</span>
+                        <span id="gdmi-criteria-title">재고 건전성 기준:</span>
+                    </span>
+                    <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 font-bold rounded border border-emerald-200 text-[11px]">✓ Healthy</span> <span class="text-slate-500 font-medium">8.0주 이하</span></div>
+                    <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 bg-amber-50 text-amber-700 font-bold rounded border border-amber-200 text-[11px]">⚠ Warning</span> <span class="text-slate-500 font-medium">8.0~10.0주</span></div>
+                    <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 bg-red-50 text-red-700 font-bold rounded border border-red-200 text-[11px]">⛔ Critical</span> <span class="text-slate-500 font-medium">10.0주 이상</span></div>
+                </div>
+            </div>
+
+            <!-- Comprehensive Summary Table Card -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+                <div class="px-6 py-4 border-b border-slate-200 bg-slate-50/50 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="h-4 w-1 bg-secondary rounded"></span>
+                        <h3 class="font-headline font-bold text-base text-primary" id="gdmi-table-title">지점/법인별 실적 및 재고 지표 요약</h3>
+                    </div>
+                    <span id="gdmi-table-guide" class="text-xs text-slate-400">※ 행 클릭 시 해당 법인의 상세 분석 대시보드로 이동합니다.</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                                <th class="px-4 py-3.5 text-center w-12">No</th>
+                                <th class="px-4 py-3.5">지점 / 법인명</th>
+                                <th class="px-4 py-3.5">기준 주차 / 일자</th>
+                                <th class="px-4 py-3.5 text-right">주간 실판매 (YoY)</th>
+                                <th class="px-4 py-3.5 text-right">4주 평균 실판매 (YoY)</th>
+                                <th class="px-4 py-3.5 text-right">연간 누적 실판매 (YoY)</th>
+                                <th class="px-4 py-3.5 text-right">채널 재고 (전년비 증감)</th>
+                                <th class="px-4 py-3.5 text-center">재고 주수 (WOS)</th>
+                                <th class="px-4 py-3.5 text-center">재고 건전성</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Austria (오스트리아)', './01. AG/Austria_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-austria .sub-link:nth-child(1)')); toggleSubmenu('austria');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">01</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Austria (오스트리아)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,670대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-2.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,403대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+2.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">76,595대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+19.7%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">8,360대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+3.1k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">6.0주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Benelux (베네룩스)', './02. BN/Benelux_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-benelux .sub-link:nth-child(1)')); toggleSubmenu('benelux');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">02</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Benelux (베네룩스)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">3,915대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+60.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,243대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+22.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">181,310대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+3.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">23,813대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+13.5k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">5.6주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Czech (체코)', './03. CK/CK_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-swissck .sub-link:nth-child(1)')); toggleSubmenu('swissck');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">03</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Czech (체코)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W41</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">3,033대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-6.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,798대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-5.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">102,421대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+1.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">22,357대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-1.0k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">8.0주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Germany (독일)', './04. DG/DG_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-germany .sub-link:nth-child(1)')); toggleSubmenu('germany');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">04</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Germany (독일)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W41</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">13,805대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-14.0%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">10,138대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-14.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">403,525대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-1.1%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">89,161대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-13.4k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">8.8주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-amber-50 text-amber-700 border-amber-200">⚠ Warning</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Swiss (스위스)', './05. Swiss/Swiss_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-swiss .sub-link:nth-child(1)')); toggleSubmenu('swiss');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">05</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Swiss (스위스)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W41</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,256대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+9.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,112대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-1.3%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">51,194대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+3.0%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">8,401대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-1.3k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">7.6주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Spain (스페인)', './06. ES/ES_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-spain .sub-link:nth-child(1)')); toggleSubmenu('spain');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">06</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Spain (스페인)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">13,525대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+3.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">11,512대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+12.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">470,805대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+5.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">105,114대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+11.0k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">9.1주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-amber-50 text-amber-700 border-amber-200">⚠ Warning</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('France (프랑스)', './07. FS/FS_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-france .sub-link:nth-child(1)')); toggleSubmenu('france');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">07</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">France (프랑스)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,618대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-23.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,873대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-12.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">239,633대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-1.3%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">51,935대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-0.2k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">10.7주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-red-50 text-red-700 border-red-200">⛔ Critical</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Greece (그리스)', './08. HS/Greece_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-greece .sub-link:nth-child(1)')); toggleSubmenu('greece');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">08</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Greece (그리스)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,435대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+15.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,072대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+14.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">75,913대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+5.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">13,583대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+1.3k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">6.6주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Italy (이탈리아)', './09. IS/IS_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-italy .sub-link:nth-child(1)')); toggleSubmenu('italy');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">09</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Italy (이탈리아)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">5,889대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-40.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">6,102대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-32.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">309,016대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-6.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">63,292대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-14.2k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">10.4주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-red-50 text-red-700 border-red-200">⛔ Critical</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Latvia (라트비아)', './10. LA/LA_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-latvia .sub-link:nth-child(1)')); toggleSubmenu('latvia');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">10</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Latvia (라트비아)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,034대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-6.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,948대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-1.1%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">80,432대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+6.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">14,345대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-0.1k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">7.4주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Hungary (헝가리)', './11. MK/MK_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-hungary .sub-link:nth-child(1)')); toggleSubmenu('hungary');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">11</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Hungary (헝가리)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W41</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">7,098대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-10.0%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">7,403대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-2.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">308,586대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-2.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">52,108대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-2.9k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">7.0주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Poland (폴란드)', './12. PL/PL_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-poland .sub-link:nth-child(1)')); toggleSubmenu('poland');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">12</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Poland (폴란드)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,448대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-16.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,827대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-4.0%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">117,062대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-3.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">26,986대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-8.4k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">9.5주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-amber-50 text-amber-700 border-amber-200">⚠ Warning</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Portugal (포르투갈)', './13. PT/PT_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-portugal .sub-link:nth-child(1)')); toggleSubmenu('portugal');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">13</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Portugal (포르투갈)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,284대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+2.7%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">3,244대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-34.7%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">158,977대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+4.1%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">19,981대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-10.2k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">6.2주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Romania (루마니아)', './14. RO/RO_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-romania .sub-link:nth-child(1)')); toggleSubmenu('romania');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">14</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Romania (루마니아)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,061대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-34.4%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,249대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-27.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">95,053대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-23.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">29,261대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-12.0k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">13.0주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-red-50 text-red-700 border-red-200">⛔ Critical</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Sweden (스웨덴)', './15. SW/SW_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-sweden .sub-link:nth-child(1)')); toggleSubmenu('sweden');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">15</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Sweden (스웨덴)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W41</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">6,571대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+28.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">6,469대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+27.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">231,884대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+18.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">43,750대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-purple-600">(-1.0k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">6.8주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('United Kingdom (영국)', './16. UK/UK_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-uk .sub-link:nth-child(1)')); toggleSubmenu('uk');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">16</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">United Kingdom (영국)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">15,957대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+8.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">15,600대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+13.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">594,274대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-13.2%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">101,276대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+30.4k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">6.5주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-green-50 text-green-700 border-green-200">✓ Healthy</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('Russia (러시아)', './17. RA/Russia_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-russia .sub-link:nth-child(1)')); toggleSubmenu('russia');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">17</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">Russia (러시아)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,993대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+39.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">4,822대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+38.5%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">138,424대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-emerald-600">(+10.8%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">44,363대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+12.2k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">9.2주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-amber-50 text-amber-700 border-amber-200">⚠ Warning</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition-all cursor-pointer border-b border-slate-100" onclick="showReport('AK (카자흐스탄)', './18. AK/AK_CPSI_Summary_Dashboard.html', 'summary', document.querySelector('#node-ak .sub-link:nth-child(1)')); toggleSubmenu('ak');">
+                            <td class="px-4 py-3.5 text-center text-xs font-mono text-slate-400 font-bold">18</td>
+                            <td class="px-4 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm text-primary hover:text-secondary transition-colors">AK (카자흐스탄)</span>
+                                    <span class="material-symbols-outlined text-[14px] text-slate-400 opacity-0 group-hover:opacity-100">open_in_new</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-xs text-slate-600 font-medium whitespace-nowrap">W40</td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">1,217대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-74.6%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">2,084대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-47.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-24 text-right">112,665대</span>
+                                    <span class="text-xs font-bold w-18 text-right text-red-600">(-15.9%)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5 font-mono tabular-nums">
+                                    <span class="font-bold text-sm text-slate-800 w-20 text-right">31,664대</span>
+                                    <span class="text-xs font-bold w-20 text-right text-blue-600">(+0.4k대)</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap font-mono tabular-nums font-bold text-sm text-slate-800">15.2주</td>
+                            <td class="px-4 py-3.5 text-center whitespace-nowrap">
+                                <span class="px-2.5 py-1 text-xs font-bold rounded-full border bg-red-50 text-red-700 border-red-200">⛔ Critical</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Key Takeaways & Status Analysis (주요 시사점 및 현황 분석) -->
+            <div class="mt-8 mb-4">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="h-6 w-1 bg-secondary rounded"></span>
+                    <h3 class="text-xl font-headline font-bold text-primary">주요 시사점 및 현황 분석</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 1. Sell-out Growth Trend -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-primary">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-primary/60 uppercase tracking-wider font-mono">01. 실판매 성장세</span>
+                            <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded uppercase">Sell-out Trend</span>
+                        </div>
+                        <h4 class="text-base font-headline font-bold text-primary mb-3">유럽 대다수 권역 견조한 YoY 판매 성장 지속</h4>
+                        <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+                            <p class="mb-2"><strong class="text-slate-800">주요 성장 권역</strong>: 베네룩스(<span class="text-emerald-600 font-bold">+60.9%</span>), 러시아(<span class="text-emerald-600 font-bold">+39.6%</span>), 스웨덴(<span class="text-emerald-600 font-bold">+28.9%</span>), 그리스(<span class="text-emerald-600 font-bold">+15.6%</span>), 스위스(<span class="text-emerald-600 font-bold">+9.5%</span>), 영국(<span class="text-emerald-600 font-bold">+8.9%</span>), 스페인(<span class="text-emerald-600 font-bold">+3.5%</span>), 포르투갈(<span class="text-emerald-600 font-bold">+2.7%</span>) 등 대다수 권역에서 견조한 실판매 성장세를 견인하고 있습니다.</p>
+                            <p class="text-slate-500"><strong class="text-slate-700">역성장 권역</strong>: 카자흐스탄(-74.6%), 이탈리아(-40.8%), 루마니아(-34.4%), 프랑스(-23.4%), 폴란드(-16.9%), 독일(-14.0%), 헝가리(-10.0%), 체코(-6.8%), 라트비아(-6.5%), 오스트리아(-2.2%)는 현지 시장 수요 둔화 및 프로모션 시기 조정으로 일시적 역성장을 기록 중입니다.</p>
+                            <p class="pt-2 border-t border-slate-100 text-[11px] text-slate-500 font-medium">유럽 전체 주간 실판매는 <strong class="text-primary font-bold">96,809대</strong>(전년비 <span class="font-bold text-slate-700">-7.1%</span>), 최근 4주 평균은 <strong class="text-primary font-bold">90,899대</strong>(전년비 <span class="font-bold text-slate-700">-3.5%</span>)로 견조한 판매 성장세를 유지하고 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Channel Inventory Dynamics -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-primary">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-primary/60 uppercase tracking-wider font-mono">02. 재고 증감 흐름</span>
+                            <span class="px-2 py-0.5 bg-purple-50 text-purple-700 text-[10px] font-bold rounded uppercase">Supply Dynamics</span>
+                        </div>
+                        <h4 class="text-base font-headline font-bold text-primary mb-3">성수기 대비 선제 확충 vs 타이트 재고 슬림화</h4>
+                        <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+                            <p class="mb-2"><strong class="text-slate-800">재고 확충 권역</strong>: 영국(<span class="text-blue-600 font-bold">+30.4k대</span>), 베네룩스(<span class="text-blue-600 font-bold">+13.5k대</span>), 러시아(<span class="text-blue-600 font-bold">+12.2k대</span>), 스페인(<span class="text-blue-600 font-bold">+11.0k대</span>), 오스트리아(<span class="text-blue-600 font-bold">+3.1k대</span>), 그리스(<span class="text-blue-600 font-bold">+1.3k대</span>), 카자흐스탄(<span class="text-blue-600 font-bold">+0.4k대</span>) 등 주요 대형 시장은 하반기 성수기 대비 선제적 재고 빌드업을 진행 중입니다.</p>
+                            <p class="text-slate-500"><strong class="text-slate-700">재고 감축 권역</strong>: 이탈리아(-14.2k대), 독일(-13.4k대), 루마니아(-12.0k대), 포르투갈(-10.2k대), 폴란드(-8.4k대), 헝가리(-2.9k대), 스위스(-1.3k대), 스웨덴(-1.0k대), 체코(-1.0k대), 프랑스(-0.2k대), 라트비아(-0.1k대) 등은 타이트한 입고 제어를 통해 유통 재고를 지속 슬림화하고 있습니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Inventory Health & Action Plans -->
+                    <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border-l-4 border-l-secondary">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold text-primary/60 uppercase tracking-wider font-mono">03. 건전성 & 관리</span>
+                            <span class="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-bold rounded uppercase">Health & Control</span>
+                        </div>
+                        <h4 class="text-base font-headline font-bold text-secondary mb-3">10개국 우수 건전성 유지, 4개국 과다재고 집중 관리</h4>
+                        <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+                            <p class="mb-2"><strong class="text-emerald-700">✓ Healthy (10개국, 8.0주 이하)</strong>: 베네룩스(5.6주), 오스트리아(6.0주), 포르투갈(6.2주), 영국(6.5주), 그리스(6.6주), 스웨덴(6.8주), 헝가리(7.0주), 라트비아(7.4주), 스위스(7.6주), 체코(8.0주)로 최적 수준의 유통 회전율을 보이고 있습니다.</p>
+                            <p class="mb-2"><strong class="text-amber-700">⚠ Warning (4개국, 8.0~10.0주)</strong>: 독일(8.8주), 스페인(9.1주), 러시아(9.2주), 폴란드(9.5주)는 판매 속도 대비 적정 재고 유지를 위한 입고량 미세 조절이 권고됩니다.</p>
+                            <p class="text-red-700 font-medium"><strong class="text-red-700">⛔ Critical (4개국, 10.0주 이상)</strong>: 이탈리아(10.4주), 프랑스(10.7주), 루마니아(13.0주), 카자흐스탄(15.2주)는 판매 부진 모델 타겟 프로모션 및 주간 Sell-in 축소를 통한 적극적 WOS 정상화가 필요합니다.</p>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Report View Iframe -->
+        <div class="w-full flex-1" id="report-view-container" style="display: none; height: calc(100vh - 80px);">
+                <iframe id="report-iframe" class="w-full h-full border-none" src=""></iframe>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Navigation Script -->
+    <script>
+        // Mapped week variables dynamically updated at build time
+        const REGION_WEEK_MAP = {"Austria (오스트리아)": "W40", "Benelux (베네룩스)": "W40", "Czech (체코)": "W41", "Germany (독일)": "W41", "Swiss (스위스)": "W41", "Spain (스페인)": "W40", "France (프랑스)": "W40", "Greece (그리스)": "W40", "Italy (이탈리아)": "W40", "Latvia (라트비아)": "W40", "Hungary (헝가리)": "W41", "Poland (폴란드)": "W40", "Portugal (포르투갈)": "W40", "Romania (루마니아)": "W40", "Sweden (스웨덴)": "W41", "United Kingdom (영국)": "W40", "Russia (러시아)": "W40", "AK (카자흐스탄)": "W40"};
+        const DEFAULT_REPORT_WEEK = 'W41';
+
+        let currentPath = '';
+        let justShownReport = false;
+
+                function showExecutiveSummary() {
+            showHome();
+        }
+
+        function showHome() {
+            document.getElementById('home-view-container').style.display = 'block';
+            
+            document.getElementById('report-view-container').style.display = 'none';
+            document.getElementById('btn-back-home').style.display = 'none';
+            document.getElementById('page-indicator').innerText = '대시보드 포털 홈 (Executive Summary)';
+            
+            // Restore default report week
+            const headerWeek = document.getElementById('report-week-header');
+            if (headerWeek) {
+                headerWeek.innerText = DEFAULT_REPORT_WEEK;
+            }
+            
+            // Sidebar reset
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('btn_summary').classList.add('active');
+            
+            document.querySelectorAll('.country-node').forEach(node => node.classList.remove('active'));
+            document.querySelectorAll('.sub-menu').forEach(menu => menu.style.display = 'none');
+            document.querySelectorAll('.sub-link').forEach(link => link.classList.remove('active'));
+            
+            // Reset all arrow indicators to 0deg rotation
+            document.querySelectorAll('.country-node span[id^="arrow-"]').forEach(arrow => {
+                arrow.style.transform = 'rotate(0deg)';
+            });
+            
+            currentPath = '';
+        }
+
+        function toggleSubmenu(countryId) {
+            if (justShownReport) return;
+            document.querySelectorAll('.sub-menu').forEach(menu => {
+                if (menu.id === 'sub-' + countryId) {
+                    if (menu.style.display === 'flex') {
+                        menu.style.display = 'none';
+                        document.getElementById('arrow-' + countryId).style.transform = 'rotate(0deg)';
+                    } else {
+                        menu.style.display = 'flex';
+                        document.getElementById('arrow-' + countryId).style.transform = 'rotate(180deg)';
+                    }
+                } else {
+                    menu.style.display = 'none';
+                    const otherId = menu.id.replace('sub-', '');
+                    const otherArrow = document.getElementById('arrow-' + otherId);
+                    if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        
+        // --- Multilingual Support (KO / EN) ---
+        let currentGdmiLang = 'ko';
+
+        const COUNTRY_MAP = {
+            'Austria (오스트리아)': 'Austria',
+            'Benelux (베네룩스)': 'Benelux',
+            'Czech (체코)': 'Czech',
+            'Germany (독일)': 'Germany',
+            'Swiss (스위스)': 'Switzerland',
+            'Spain (스페인)': 'Spain',
+            'France (프랑스)': 'France',
+            'Greece (그리스)': 'Greece',
+            'Italy (이탈리아)': 'Italy',
+            'Latvia (라트비아)': 'Latvia',
+            'Hungary (헝가리)': 'Hungary',
+            'Poland (폴란드)': 'Poland',
+            'Portugal (포르투갈)': 'Portugal',
+            'Romania (루마니아)': 'Romania',
+            'Sweden (스웨덴)': 'Sweden',
+            'United Kingdom (영국)': 'United Kingdom',
+            'Russia (러시아)': 'Russia',
+            'Kazakhstan (카자흐스탄)': 'Kazakhstan'
+        };
+
+        const REVERSE_COUNTRY_MAP = {};
+        Object.entries(COUNTRY_MAP).forEach(([ko, en]) => {
+            REVERSE_COUNTRY_MAP[en] = ko;
+        });
+
+        const GDMI_I18N = {
+            ko: {
+                sidebarHome: '대시보드 포털 홈 (Executive Summary)',
+                pageIndicatorHome: '대시보드 포털 홈',
+                reportSuffix: ' C-PSI 대시보드',
+                backHome: '포털 홈으로',
+                heroTitle: '유럽 TV 주간 C-PSI 현황',
+                heroDesc: '본 포털은 유럽 전체 지점/법인의 주간 Sell-out 실적 흐름 및 채널 재고/WOS 현황을 일원화하여 모니터링하기 위한 시스템입니다. 아래 대시보드 목록에서 국가를 선택하시면 상세 분석 데이터와 탭 전환형 인터랙티브 차트를 확인하실 수 있습니다',
+                execOverview: '유럽/CIS 18개 지점 및 법인 주간 Sell-out & 채널 재고 일원화 모니터링',
+                gridTitle: '유럽/CIS 실판매 실적 및 유통 재고 현황',
+                criteriaTitle: '재고 건전성 기준:',
+                criteriaHealthy: '8.0주 이하',
+                criteriaWarning: '8.0~10.0주',
+                criteriaCritical: '10.0주 이상',
+                tableTitle: '지점/법인별 실적 및 재고 지표 요약',
+                tableGuide: '※ 행 클릭 시 해당 법인의 상세 분석 대시보드로 이동합니다.',
+                tableHeaders: [
+                    'No', '지점 / 법인명', '기준 주차 / 일자', '주간 실판매 (YoY)',
+                    '4주 평균 실판매 (YoY)', '연간 누적 실판매 (YoY)', '채널 재고 (전년비 증감)',
+                    '재고 주수 (WOS)', '재고 건전성'
+                ],
+                subMenus: [
+                    { ko: 'Executive Summary', en: 'Executive Summary' },
+                    { ko: '주간 판매 현황', en: 'Weekly Sell-out' },
+                    { ko: '월간 판매 현황', en: 'Monthly Sell-out' },
+                    { ko: '유통별 판매 현황', en: 'Channel Sell-out' },
+                    { ko: '재고 관리 대상 모델', en: 'Inventory Target Models' }
+                ]
+            },
+            en: {
+                sidebarHome: 'Dashboard Home (Executive Summary)',
+                pageIndicatorHome: 'Dashboard Home',
+                reportSuffix: ' C-PSI Dashboard',
+                backHome: 'Back to Home',
+                heroTitle: 'Europe TV Weekly C-PSI Status',
+                heroDesc: 'This portal provides centralized monitoring of weekly sell-out trends and retail inventory/WOS status across all European subsidiaries and branches. Select a country from the list below to explore detailed analytical data and interactive multi-tab charts.',
+                execOverview: 'Centralized weekly sell-out & channel inventory monitoring across 18 European/CIS subsidiaries',
+                gridTitle: 'Europe/CIS Sell-out Performance & Channel Inventory Status',
+                criteriaTitle: 'Inventory Health Criteria:',
+                criteriaHealthy: '≤ 8.0 Weeks',
+                criteriaWarning: '8.0 ~ 10.0 Weeks',
+                criteriaCritical: '≥ 10.0 Weeks',
+                tableTitle: 'Subsidiary Performance & Inventory Metrics Summary',
+                tableGuide: '※ Click any row to navigate to that subsidiary\'s detailed dashboard.',
+                tableHeaders: [
+                    'No', 'Subsidiary / Branch', 'Base Week / Date', 'Weekly Sell-out (YoY)',
+                    '4-Wk Avg Sell-out (YoY)', 'YTD Cumulative (YoY)', 'Channel Inventory (YoY Gap)',
+                    'Weeks of Supply (WOS)', 'Inventory Health'
+                ],
+                subMenus: [
+                    { ko: 'Executive Summary', en: 'Executive Summary' },
+                    { ko: '주간 판매 현황', en: 'Weekly Sell-out' },
+                    { ko: '월간 판매 현황', en: 'Monthly Sell-out' },
+                    { ko: '유통별 판매 현황', en: 'Channel Sell-out' },
+                    { ko: '재고 관리 대상 모델', en: 'Inventory Target Models' }
+                ]
+            }
+        };
+
+        function setLanguage(lang) {
+            if (lang !== 'ko' && lang !== 'en') lang = 'ko';
+            currentGdmiLang = lang;
+            try {
+                localStorage.setItem('portal_lang', lang);
+                localStorage.setItem('gdmi_lang', lang);
+            } catch(e) {}
+
+            const t = GDMI_I18N[lang] || GDMI_I18N.ko;
+
+            // Buttons styling
+            const btnKo = document.getElementById('btnLangKo');
+            const btnEn = document.getElementById('btnLangEn');
+            if (btnKo && btnEn) {
+                if (lang === 'en') {
+                    btnKo.className = 'px-2.5 py-1 text-xs font-bold rounded transition text-slate-600 hover:text-slate-900';
+                    btnEn.className = 'px-2.5 py-1 text-xs font-bold rounded transition bg-primary text-white';
+                } else {
+                    btnKo.className = 'px-2.5 py-1 text-xs font-bold rounded transition bg-primary text-white';
+                    btnEn.className = 'px-2.5 py-1 text-xs font-bold rounded transition text-slate-600 hover:text-slate-900';
+                }
+            }
+
+            // Smart topbar text
+            const topbarBack = document.getElementById('portal-back-text');
+            if (topbarBack) topbarBack.textContent = lang === 'en' ? 'Back to Portal' : '포탈로 돌아가기';
+
+            // Sidebar Home
+            const sbHome = document.getElementById('sidebar-home-text');
+            if (sbHome) sbHome.textContent = t.sidebarHome;
+
+            // Page Indicator
+            const pageInd = document.getElementById('page-indicator');
+            if (pageInd && !currentPath) {
+                pageInd.textContent = t.pageIndicatorHome;
+            } else if (pageInd && currentPath) {
+                let currentName = pageInd.textContent.replace(/ C-PSI 대시보드| C-PSI Dashboard/g, '').trim();
+                if (lang === 'en' && COUNTRY_MAP[currentName]) currentName = COUNTRY_MAP[currentName];
+                else if (lang === 'ko' && REVERSE_COUNTRY_MAP[currentName]) currentName = REVERSE_COUNTRY_MAP[currentName];
+                pageInd.textContent = currentName + t.reportSuffix;
+            }
+
+            // Back Home Button
+            const btnBackTxt = document.getElementById('btn-back-home-text');
+            if (btnBackTxt) btnBackTxt.textContent = t.backHome;
+
+            // Hero & Titles
+            const heroTitle = document.getElementById('gdmi-hero-title');
+            if (heroTitle) heroTitle.textContent = t.heroTitle;
+            const heroDesc = document.getElementById('gdmi-hero-desc');
+            if (heroDesc) heroDesc.textContent = t.heroDesc;
+            const execOver = document.getElementById('gdmi-exec-overview');
+            if (execOver) execOver.textContent = t.execOverview;
+            const gridTitle = document.getElementById('gdmi-grid-title');
+            if (gridTitle) gridTitle.textContent = t.gridTitle;
+            const critTitle = document.getElementById('gdmi-criteria-title');
+            if (critTitle) critTitle.textContent = t.criteriaTitle;
+            const tblTitle = document.getElementById('gdmi-table-title');
+            if (tblTitle) tblTitle.textContent = t.tableTitle;
+            const tblGuide = document.getElementById('gdmi-table-guide');
+            if (tblGuide) tblGuide.textContent = t.tableGuide;
+
+            // Criteria Badges Text
+            const critSpans = document.querySelectorAll('.flex.items-center.gap-3.bg-white span.text-slate-500');
+            if (critSpans.length >= 3) {
+                critSpans[0].textContent = t.criteriaHealthy;
+                critSpans[1].textContent = t.criteriaWarning;
+                critSpans[2].textContent = t.criteriaCritical;
+            }
+
+            // Sidebar Country Names (strip Korean in English mode)
+            document.querySelectorAll('.country-node button span:last-child').forEach(span => {
+                const txt = span.textContent.trim();
+                if (lang === 'en' && COUNTRY_MAP[txt]) {
+                    span.textContent = COUNTRY_MAP[txt];
+                } else if (lang === 'ko' && REVERSE_COUNTRY_MAP[txt]) {
+                    span.textContent = REVERSE_COUNTRY_MAP[txt];
+                }
+            });
+
+            // Submenu Links
+            document.querySelectorAll('.sub-link').forEach(link => {
+                const text = link.textContent.trim();
+                const matched = t.subMenus.find(m => m.ko === text || m.en === text);
+                if (matched) {
+                    link.textContent = lang === 'en' ? matched.en : matched.ko;
+                }
+            });
+
+            // Table Headers
+            const thElements = document.querySelectorAll('table thead tr th');
+            if (thElements.length === t.tableHeaders.length) {
+                thElements.forEach((th, idx) => {
+                    th.textContent = t.tableHeaders[idx];
+                });
+            }
+
+            // Table Body Country Names
+            document.querySelectorAll('table tbody tr td:nth-child(2) span.font-bold').forEach(span => {
+                const txt = span.textContent.trim();
+                if (lang === 'en' && COUNTRY_MAP[txt]) {
+                    span.textContent = COUNTRY_MAP[txt];
+                } else if (lang === 'ko' && REVERSE_COUNTRY_MAP[txt]) {
+                    span.textContent = REVERSE_COUNTRY_MAP[txt];
+                }
+            });
+
+            // Units conversion in table ('대' -> ' units', '주' -> ' wks', 'k대' -> 'k units')
+            document.querySelectorAll('table tbody tr td').forEach(td => {
+                td.querySelectorAll('span').forEach(s => {
+                    if (!s.hasAttribute('data-ko-unit')) {
+                        s.setAttribute('data-ko-unit', s.textContent.trim());
+                    }
+                    const orig = s.getAttribute('data-ko-unit');
+                    if (lang === 'en') {
+                        s.textContent = orig
+                            .replace(/([0-9,]+)대/g, '$1 units')
+                            .replace(/([0-9.]+)k대/g, '$1k units')
+                            .replace(/([0-9.]+)주/g, '$1 wks');
+                    } else {
+                        s.textContent = orig;
+                    }
+                });
+
+                // Check text nodes for WOS
+                if (td.classList.contains('text-center') && td.textContent.includes('주')) {
+                    if (!td.hasAttribute('data-ko-wos')) {
+                        td.setAttribute('data-ko-wos', td.textContent.trim());
+                    }
+                    const origWos = td.getAttribute('data-ko-wos');
+                    td.textContent = lang === 'en' ? origWos.replace('주', ' wks') : origWos;
+                }
+            });
+
+            // Forward to iframe if loaded
+            const iframe = document.getElementById('report-iframe');
+            if (iframe && iframe.contentWindow) {
+                try {
+                    iframe.contentWindow.postMessage({ type: 'PORTAL_LANG_CHANGE', lang: lang }, '*');
+                } catch(e) {}
+            }
+        }
+
+        window.setLanguage = setLanguage;
+
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'PORTAL_LANG_CHANGE') {
+                setLanguage(e.data.lang);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlLang = urlParams.get('lang');
+            const initLang = (urlLang === 'en' || urlLang === 'ko') ? urlLang : (localStorage.getItem('gdmi_lang') || localStorage.getItem('portal_lang') || 'ko');
+            setLanguage(initLang);
+        });
+
+        function showReport(name, path, tabName, element) {
+            justShownReport = true;
+            setTimeout(() => { justShownReport = false; }, 0);
+
+            document.getElementById('home-view-container').style.display = 'none';
+            document.getElementById('report-view-container').style.display = 'block';
+            
+            document.getElementById('btn-back-home').style.display = 'flex';
+            document.getElementById('page-indicator').innerText = name + ' TV 리포트';
+            
+            // Update Report Week dynamically based on mapping
+            const headerWeek = document.getElementById('report-week-header');
+            if (headerWeek) {
+                headerWeek.innerText = REGION_WEEK_MAP[name] || DEFAULT_REPORT_WEEK;
+            }
+            
+            const iframe = document.getElementById('report-iframe');
+            
+            const tabHashMap = {
+                'summary': 'tab_summary',
+                'dash': 'tab_weekly',
+                'weekly': 'tab_weekly',
+                'monthly': 'tab_monthly',
+                'channel': 'tab_channel',
+                'inventory': 'tab_inventory'
+            };
+            const tabHash = tabHashMap[tabName] || '';
+            
+            if (currentPath !== path) {
+                currentPath = path;
+                
+                // Add a cache buster only when loading a new country report
+                const cacheBuster = 'cb=' + Date.now();
+                const separator = path.includes('?') ? '&' : '?';
+                const basePathWithBuster = path + separator + cacheBuster;
+                const srcWithHash = tabHash ? (basePathWithBuster + '#' + tabHash) : basePathWithBuster;
+                
+                iframe.src = srcWithHash;
+                
+                iframe.onload = function() {
+                    // Try dynamic CSS injection to hide the iframe's sidebar and maximize content space
+                    try {
+                        const doc = iframe.contentDocument || iframe.contentWindow.document;
+                        if (doc) {
+                            let styleEl = doc.getElementById('parent-injected-style');
+                            if (!styleEl) {
+                                styleEl = doc.createElement('style');
+                                styleEl.id = 'parent-injected-style';
+                                styleEl.textContent = `
+                                    aside { display: none !important; }
+                                    main { margin-left: 0 !important; }
+                                    header { display: none !important; }
+                                `;
+                                doc.head.appendChild(styleEl);
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Iframe dynamic style injection failed:", e);
+                    }
+
+                    if (tabName) {
+                        selectIframeTab(iframe, tabName);
+                    }
+                };
+            } else {
+                // Keep the exact same cache buster to prevent browser from reloading the iframe
+                const currentSrcBase = iframe.src.split('#')[0];
+                iframe.src = currentSrcBase + (tabHash ? '#' + tabHash : '');
+                
+                if (tabName) {
+                    selectIframeTab(iframe, tabName);
+                }
+            }
+            
+            // Sidebar active highlights
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.country-node').forEach(node => node.classList.remove('active'));
+            document.querySelectorAll('.sub-link').forEach(link => link.classList.remove('active'));
+            
+            if (element) {
+                const parentNode = element.closest('.country-node');
+                if (parentNode) {
+                    parentNode.classList.add('active');
+                    
+                    // Collapse all other submenus first
+                    document.querySelectorAll('.sub-menu').forEach(menu => {
+                        if (menu !== parentNode.querySelector('.sub-menu')) {
+                            menu.style.display = 'none';
+                            const otherId = menu.id.replace('sub-', '');
+                            const arrow = document.getElementById('arrow-' + otherId);
+                            if (arrow) arrow.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    const menu = parentNode.querySelector('.sub-menu');
+                    if (menu) {
+                        menu.style.display = 'flex';
+                        const countryId = parentNode.id.replace('node-', '');
+                        const arrow = document.getElementById('arrow-' + countryId);
+                        if (arrow) arrow.style.transform = 'rotate(180deg)';
+                    }
+                }
+                element.classList.add('active');
+            }
+        }
+
+        function selectIframeTab(iframe, tabType) {
+            try {
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                if (!doc) return;
+
+                // Make sure the CSS is injected if it hasn't been already
+                let styleEl = doc.getElementById('parent-injected-style');
+                if (!styleEl) {
+                    styleEl = doc.createElement('style');
+                    styleEl.id = 'parent-injected-style';
+                    styleEl.textContent = `
+                        aside { display: none !important; }
+                        main { margin-left: 0 !important; }
+                    `;
+                    doc.head.appendChild(styleEl);
+                }
+                
+                let targetId = '';
+                let searchStr = '';
+                
+                if (tabType === 'summary') {
+                    targetId = 'btn_summary';
+                    searchStr = 'tab_summary';
+                } else if (tabType === 'weekly' || tabType === 'dash') {
+                    targetId = 'btn_weekly';
+                    searchStr = 'tab_weekly';
+                } else if (tabType === 'monthly') {
+                    targetId = 'btn_monthly';
+                    searchStr = 'tab_monthly';
+                } else if (tabType === 'channel') {
+                    targetId = 'btn_channel';
+                    searchStr = 'tab_channel';
+                } else if (tabType === 'inventory') {
+                    targetId = 'btn_inventory';
+                    searchStr = 'tab_inventory';
+                }
+                
+                if (targetId) {
+                    const tabEl = doc.getElementById(targetId) || 
+                                  doc.querySelector(`.sidebar-item[onclick*="${searchStr}"]`) || 
+                                  doc.querySelector(`[onclick*="${searchStr}"]`);
+                    if (tabEl) {
+                        tabEl.click();
+                    } else {
+                        // fallback text search
+                        const textMap = {
+                            'summary': 'Executive Summary',
+                            'weekly': '주간 판매 현황',
+                            'monthly': '월간 판매 현황',
+                            'channel': '유통별 판매 현황',
+                            'inventory': '재고 관리 대상 모델'
+                        };
+                        const text = textMap[tabType === 'dash' ? 'weekly' : tabType];
+                        if (text) {
+                            const btn = Array.from(doc.querySelectorAll('button, a, div')).find(el => el.textContent.includes(text));
+                            if (btn) btn.click();
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Iframe 내부 탭 전환 실패:", e);
+            }
+        }
+    </script>
+</body>
+</html>

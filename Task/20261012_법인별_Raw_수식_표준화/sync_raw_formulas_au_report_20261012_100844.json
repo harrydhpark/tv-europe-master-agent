@@ -1,0 +1,535 @@
+{
+  "stamp": "20261012_100844",
+  "backup_dir": "C:\\PnL_Raw_Backup_20261012_100844",
+  "source": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\05. Swiss\\★Swiss_ P&L Analysis_NERP_New_FROM 202301_TO_202609.xlsb",
+  "files": [
+    {
+      "entity": "04. DG",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\04. DG\\★LGEDG_ P&L Analysis_NERP_New_FROM 202301_TO_202607.xlsb",
+      "status": "ERROR",
+      "calc_mode_before": -4135,
+      "last_row_V": 221948,
+      "last_row_AC": 941792,
+      "last_row_used": 941792,
+      "before_non_standard": {
+        "K": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 2,
+          "value_cells": 59
+        },
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "P": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "error": "com_error(-2147352567, '예외가 발생했습니다.', (0, 'Microsoft Excel', 'Workbook 클래스 중 SaveCopyAs 메서드에 오류가 있습니다.', 'xlmain11.chm', 0, -2146827284), None)"
+    },
+    {
+      "entity": "06. ES",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\06. ES\\★LGEES_ P&L Analysis_NERP_New_FROM 202301_TO_202609.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 491523,
+      "last_row_AC": 491523,
+      "last_row_used": 491523,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 281.5
+    },
+    {
+      "entity": "07. FS",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\07. FS\\★LGEFS_ P&L Analysis_NERP_New_FROM 202301_TO_202609.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 221948,
+      "last_row_AC": 143416,
+      "last_row_used": 221948,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 107.6
+    },
+    {
+      "entity": "08. HS",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\08. HS\\★LGEHS_ P&L Analysis_NERP_New_FROM 202301_TO_202609.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 89085,
+      "last_row_AC": 89085,
+      "last_row_used": 89085,
+      "before_non_standard": {
+        "H": {
+          "sample_rows": 89085,
+          "non_standard_cells": 34240,
+          "patterns": 3,
+          "value_cells": 34127
+        },
+        "L": {
+          "sample_rows": 89085,
+          "non_standard_cells": 210,
+          "patterns": 2,
+          "value_cells": 0
+        },
+        "M": {
+          "sample_rows": 89085,
+          "non_standard_cells": 89084,
+          "patterns": 2,
+          "value_cells": 199
+        },
+        "Q": {
+          "sample_rows": 89085,
+          "non_standard_cells": 89084,
+          "patterns": 4,
+          "value_cells": 198
+        },
+        "U": {
+          "sample_rows": 89085,
+          "non_standard_cells": 199,
+          "patterns": 2,
+          "value_cells": 199
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 56.9
+    },
+    {
+      "entity": "09. IS",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\09. IS\\★LGEIS_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4135,
+      "last_row_V": 221948,
+      "last_row_AC": 142827,
+      "last_row_used": 221948,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 108.5
+    },
+    {
+      "entity": "10. LA",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\10. LA\\★LGELA_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4135,
+      "last_row_V": 221948,
+      "last_row_AC": 67468,
+      "last_row_used": 221948,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 92.2
+    },
+    {
+      "entity": "11. MK",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\11. MK\\★LGEMK_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 164487,
+      "last_row_AC": 164487,
+      "last_row_used": 164487,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 89.3
+    },
+    {
+      "entity": "12. PL",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\12. PL\\★LGEPL_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 34560,
+      "last_row_AC": 34560,
+      "last_row_used": 34560,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 34560,
+          "non_standard_cells": 34559,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 34560,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 34560,
+          "non_standard_cells": 34559,
+          "patterns": 3,
+          "value_cells": 178
+        },
+        "U": {
+          "sample_rows": 34560,
+          "non_standard_cells": 179,
+          "patterns": 2,
+          "value_cells": 179
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 23.0
+    },
+    {
+      "entity": "13. PT",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\13. PT\\★LGEPT_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 160627,
+      "last_row_AC": 160627,
+      "last_row_used": 160627,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 84.5
+    },
+    {
+      "entity": "14. RO",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\14. RO\\★LGERO_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 31642,
+      "last_row_AC": 31642,
+      "last_row_used": 31642,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 31642,
+          "non_standard_cells": 31641,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 31642,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 31642,
+          "non_standard_cells": 31641,
+          "patterns": 3,
+          "value_cells": 158
+        },
+        "U": {
+          "sample_rows": 31642,
+          "non_standard_cells": 159,
+          "patterns": 2,
+          "value_cells": 159
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 21.6
+    },
+    {
+      "entity": "15. SW",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\15. SW\\★LGESW_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 67876,
+      "last_row_AC": 67876,
+      "last_row_used": 67876,
+      "before_non_standard": {
+        "H": {
+          "sample_rows": 67876,
+          "non_standard_cells": 12918,
+          "patterns": 2,
+          "value_cells": 12918
+        },
+        "M": {
+          "sample_rows": 67876,
+          "non_standard_cells": 67875,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 67876,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 67876,
+          "non_standard_cells": 67875,
+          "patterns": 3,
+          "value_cells": 198
+        },
+        "U": {
+          "sample_rows": 67876,
+          "non_standard_cells": 199,
+          "patterns": 2,
+          "value_cells": 199
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 44.2
+    },
+    {
+      "entity": "16. UK",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\16. UK\\★LGEUK_ P&L Analysis_NERP_New_FROM 202301_TO_202608.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4105,
+      "last_row_V": 355765,
+      "last_row_AC": 355765,
+      "last_row_used": 355765,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 195.2
+    },
+    {
+      "entity": "17. RA",
+      "file": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\05. TV P&L Analysis\\법인별\\17. RA\\★LGERA_ P&L Analysis_NERP_New_FROM 202301_TO_202606.xlsb",
+      "status": "OK",
+      "calc_mode_before": -4135,
+      "last_row_V": 509314,
+      "last_row_AC": 64482,
+      "last_row_used": 509314,
+      "before_non_standard": {
+        "M": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 1,
+          "value_cells": 0
+        },
+        "N": {
+          "sample_rows": 10000,
+          "non_standard_cells": 1,
+          "patterns": 2,
+          "value_cells": 1
+        },
+        "Q": {
+          "sample_rows": 10000,
+          "non_standard_cells": 9999,
+          "patterns": 3,
+          "value_cells": 58
+        },
+        "U": {
+          "sample_rows": 10000,
+          "non_standard_cells": 59,
+          "patterns": 2,
+          "value_cells": 59
+        }
+      },
+      "after_non_standard": {},
+      "seconds": 260.3
+    }
+  ],
+  "standard_r1c1": {
+    "A": "=LEFT(RC[28],4)",
+    "B": "=RIGHT(RC[27],2)",
+    "C": "=IFERROR(VLOOKUP(RC2,REF!C3:C5,2,0),\"-\")",
+    "D": "=IFERROR(VLOOKUP(RC2,REF!C3:C5,3,0),\"-\")",
+    "E": "=IFERROR(VLOOKUP(LEFT(RC41,4),Mapping!C19:C23,2,0),\"Others\")",
+    "F": "=IFERROR(IFERROR(VLOOKUP(RC36,Mapping!C39:C40,2,0),VLOOKUP(LEFT(RC[35],4),Mapping!C19:C23,3,0)),\"Others\")",
+    "G": "=IF(RC[-1]=\"TV\",VLOOKUP(RIGHT(RC[34],1),Mapping!C27:C28,2,0),\"x\")",
+    "H": "=IF(LEFT(RC[28],4)=\"OLED\",\"OLED\",VLOOKUP(LEFT(RC[33],4),Mapping!C19:C23,5,0))",
+    "I": "=IF(OR(LEFT(RC13,1)=\"z\",LEFT(RC13,4)=\"SM99\",LEFT(RC13,6)=\"NANO99\",LEFT(RC13,6)=\"NANO96\",LEFT(RC13,6)=\"NANO95\",LEFT(RC13,6)=\"QNED99\",LEFT(RC13,6)=\"QNED96\"),\"8K\",\"x\")",
+    "J": "=IF(LEFT(RC[31],3)<>\"TVL\", \"Others\",\n    IF(OR(\n        AND(RC[22]=\"LGEKR\", OR(RC[-4]=\"TV\", RC[-4]=\"Acc.\")),\n        AND(RC[22]<>\"LGEKR\", RC[-5]=\"Cons.\", RC[-4]=\"TV\")\n    ),\n    IF(OR(LEFT(RC[26],4)=\"OLED\", RC[-2]=\"OLED\"), \"OLED\", IF(RC[-3]=\"UHD\", \"UHD\", \"FHD\")),\n    \"x\")\n)",
+    "K": "=IFS(\n    LEFT(RC[9],4)=\"OLED\", LEFT(RC[2],1),\n    LEFT(RC[2],4)=\"NANO\", \"NANO\",\n    LEFT(RC[2],4)=\"QNED\", \"QNED\",\n    LEFT(RC[2],4)=\"MRGB\", \"MRGB\",\n    TRUE, LEFT(RC[2],2)\n)",
+    "L": "=IF(RC[1]=\"x\",\"x\",RC[5]&RC[1])",
+    "M": "=IFS(LEFT(RC[7],4)=\"OLED\",MID(RC[7],7,2),LEFT(RC[7],3)=\"105\",MID(RC[7],4,3),LEFT(RC[7],3)=\"100\",MID(RC[7],4,7),LEFT(RC[7],3)=\"115\",MID(RC[7],4,7),OR(MID(RC[7],3,4)=\"NANO\",MID(RC[7],3,4)=\"QNED\"),IF(OR(MID(RC[7],LEN(RC[7])-2,2)=\"A6\",MID(RC[7],LEN(RC[7])-2,2)=\"T6\",ISNUMBER(FIND(MID(RC[7],LEN(RC[7])-2,1),\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\"))),MID(RC[7],3,7),MID(RC[7],3,6)&MID(RC[7],10,1)),MID(RC[7],3,4)=\"MRGB\",MID(RC[7],3,7),TRUE,MID(RC[7],3,4))",
+    "N": "=IF(RC[-8]=\"TV\",IF(LEFT(RC[6],4)=\"OLED\",MID(RC[6],7,2),IF(LEFT(RC[6],3)=\"105\",MID(RC[6],4,6),IF(AND(MID(RC20,3,4)=\"NANO\",MID(RC20,10,1)=\"P\"),MID(RC20,3,6)&MID(RC20,10,1),MID(RC[6],3,6)))),\"x\")",
+    "O": "=IF(OR(LEFT(RC[-2],4)=\"NANO\",LEFT(RC[-2],4)=\"QNED\"),\"나노셀\",IFERROR(VLOOKUP(RC6&RC13,Mapping!C64:C65,2,0),IFERROR(VLOOKUP(RC6&RC12,Mapping!C64:C65,2,0),IFERROR(VLOOKUP(RC12,Mapping!C64:C65,2,0),IFERROR(VLOOKUP(RC13,Mapping!C60:C61,2,0),\"x\")))))",
+    "P": "=IF(RC[-5]=\"QNED\",\"QNED\",IF(RC[-5]=\"MRGB\",\"MRGB\",\"x\"))",
+    "Q": "=IFS(\n    RC[-11]<>\"TV\", \"x\",\n    LEFT(RC[3],4)=\"OLED\", MID(RC[3],5,2)*1,\n    LEFT(RC[3],1)=\"V\", \"x\",LEFT(RC[3],3)=\"115\", 115,\n    LEFT(RC[3],3)=\"105\", 105,\n    LEFT(RC[3],3)=\"100\", 100,\n    TRUE, LEFT(RC[3],2)*1\n)",
+    "R": "=IF(RC[-1]=\"x\",\"x\",IF(RC[-8]=\"UHD\",IF(RC[-1]>=70,\"초대형\",\"x\"),\"x\"))",
+    "S": "=IF(RC[-2]=\"x\",\"x\",IF(OR(RC[-9]=\"OLED\",RC[-9]=\"UHD\"),IF(RC[-2]>=70,\"초대형\",\"x\"),\"x\"))",
+    "T": "=IF(RC[-14]=\"TV\",LEFT(RC[16],FIND(\".\",RC[16])-1),\"x\")",
+    "U": "=IF(RC[-4]=\"x\",\"x\",IF(AND(LEFT(RC13,4)=\"NANO\",MID(RC20,10,1)=\"P\"),\"2021Y\",IFERROR(VLOOKUP((RC[-10]&RIGHT(RC[-1],3)),Mapping!C34:C35,2,FALSE),IFERROR(IFERROR(IFERROR(IFERROR(IFERROR(VLOOKUP(RC[-13]&RC[-10],Mapping!C32:C35,4,0),VLOOKUP(RC[-7],Mapping!C32:C35,4,0)),VLOOKUP(RC[-8],Mapping!C32:C35,4,0)),VLOOKUP(LEFT(RC[-7],5),Mapping!C32:C35,4,0)),VLOOKUP(RC[9]&RC[-10],Mapping!C32:C35,4,0)),\"x\"))))"
+  }
+}

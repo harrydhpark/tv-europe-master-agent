@@ -1,0 +1,98 @@
+id="tab-db" class="tab-content space-y-6">
+                <div class="border-b border-slate-200 pb-5">
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-slate-100 text-slate-800 text-xs font-semibold mb-2">
+                        <span class="material-symbols-outlined text-sm">database</span>
+                        <span>Enterprise Data Architecture & High-Speed Pipeline</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-primary tracking-tight font-headline">4. DB 구조 & 파이프라인</h2>
+                    <p class="text-sm text-text-muted mt-1">대용량 엑셀 원천 데이터의 고속 파싱, 인덱싱 및 무충돌 저장 표준 아키텍처</p>
+                </div>
+
+                <!-- 3-Tier Data Architecture -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 clean-card">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl">table_chart</span>
+                        </div>
+                        <h3 class="text-base font-bold text-primary">1. 원천 데이터 계층 (Raw Layer)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            수십만 행의 영업 실적 엑셀(`26년_유럽+CIS_KPI.xlsx`), 국가별 P&L 엑셀, GfK 대용량 시트 및 Playwright 웹 크롤러가 일일 수집한 판매가 DB 파일들로 구성됩니다.
+                        </p>
+                        <div class="text-[11px] text-slate-500 font-mono bg-slate-50 p-3 rounded border border-slate-200 space-y-1">
+                            <div>• .xlsx / .xlsb / .json</div>
+                            <div>• 15개국 일일 스크래핑 DB</div>
+                            <div>• HedEj 실시간 API 스트림</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 clean-card">
+                        <div class="w-10 h-10 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl">memory</span>
+                        </div>
+                        <h3 class="text-base font-bold text-primary">2. 고속 가공 엔진 (Compute Layer)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            엑셀 셀 반복문을 완전 배제하고, Python <strong>Pandas Overlay Bulk Engine</strong> 및 <strong>DuckDB</strong> 메모리 인덱싱을 통해 수십만 셀을 1초 내로 가공 및 정규화합니다.
+                        </p>
+                        <div class="text-[11px] text-slate-500 font-mono bg-slate-50 p-3 rounded border border-slate-200 space-y-1">
+                            <div>• pd.ExcelWriter overlay 모드</div>
+                            <div>• SaveCopyAs 원자적 대체 패턴</div>
+                            <div>• DuckDB 마스터 쿼리 엔진</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3 clean-card">
+                        <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl">inventory_2</span>
+                        </div>
+                        <h3 class="text-base font-bold text-primary">3. 정규화 배포 번들 (Serving Layer)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            가공된 데이터는 `master_data_bundle.json` 및 사전 컴파일된 정적 JSON으로 컴팩트하게 압축되어, Firebase 웹 호스팅 상에서 지연 없이 0.1초 내로 로드됩니다.
+                        </p>
+                        <div class="text-[11px] text-slate-500 font-mono bg-slate-50 p-3 rounded border border-slate-200 space-y-1">
+                            <div>• master_data_bundle.json</div>
+                            <div>• advance_profitability_data.json</div>
+                            <div>• ms_trend_data.json</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clean Architecture Rule Box -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-primary flex items-center gap-2">
+                        <span class="material-symbols-outlined text-secondary">rule</span>
+                        <span>대용량 엑셀 처리 표준 가이드라인 (Anti-Hang & SaveCopyAs Pattern)</span>
+                    </h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        AXIS 시스템의 모든 파이프라인 스크립트는 엑셀 파일 락 충돌 및 프로세스 무한 정체(Hang)를 방지하기 위해 엄격한 사내 규칙을 준수합니다.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-2 text-rose-700 font-bold text-xs">
+                                <span class="material-symbols-outlined text-sm">cancel</span>
+                                <span>금지 패턴 (Cell-by-Cell & wb.Save Direct)</span>
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                • 셀 하나씩 루프를 돌며 값을 읽고 쓰는 연산 방식 금지 (수십만 셀 연산 시 Recalculation 병목)<br/>
+                                • 대용량 바이너리 시트에서 Excel COM 구동 시 `wb.Save()` 직접 호출 금지 (RPC 서버 오류 및 프로세스 Lock 발생)
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex items-center gap-2 text-emerald-700 font-bold text-xs">
+                                <span class="material-symbols-outlined text-sm">check_circle</span>
+                                <span>표준 패턴 (Pandas Overlay & SaveCopyAs)</span>
+                            </div>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">
+                                • Python Pandas 메모리 상에서 벌크 로드 후 `mode='a'`, `if_sheet_exists='overlay'`로 블록 일괄 주입<br/>
+                                • COM 자동화 시 `excel.Calculation = -4135` (Manual) 설정 후 `wb.SaveCopyAs(temp)` 무충돌 복제 저장 및 `shutil.move()` 원자적 교체
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================================= -->
+            <!-- TAB 5: 보안 구성 & 거버넌스 (Security & Auth Guard) -->
+            <!-- ========================================================================= -->
+            <section 

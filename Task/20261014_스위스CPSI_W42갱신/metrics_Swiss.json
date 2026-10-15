@@ -1,0 +1,237 @@
+{
+  "region_name": "Swiss (스위스)",
+  "folder": "05. Swiss",
+  "prefix": "Swiss",
+  "code": "Swiss",
+  "node_id": "node-swiss",
+  "order_no": "05",
+  "xlsb_path": "05. Swiss\\Swiss_CPSI_Revised_Final.xlsb",
+  "extracted_at": "2026-10-14T12:45:24.536393",
+  "week": 41,
+  "week_str": "W41",
+  "ref_date": "",
+  "header_date_str": "W41",
+  "table_date_str": "W41",
+  "summary": {
+    "gdmi": 1256,
+    "yoy_pct": 0.095,
+    "vs_pl_pct": 1.1429,
+    "plan_ach_pct": 2.1429,
+    "avg_4w": 1112,
+    "avg_4w_yoy_pct": -0.0131,
+    "avg_4w_pl_pct": 0.9873,
+    "ytd_gdmi": 51194,
+    "ytd_py": 49722,
+    "ytd_yoy_pct": 0.0296,
+    "ch_inv": 8401,
+    "inv_vs_py": -1273,
+    "wos": 7.6,
+    "wos_8w": 3.8,
+    "status": "✓ Healthy",
+    "status_badge_class": "bg-green-50 text-green-700 border-green-200"
+  },
+  "segments": {
+    "OLED": {
+      "name": "OLED",
+      "cur_w": 721,
+      "yoy_pct": 0.3254,
+      "vs_pl_pct": 1.3254,
+      "avg_4w": 617,
+      "avg_4w_yoy_pct": 0.1426,
+      "ch_inv": 3763,
+      "wos": 6.1
+    },
+    "QNED": {
+      "name": "QNED_MRGB",
+      "cur_w": 308,
+      "yoy_pct": 0.0132,
+      "vs_pl_pct": 0.7719,
+      "avg_4w": 276,
+      "avg_4w_yoy_pct": -0.0508,
+      "ch_inv": 3107,
+      "wos": 11.3
+    },
+    "NANO": {
+      "name": "NANO",
+      "cur_w": 4,
+      "yoy_pct": -0.95,
+      "vs_pl_pct": 0.8,
+      "avg_4w": 10,
+      "avg_4w_yoy_pct": -0.8864,
+      "ch_inv": 190,
+      "wos": 19.0
+    },
+    "UHD": {
+      "name": "UHD",
+      "cur_w": 131,
+      "yoy_pct": -0.2202,
+      "vs_pl_pct": 1.0917,
+      "avg_4w": 142,
+      "avg_4w_yoy_pct": 0.0035,
+      "ch_inv": 924,
+      "wos": 6.5
+    },
+    "FHD_STV": {
+      "name": "FHD_STV",
+      "cur_w": 92,
+      "yoy_pct": 0.8039,
+      "vs_pl_pct": 2.9677,
+      "avg_4w": 67,
+      "avg_4w_yoy_pct": 0.0075,
+      "ch_inv": 417,
+      "wos": 6.2
+    }
+  },
+  "inventory_highlights": [
+    {
+      "blu": "Swiss TTL",
+      "ch_inv": 8401,
+      "wos": 7.6,
+      "status": "✓ Healthy"
+    },
+    {
+      "blu": "OLED",
+      "ch_inv": 3763,
+      "wos": 6.1,
+      "status": "✓ Healthy"
+    },
+    {
+      "blu": "QNED/MRGB",
+      "ch_inv": 3107,
+      "wos": 11.3,
+      "status": "⛔ Critical"
+    },
+    {
+      "blu": "NANO",
+      "ch_inv": 190,
+      "wos": 19.0,
+      "status": "⛔ Critical"
+    },
+    {
+      "blu": "UHD",
+      "ch_inv": 924,
+      "wos": 6.5,
+      "status": "✓ Healthy"
+    },
+    {
+      "blu": "FHD/STV",
+      "ch_inv": 417,
+      "wos": 6.2,
+      "status": "✓ Healthy"
+    }
+  ],
+  "critical_models": [
+    {
+      "model": "OLED65C58LA.AVS",
+      "ch_inv": 200,
+      "sell_out": 81,
+      "wos4": 9.9,
+      "status": "🔍 Watch"
+    },
+    {
+      "model": "65QNED81B6A.AVS",
+      "ch_inv": 155,
+      "sell_out": 11,
+      "wos4": 56.4,
+      "status": "🔍 Watch"
+    },
+    {
+      "model": "OLED77C57LA.AVS",
+      "ch_inv": 149,
+      "sell_out": 55,
+      "wos4": 10.8,
+      "status": "🔍 Watch"
+    },
+    {
+      "model": "55QNED87A6B.AEU",
+      "ch_inv": 118,
+      "sell_out": 2,
+      "wos4": 236.0,
+      "status": "⛔ Critical"
+    },
+    {
+      "model": "OLED55G59LS.AVS",
+      "ch_inv": 104,
+      "sell_out": 40,
+      "wos4": 10.4,
+      "status": "⚠ Warning"
+    },
+    {
+      "model": "55QNED80A6A.AEU",
+      "ch_inv": 102,
+      "sell_out": 38,
+      "wos4": 10.7,
+      "status": "⚠ Warning"
+    },
+    {
+      "model": "50QNED80A6A.AEU",
+      "ch_inv": 99,
+      "sell_out": 4,
+      "wos4": 99.0,
+      "status": "⛔ Critical"
+    },
+    {
+      "model": "OLED55G57LW.AVS",
+      "ch_inv": 97,
+      "sell_out": 35,
+      "wos4": 11.1,
+      "status": "🔍 Watch"
+    },
+    {
+      "model": "OLED48G59LS.AVS",
+      "ch_inv": 88,
+      "sell_out": 3,
+      "wos4": 117.3,
+      "status": "🔍 Watch"
+    },
+    {
+      "model": "43QNED81B6C.AVS",
+      "ch_inv": 71,
+      "sell_out": 17,
+      "wos4": 16.7,
+      "status": "⛔ Critical"
+    },
+    {
+      "model": "OLED77C59LB.AVS",
+      "ch_inv": 68,
+      "sell_out": 15,
+      "wos4": 18.1,
+      "status": "⚠ Warning"
+    },
+    {
+      "model": "50QNED87A6D.AEU",
+      "ch_inv": 63,
+      "sell_out": 19,
+      "wos4": 13.3,
+      "status": "⛔ Critical"
+    },
+    {
+      "model": "65UA75006LA.AEU",
+      "ch_inv": 62,
+      "sell_out": 15,
+      "wos4": 16.5,
+      "status": "⚠ Warning"
+    },
+    {
+      "model": "50UA75006LA.AEU",
+      "ch_inv": 61,
+      "sell_out": 3,
+      "wos4": 81.3,
+      "status": "⛔ Critical"
+    },
+    {
+      "model": "65NANO80A6B.AEU",
+      "ch_inv": 53,
+      "sell_out": 7,
+      "wos4": 30.3,
+      "status": "⚠ Warning"
+    },
+    {
+      "model": "86NANO81A6A.AVS",
+      "ch_inv": 50,
+      "sell_out": 8,
+      "wos4": 25.0,
+      "status": "⚠ Warning"
+    }
+  ]
+}

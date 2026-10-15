@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스위스 법인 TV 손익 분석 및 4P 전략 보고서 (2024 ~ 2026.08 YTD)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#A50034',
+              hover: '#E6004C',
+              light: '#FFD6E0',
+              dark: '#7A0026'
+            },
+            slate: {
+              850: '#161F30',
+              900: '#0F172A',
+              950: '#0B0F19'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #111827;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #4B5563;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen custom-scrollbar antialiased selection:bg-brand-red selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-red to-rose-600 flex items-center justify-center shadow-lg shadow-brand-red/20">
+        <i class="fa-solid fa-chart-line text-white text-lg"></i>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-red/20 text-brand-light border border-brand-red/30">LG Europe TV AX</span>
+          <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300">Swiss Branch (스위스 지점)</span>
+        </div>
+        <h1 class="text-lg font-black tracking-tight text-white mt-0.5">스위스 TV 손익(P&L) 심층 분석 및 4P 혁신 개선 과제</h1>
+      </div>
+    </div>
+    <div class="flex items-center space-x-3 text-xs text-slate-400">
+      <span class="flex items-center space-x-1.5 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60">
+        <i class="fa-regular fa-calendar text-brand-light"></i>
+        <span>비교 대상: 2024~2026년 1~8월 누적 (Jan-Aug YTD)</span>
+      </span>
+      <span class="flex items-center space-x-1.5 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60">
+        <i class="fa-solid fa-scale-balanced text-emerald-400"></i>
+        <span>회계 기준: Standard P&L (공식 결산)</span>
+      </span>
+      <button onclick="window.print()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition border border-slate-700 flex items-center space-x-1.5">
+        <i class="fa-solid fa-print"></i>
+        <span>보고서 인쇄/PDF</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-6 py-6 space-y-6">
+
+    <!-- Tab Navigation Buttons -->
+    <div class="flex items-center space-x-2 border-b border-slate-800 pb-2">
+      <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition flex items-center space-x-2 bg-brand-red text-white shadow-lg shadow-brand-red/20">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>1. 경영진 요약 & 3개년 손익 추이</span>
+      </button>
+      <button onclick="switchTab('tab-4p-diagnostic')" id="btn-tab-4p-diagnostic" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+        <span>2. 4P 영역별 심층 데이터 진단</span>
+      </button>
+      <button onclick="switchTab('tab-4p-action')" id="btn-tab-4p-action" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>3. 4P 전략 로드맵 & 핵심 실행 과제</span>
+      </button>
+      <button onclick="switchTab('tab-simulator')" id="btn-tab-simulator" class="tab-btn px-4 py-2.5 rounded-xl font-medium text-sm transition flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-slate-800/60">
+        <i class="fa-solid fa-sliders"></i>
+        <span>4. 유통 마진 개선 시뮬레이터 & 피벗 탐색기</span>
+      </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: Executive Summary & 3Y P&L Overview -->
+    <!-- ========================================== -->
+    <section id="tab-overview" class="tab-pane space-y-6">
+      
+      <!-- Executive Alert Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Qty Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4.5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">누적 판매 수량</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold">YoY +9.4%</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span class="text-3xl font-black text-white">41,239</span>
+            <span class="text-xs text-slate-400">대</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>'24: 41,510대</span>
+            <span class="text-slate-600">→</span>
+            <span>'25: 37,697대</span>
+            <span class="text-slate-600">→</span>
+            <span class="text-emerald-400 font-bold">'26: 41,239대</span>
+          </div>
+        </div>
+
+        <!-- Net Sales Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4.5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Net Sales (매출액)</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold">YoY +7.1%</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span class="text-3xl font-black text-white">$36.08M</span>
+            <span class="text-xs text-slate-400">($36,077K)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>'24: $31.27M</span>
+            <span class="text-slate-600">→</span>
+            <span>'25: $33.67M</span>
+            <span class="text-slate-600">→</span>
+            <span class="text-emerald-400 font-bold">'26: $36.08M</span>
+          </div>
+        </div>
+
+        <!-- ASP Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4.5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">출하 평균 단가 (ASP)</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 font-bold">YoY -$18.3 (-2.1%)</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span class="text-3xl font-black text-white">$874.8</span>
+            <span class="text-xs text-slate-400">/대</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>'24: $753.4</span>
+            <span class="text-slate-600">→</span>
+            <span class="text-emerald-400">'25: $893.2</span>
+            <span class="text-slate-600">→</span>
+            <span class="text-rose-400 font-bold">'26: $874.8</span>
+          </div>
+        </div>
+
+        <!-- COI Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4.5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">영업이익 (COI & COI%)</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold">YoY +$1,297K</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span class="text-3xl font-black text-emerald-400">13.78%</span>
+            <span class="text-xs text-slate-300 font-bold">($4,972K)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+            <span>'24: 2.27% ($711K)</span>
+            <span class="text-slate-600">→</span>
+            <span>'25: 10.91% ($3,675K)</span>
+            <span class="text-slate-600">→</span>
+            <span class="text-emerald-400 font-bold">'26: 13.78%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategic Narrative Box -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-900/90 to-brand-dark/20 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-brand-red/20 text-brand-light flex items-center justify-center shrink-0 mt-0.5">
+            <i class="fa-solid fa-bullhorn text-sm"></i>
+          </div>
+          <div class="space-y-2 text-sm leading-relaxed">
+            <h3 class="font-bold text-white text-base">경영진 핵심 시사점 (Executive Key Takeaways)</h3>
+            <p class="text-slate-300">
+              스위스 TV 사업은 2024년 영업이익률 2.27%($711K)의 저수익 국면에서 2025년 10.91%($3,675K), 2026년 8월 누적 <strong class="text-emerald-400">13.78%($4,972K)</strong>로 구조적 흑자 기조를 확립했습니다. 
+              이러한 질적 성장은 <strong class="text-white">OLED/QNED 고부가 믹스 전환</strong> 및 <strong class="text-white">재료비율의 구조적 하향 안정화(64.7% → 56.5%)</strong>가 견인했습니다.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="bg-slate-950/60 p-3 rounded-xl border border-rose-500/20">
+                <span class="font-bold text-rose-400 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span>수익성 위협 리스크 1: 출하 판가 침하 & 원가 의존 한계</span>
+                </span>
+                <p class="text-slate-400 mt-1">
+                  2026년 들어 ASP가 $893에서 $875로 -$18.3 하락했으며, 순수 판가 효과(Price Effect)가 -$653K로 작용했습니다. 원가 절감 효과(+$1,615K)가 판가 침하를 상쇄하고 있으나 원가 추가 절감 여력이 소진될 경우 이익률 급락 리스크가 상존합니다.
+                </p>
+              </div>
+              <div class="bg-slate-950/60 p-3 rounded-xl border border-amber-500/20">
+                <span class="font-bold text-amber-400 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-store-slash"></i>
+                  <span>수익성 위협 리스크 2: 대형 양판 유통(MSH/FUST) 적자 고착화</span>
+                </span>
+                <p class="text-slate-400 mt-1">
+                  MSH(MediaMarkt)는 매출 비중 18.5%($6.66M)에도 불구하고 <strong class="text-rose-400">COI -6.5%(-$430K 적자, SD% 38.0%)</strong>를 기록하고 있으며, FUST 역시 <strong class="text-rose-400">COI -4.3%(-$100K 적자)</strong>로 출하할수록 마진이 훼손되는 심각한 출혈 유통 구조를 노정하고 있습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row: Waterfall YoY Bridge & Multi-year P&L Stack -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Waterfall Bridge -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-white text-base flex items-center space-x-2">
+                <i class="fa-solid fa-arrow-trend-up text-brand-light"></i>
+                <span>'25년 vs '26년 영업이익(COI) 증감 Waterfall Bridge</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">단위: K$ (1~8월 누적 기준 YoY 변동 요인 분석)</p>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 font-semibold border border-slate-700">Net +$1,297K</span>
+          </div>
+          <div class="h-64">
+            <canvas id="chartWaterfall"></canvas>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-slate-800 text-center text-xs">
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">원가 절감 기여</span>
+              <span class="text-emerald-400 font-bold text-sm">+ $1,615K</span>
+            </div>
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">판가 하락 훼손</span>
+              <span class="text-rose-400 font-bold text-sm">- $653K</span>
+            </div>
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">판매량 증가 기여</span>
+              <span class="text-emerald-400 font-bold text-sm">+ $345K</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Year Trend & Cost Stack -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-white text-base flex items-center space-x-2">
+                <i class="fa-solid fa-layer-group text-sky-400"></i>
+                <span>3개년 손익 원가 구조 및 한계이익(MP%) 변화</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">매출액 대비 재료비, 판관비, 한계이익률 비중 추이</p>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">재료비율 -8.2%p 개선</span>
+          </div>
+          <div class="h-64">
+            <canvas id="chartCostStack"></canvas>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-slate-800 text-center text-xs">
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">'24 재료비율</span>
+              <span class="text-slate-300 font-bold text-sm">64.67%</span>
+            </div>
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">'25 재료비율</span>
+              <span class="text-slate-300 font-bold text-sm">57.54%</span>
+            </div>
+            <div class="bg-slate-950/40 p-2 rounded-lg">
+              <span class="text-slate-400 block">'26 재료비율</span>
+              <span class="text-emerald-400 font-bold text-sm">56.46%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Year P&L Statement Comprehensive Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm overflow-hidden">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-white text-base flex items-center space-x-2">
+              <i class="fa-solid fa-table-list text-brand-light"></i>
+              <span>3개년 표준 손익계산서 비교 (2024 ~ 2026.08 YTD)</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">단위: 금액 K$ (USD), 수량 대, 비율 %</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-800/80 text-slate-300 border-b border-slate-700 font-semibold">
+                <th class="py-3 px-4">손익 계정 항목</th>
+                <th class="py-3 px-4 text-right">2024 1~8월</th>
+                <th class="py-3 px-4 text-right">2025 1~8월</th>
+                <th class="py-3 px-4 text-right">2026 1~8월</th>
+                <th class="py-3 px-4 text-right text-emerald-400">YoY 증감 ('26 vs '25)</th>
+                <th class="py-3 px-4 text-right text-sky-400">2개년 증감 ('26 vs '24)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-200">
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-4 font-semibold text-slate-300">판매 수량 (Qty, 대)</td>
+                <td class="py-2.5 px-4 text-right">41,510</td>
+                <td class="py-2.5 px-4 text-right">37,697</td>
+                <td class="py-2.5 px-4 text-right font-bold text-white">41,239</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-semibold">+3,542 (+9.4%)</td>
+                <td class="py-2.5 px-4 text-right text-slate-400">-271 (-0.7%)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-4 font-semibold text-slate-300">Gross Sales (총매출)</td>
+                <td class="py-2.5 px-4 text-right">$42,278K</td>
+                <td class="py-2.5 px-4 text-right">$44,332K</td>
+                <td class="py-2.5 px-4 text-right font-bold text-white">$47,425K</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-semibold">+$3,093K (+7.0%)</td>
+                <td class="py-2.5 px-4 text-right text-sky-400">+$5,147K (+12.2%)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 text-rose-300">
+                <td class="py-2.5 px-4 pl-8">(-) Sales Deduction (매출차감)</td>
+                <td class="py-2.5 px-4 text-right">$11,005K</td>
+                <td class="py-2.5 px-4 text-right">$10,662K</td>
+                <td class="py-2.5 px-4 text-right font-bold">$11,348K</td>
+                <td class="py-2.5 px-4 text-right text-rose-400 font-semibold">+$686K (+6.4%)</td>
+                <td class="py-2.5 px-4 text-right text-rose-400">+$343K (+3.1%)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-slate-850/40">
+                <td class="py-2 px-4 pl-12 text-slate-400">└ 매출차감률 (S/D%)</td>
+                <td class="py-2 px-4 text-right text-slate-300">26.03%</td>
+                <td class="py-2 px-4 text-right text-slate-300">24.05%</td>
+                <td class="py-2 px-4 text-right font-bold text-emerald-400">23.93%</td>
+                <td class="py-2 px-4 text-right text-emerald-400">-0.12%p</td>
+                <td class="py-2 px-4 text-right text-emerald-400">-2.10%p</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-slate-800/50 font-bold">
+                <td class="py-3 px-4 text-white">Net Sales (순매출액)</td>
+                <td class="py-3 px-4 text-right text-slate-200">$31,273K</td>
+                <td class="py-3 px-4 text-right text-slate-200">$33,670K</td>
+                <td class="py-3 px-4 text-right text-emerald-400 text-sm">$36,077K</td>
+                <td class="py-3 px-4 text-right text-emerald-400">+$2,407K (+7.1%)</td>
+                <td class="py-3 px-4 text-right text-sky-400">+$4,804K (+15.4%)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-4 font-semibold text-slate-300">출하 단가 (ASP, $)</td>
+                <td class="py-2.5 px-4 text-right">$753.4</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-bold">$893.2</td>
+                <td class="py-2.5 px-4 text-right font-bold text-rose-400">$874.8</td>
+                <td class="py-2.5 px-4 text-right text-rose-400 font-semibold">-$18.3 (-2.1%)</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400">+$121.5 (+16.1%)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 text-slate-300">
+                <td class="py-2.5 px-4 pl-8">(-) 재료비 (Material Cost)</td>
+                <td class="py-2.5 px-4 text-right">$20,225K (64.7%)</td>
+                <td class="py-2.5 px-4 text-right">$19,375K (57.5%)</td>
+                <td class="py-2.5 px-4 text-right font-semibold">$20,368K (56.5%)</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-semibold">-1.08%p 개선</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400">-8.21%p 개선</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 text-slate-300">
+                <td class="py-2.5 px-4 pl-8">(-) COGS (매출원가 합계)</td>
+                <td class="py-2.5 px-4 text-right">$22,096K (70.7%)</td>
+                <td class="py-2.5 px-4 text-right">$21,204K (63.0%)</td>
+                <td class="py-2.5 px-4 text-right font-semibold">$20,922K (58.0%)</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-semibold">-4.99%p 개선</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400">-12.67%p 개선</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-slate-850/40 font-bold">
+                <td class="py-3 px-4 text-white">Marginal Profit (한계이익, MP)</td>
+                <td class="py-3 px-4 text-right text-slate-200">$9,409K (30.1%)</td>
+                <td class="py-3 px-4 text-right text-slate-200">$12,656K (37.6%)</td>
+                <td class="py-3 px-4 text-right text-emerald-400 text-sm">$14,354K (39.8%)</td>
+                <td class="py-3 px-4 text-right text-emerald-400">+$1,698K (+2.2%p)</td>
+                <td class="py-3 px-4 text-right text-sky-400">+$4,945K (+9.7%p)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 text-slate-300">
+                <td class="py-2.5 px-4 pl-8">(-) SG&A (판관비 합계)</td>
+                <td class="py-2.5 px-4 text-right">$8,466K (27.1%)</td>
+                <td class="py-2.5 px-4 text-right">$8,791K (26.1%)</td>
+                <td class="py-2.5 px-4 text-right font-semibold text-rose-300">$10,183K (28.2%)</td>
+                <td class="py-2.5 px-4 text-right text-rose-400 font-semibold">+$1,392K (+2.1%p)</td>
+                <td class="py-2.5 px-4 text-right text-rose-400">+$1,717K (+1.1%p)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-emerald-950/30 border-t-2 border-emerald-500/50 font-black">
+                <td class="py-3.5 px-4 text-white text-sm">Operating Income (영업이익, COI)</td>
+                <td class="py-3.5 px-4 text-right text-slate-300">$711K</td>
+                <td class="py-3.5 px-4 text-right text-slate-300">$3,675K</td>
+                <td class="py-3.5 px-4 text-right text-emerald-400 text-base">$4,972K</td>
+                <td class="py-3.5 px-4 text-right text-emerald-400 text-sm">+$1,297K (+35.3%)</td>
+                <td class="py-3.5 px-4 text-right text-sky-400 text-sm">+$4,261K (7.0배)</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-emerald-950/20 font-black">
+                <td class="py-2.5 px-4 pl-8 text-emerald-300">└ 영업이익률 (COI%)</td>
+                <td class="py-2.5 px-4 text-right text-slate-300">2.27%</td>
+                <td class="py-2.5 px-4 text-right text-slate-300">10.91%</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 text-sm">13.78%</td>
+                <td class="py-2.5 px-4 text-right text-emerald-400 font-bold">+2.87%p</td>
+                <td class="py-2.5 px-4 text-right text-sky-400 font-bold">+11.51%p</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: 4P Diagnostic Breakdown            -->
+    <!-- ========================================== -->
+    <section id="tab-4p-diagnostic" class="tab-pane hidden space-y-6">
+
+      <!-- 4P Matrix Header Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- 1. Product -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 border-t-4 border-t-indigo-500">
+          <div class="flex items-center space-x-2 text-indigo-400 font-bold text-sm">
+            <i class="fa-solid fa-tv"></i>
+            <span>Product (제품 믹스)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-300 leading-relaxed">
+            • <strong>OLED 매출 비중 66.8%</strong>로 안정적 수익 지탱.<br>
+            • <strong>QNED 볼륨 급증(9.7K)</strong>했으나 ASP $581로 하락.<br>
+            • <strong>MRGB 런칭 안착</strong>(COI 17.9% 고마진 검증).
+          </div>
+        </div>
+
+        <!-- 2. Price -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 border-t-4 border-t-rose-500">
+          <div class="flex items-center space-x-2 text-rose-400 font-bold text-sm">
+            <i class="fa-solid fa-tag"></i>
+            <span>Price (가격 & 할인)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-300 leading-relaxed">
+            • '26년 <strong>순수 판가 효과 -$653K</strong> 훼손 발생.<br>
+            • QNED <strong>S/D% 26.2%</strong>로 급상승(+5.7%p).<br>
+            • 전체 S/D%는 23.9%로 전년 동기 수준 유지.
+          </div>
+        </div>
+
+        <!-- 3. Place -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 border-t-4 border-t-amber-500">
+          <div class="flex items-center space-x-2 text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>Place (유통 채널)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-300 leading-relaxed">
+            • <strong>MSH(MediaMarkt) COI -6.5%</strong>(-$430K 적자 심각).<br>
+            • <strong>FUST COI -4.3%</strong>(-$100K 3개년 적자 고착).<br>
+            • <strong>Alltron/EP 등 총판 초고수익</strong>(COI 24~26%).
+          </div>
+        </div>
+
+        <!-- 4. Promotion -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 border-t-4 border-t-emerald-500">
+          <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Promotion (판촉 효율)</span>
+          </div>
+          <div class="mt-2 text-xs text-slate-300 leading-relaxed">
+            • 저마진 채널에 <strong>리베이트 38% 집중 투입</strong> 왜곡.<br>
+            • 실판매 연계 없는 Sell-In 보조금 누수 잔존.<br>
+            • 성과급형 Sell-Out 프로모션 전환 시급.
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagnostic Detail 1: Product & Price Analysis -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Segment Performance Table -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+          <h3 class="font-bold text-white text-base mb-3 flex items-center space-x-2">
+            <i class="fa-solid fa-layer-group text-indigo-400"></i>
+            <span>세그먼트(Segment)별 3개년 실적 및 수익성 추이</span>
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-800/80 text-slate-300 border-b border-slate-700 font-semibold">
+                  <th class="py-2.5 px-3">세그먼트</th>
+                  <th class="py-2.5 px-3 text-right">2026 수량</th>
+                  <th class="py-2.5 px-3 text-right">2026 매출</th>
+                  <th class="py-2.5 px-3 text-right">ASP</th>
+                  <th class="py-2.5 px-3 text-right">S/D%</th>
+                  <th class="py-2.5 px-3 text-right">COI%</th>
+                  <th class="py-2.5 px-3 text-right">COI 금액</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-200">
+                <tr class="hover:bg-slate-800/40">
+                  <td class="py-2 px-3 font-bold text-purple-400 flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                    <span>OLED</span>
+                  </td>
+                  <td class="py-2 px-3 text-right">20,940</td>
+                  <td class="py-2 px-3 text-right font-semibold">$24.10M</td>
+                  <td class="py-2 px-3 text-right text-rose-300 font-semibold">$1,151</td>
+                  <td class="py-2 px-3 text-right">24.4%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">9.4%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">$2,272K</td>
+                </tr>
+                <tr class="hover:bg-slate-800/40">
+                  <td class="py-2 px-3 font-bold text-sky-400 flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                    <span>QNED</span>
+                  </td>
+                  <td class="py-2 px-3 text-right">9,695</td>
+                  <td class="py-2 px-3 text-right font-semibold">$5.63M</td>
+                  <td class="py-2 px-3 text-right text-slate-300">$581</td>
+                  <td class="py-2 px-3 text-right text-rose-400 font-bold">26.2%</td>
+                  <td class="py-2 px-3 text-right text-slate-300">7.7%</td>
+                  <td class="py-2 px-3 text-right text-slate-300">$436K</td>
+                </tr>
+                <tr class="hover:bg-slate-800/40">
+                  <td class="py-2 px-3 font-bold text-emerald-400 flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>MRGB</span>
+                  </td>
+                  <td class="py-2 px-3 text-right">647</td>
+                  <td class="py-2 px-3 text-right font-semibold">$0.58M</td>
+                  <td class="py-2 px-3 text-right text-emerald-300 font-semibold">$890</td>
+                  <td class="py-2 px-3 text-right">22.5%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">17.9%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">$103K</td>
+                </tr>
+                <tr class="hover:bg-slate-800/40">
+                  <td class="py-2 px-3 font-bold text-amber-400 flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>UHD</span>
+                  </td>
+                  <td class="py-2 px-3 text-right">7,709</td>
+                  <td class="py-2 px-3 text-right font-semibold">$3.79M</td>
+                  <td class="py-2 px-3 text-right text-slate-300">$491</td>
+                  <td class="py-2 px-3 text-right text-emerald-400">17.6%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">11.6%</td>
+                  <td class="py-2 px-3 text-right text-emerald-400 font-bold">$441K</td>
+                </tr>
+                <tr class="hover:bg-slate-800/40">
+                  <td class="py-2 px-3 font-bold text-slate-400 flex items-center space-x-1.5">
+                    <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                    <span>FHD</span>
+                  </td>
+                  <td class="py-2 px-3 text-right">2,248</td>
+                  <td class="py-2 px-3 text-right font-semibold">$0.97M</td>
+                  <td class="py-2 px-3 text-right text-slate-400">$430</td>
+                  <td class="py-2 px-3 text-right">22.3%</td>
+                  <td class="py-2 px-3 text-right text-slate-300">3.2%</td>
+                  <td class="py-2 px-3 text-right text-slate-300">$31K</td>
+                </tr>
+                <tr class="hover:bg-slate-800/40 bg-slate-850/60 font-semibold">
+                  <td class="py-2 px-3 text-slate-400">Others(조정)</td>
+                  <td class="py-2 px-3 text-right">-</td>
+                  <td class="py-2 px-3 text-right">$1.02M</td>
+                  <td class="py-2 px-3 text-right">-</td>
+                  <td class="py-2 px-3 text-right">-</td>
+                  <td class="py-2 px-3 text-right text-emerald-400">-</td>
+                  <td class="py-2 px-3 text-right text-emerald-400">$1,690K</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-3 text-xs text-slate-400 p-3 bg-slate-950/40 rounded-xl border border-slate-800">
+            <strong class="text-indigo-400">시사점:</strong> OLED는 스위스 전체 이익의 약 46%를 홀로 창출하는 절대적 캐시카우이나 '25년 대비 ASP가 -$76.4 하락했습니다. QNED는 수량 확대 과정에서 S/D%가 26.2%로 과도하게 치솟아 마진 방어 장치가 필요합니다.
+          </div>
+        </div>
+
+        <!-- Segment Share Chart -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+          <h3 class="font-bold text-white text-base mb-1 flex items-center space-x-2">
+            <i class="fa-solid fa-chart-pie text-indigo-400"></i>
+            <span>2026년 8월 누적 세그먼트별 매출 비중 (Sales Share)</span>
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">Total Net Sales: $36.08M</p>
+          <div class="h-60">
+            <canvas id="chartSegmentShare"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagnostic Detail 2: Place & Promotion Analysis (Account Profitability & Rebate Gap) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-white text-base flex items-center space-x-2">
+              <i class="fa-solid fa-network-wired text-amber-400"></i>
+              <span>주요 유통 채널별 손익 성적표 (Channel P&L Scorecard)</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">2026년 1~8월 누적 기준: 매출 비중, ASP, 매출차감률(S/D%), 영업이익률(COI%) 비교</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">초고수익 채널 (Alltron, EP)</span>
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">위험 적자 채널 (MSH, FUST)</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-800/80 text-slate-300 border-b border-slate-700 font-semibold">
+                <th class="py-3 px-3">유통 거래선</th>
+                <th class="py-3 px-3 text-right">판매 수량</th>
+                <th class="py-3 px-3 text-right">매출액 (Net Sales)</th>
+                <th class="py-3 px-3 text-right">매출 비중</th>
+                <th class="py-3 px-3 text-right">출하 ASP</th>
+                <th class="py-3 px-3 text-right">매출차감률 (S/D%)</th>
+                <th class="py-3 px-3 text-right">한계이익률 (MP%)</th>
+                <th class="py-3 px-3 text-right">영업이익률 (COI%)</th>
+                <th class="py-3 px-3 text-right">영업이익 금액</th>
+                <th class="py-3 px-3 text-center">진단 등급</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-200">
+              <!-- Conforama -->
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-3 font-bold text-white">Conforama</td>
+                <td class="py-2.5 px-3 text-right">13,124대</td>
+                <td class="py-2.5 px-3 text-right font-semibold">$8,681K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-slate-300">24.1% (1위)</td>
+                <td class="py-2.5 px-3 text-right">$662</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">21.6%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">38.9%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">12.9%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">+$1,122K</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">건전 볼륨</span></td>
+              </tr>
+              <!-- MSH (MediaMarkt) -->
+              <tr class="hover:bg-slate-800/40 bg-rose-950/20 border-l-4 border-l-rose-500">
+                <td class="py-2.5 px-3 font-bold text-rose-300 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
+                  <span>MSH (MediaMarkt)</span>
+                </td>
+                <td class="py-2.5 px-3 text-right">8,722대</td>
+                <td class="py-2.5 px-3 text-right font-semibold text-rose-200">$6,657K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-rose-300">18.5% (2위)</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">$763</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">38.0%</td>
+                <td class="py-2.5 px-3 text-right text-rose-300">26.2%</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">-6.5%</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">-$430K (적자)</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-black">심각 위험</span></td>
+              </tr>
+              <!-- Alltron -->
+              <tr class="hover:bg-slate-800/40 bg-emerald-950/20 border-l-4 border-l-emerald-500">
+                <td class="py-2.5 px-3 font-bold text-emerald-300 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-gem text-emerald-400"></i>
+                  <span>Alltron (총판)</span>
+                </td>
+                <td class="py-2.5 px-3 text-right">4,416대</td>
+                <td class="py-2.5 px-3 text-right font-semibold">$5,136K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-slate-300">14.2%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-300 font-bold">$1,163</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">4.0%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">46.5%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-black">26.3%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-black">+$1,351K</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black">최고 효자</span></td>
+              </tr>
+              <!-- EP -->
+              <tr class="hover:bg-slate-800/40 bg-emerald-950/20 border-l-4 border-l-emerald-500">
+                <td class="py-2.5 px-3 font-bold text-emerald-300 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-gem text-emerald-400"></i>
+                  <span>EP (전문점)</span>
+                </td>
+                <td class="py-2.5 px-3 text-right">3,981대</td>
+                <td class="py-2.5 px-3 text-right font-semibold">$4,885K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-slate-300">13.5%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-300 font-bold">$1,227</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">5.9%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">44.7%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-black">23.8%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-black">+$1,163K</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black">최고 효자</span></td>
+              </tr>
+              <!-- Online -->
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-3 font-bold text-white">Online (D2C 자사몰)</td>
+                <td class="py-2.5 px-3 text-right">2,999대</td>
+                <td class="py-2.5 px-3 text-right font-semibold">$3,428K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-slate-300">9.5%</td>
+                <td class="py-2.5 px-3 text-right text-slate-200">$1,143</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">21.8%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400">41.3%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">15.4%</td>
+                <td class="py-2.5 px-3 text-right text-emerald-400 font-bold">+$527K</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">고성장</span></td>
+              </tr>
+              <!-- Interdiscount -->
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2.5 px-3 font-bold text-slate-300">Interdiscount</td>
+                <td class="py-2.5 px-3 text-right">3,375대</td>
+                <td class="py-2.5 px-3 text-right font-semibold">$2,670K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-slate-300">7.4%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">$791</td>
+                <td class="py-2.5 px-3 text-right text-amber-400 font-bold">32.9%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">33.4%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300 font-bold">2.8%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300 font-bold">+$74K</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">저마진 경계</span></td>
+              </tr>
+              <!-- FUST -->
+              <tr class="hover:bg-slate-800/40 bg-rose-950/20 border-l-4 border-l-rose-500">
+                <td class="py-2.5 px-3 font-bold text-rose-300 flex items-center space-x-1.5">
+                  <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
+                  <span>FUST</span>
+                </td>
+                <td class="py-2.5 px-3 text-right">3,228대</td>
+                <td class="py-2.5 px-3 text-right font-semibold text-rose-200">$2,343K</td>
+                <td class="py-2.5 px-3 text-right font-bold text-rose-300">6.5%</td>
+                <td class="py-2.5 px-3 text-right text-slate-300">$726</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">38.3%</td>
+                <td class="py-2.5 px-3 text-right text-rose-300">28.8%</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">-4.3%</td>
+                <td class="py-2.5 px-3 text-right text-rose-400 font-black">-$100K (적자)</td>
+                <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-black">만성 적자</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 p-4 bg-slate-950/60 rounded-xl border border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div>
+            <h4 class="font-bold text-amber-400 flex items-center space-x-1.5 mb-1">
+              <i class="fa-solid fa-chart-column"></i>
+              <span>양극화 원인 1: 리베이트(S/D%) 요율의 극단적 편차</span>
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+              Alltron과 EP는 출하 ASP가 $1,160~$1,230 수준으로 높은 반면, S/D%는 <strong>4.0%~5.9%</strong>에 불과하여 건강한 프리미엄 시장을 형성하고 있습니다. 반면 MSH와 FUST는 ASP가 $720~$760 수준임에도 S/D%가 <strong>38.0%~38.3%</strong>에 달해 유통의 판가 인하를 법인 마진으로 메워주고 있습니다.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-bold text-rose-400 flex items-center space-x-1.5 mb-1">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+              <span>양극화 원인 2: 적자 채널 2사(MSH+FUST)의 연간 마진 누수액</span>
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+              MSH(-$430K)와 FUST(-$100K) 단 2개 채널에서만 8개월간 <strong class="text-rose-400">-$530K의 순영업손실</strong>이 발생했습니다. 이 두 채널의 S/D%를 25% 수준으로만 정상화해도 스위스 법인 영업이익은 즉각 +$1,170K 추가 증가(COI 13.8% → 17.0%)할 수 있는 잠재력을 보유하고 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: 4P Strategic Roadmap & Action Items -->
+    <!-- ========================================== -->
+    <section id="tab-4p-action" class="tab-pane hidden space-y-6">
+
+      <!-- Strategic Framework Header -->
+      <div class="bg-gradient-to-r from-brand-dark/40 via-slate-900 to-slate-900 border border-brand-red/30 rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center space-x-3 mb-2">
+          <span class="w-8 h-8 rounded-lg bg-brand-red text-white flex items-center justify-center font-black text-sm">4P</span>
+          <h2 class="text-xl font-black text-white">스위스 TV 손익 턴어라운드 및 고수익 체질화 4P 전략 로드맵</h2>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          스위스 시장은 높은 구매력을 보유한 고소득 국가로서, 가격 출혈 경쟁을 지양하고 <strong>프리미엄 믹스 고도화</strong>와 <strong>유통 채널 정상화</strong>를 통해 영업이익률 15% 이상을 상시 달성할 수 있는 최적의 체질을 갖추고 있습니다. 아래 4대 축의 실행 과제를 추진합니다.
+        </p>
+      </div>
+
+      <!-- 4P Strategic Pillars -->
+      <div class="space-y-6">
+
+        <!-- 1. PRODUCT STRATEGY -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-lg bg-indigo-500/20 text-indigo-400 font-black text-sm border border-indigo-500/30">PRODUCT</span>
+              <h3 class="font-bold text-white text-base">OLED 초대형 프리미엄 고착화 & QNED 라인업 재정립</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold">목표: OLED ASP $1,200선 회복 & 믹스 마진 +1.5%p</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-indigo-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-1"></i>
+                <span>OLED 65형 이상 초대형 비중 50% 돌파</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • <strong>현상:</strong> 2026년 OLED 수량은 20.9K로 성장했으나 55형 이하 비중 확대로 ASP가 $1,227 → $1,151로 하락.<br>
+                • <strong>실행 과제:</strong> 65형 및 77/83형 C/G 시리즈 공급 우선 배정 및 프리미엄 번들링 프로모션(사운드바 무상/할인 결합)을 집중 전개하여 인치당 평균 판가 견인.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-indigo-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-2"></i>
+                <span>QNED 미니LED 중심 고수익 라인업 전환</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • <strong>현상:</strong> QNED 수량이 9.7K대로 급증했으나 ASP $581, S/D% 26.2%로 엔트리급 중심 판매로 변질.<br>
+                • <strong>실행 과제:</strong> 저가 QNED80 계열 공급 쿼터를 통제하고 고수익 미니LED QNED85/90 이상 모델의 마케팅 펀드를 신설하여 QNED 본연의 프리미엄 포지셔닝 회복.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-indigo-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-3"></i>
+                <span>MRGB / 라이프스타일 스케일업</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • <strong>현상:</strong> 2026년 신규 런칭한 MRGB는 647대 판매, COI% 17.9%($103K)로 초고마진 입증.<br>
+                • <strong>실행 과제:</strong> 스위스 고소득 인테리어 수요층을 겨냥해 StanbyME, Posé, Easel 등 라이프스타일 및 MRGB 라인업 전시 매장을 연내 120개점으로 2배 확대.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. PRICE STRATEGY -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-lg bg-rose-500/20 text-rose-400 font-black text-sm border border-rose-500/30">PRICE</span>
+              <h3 class="font-bold text-white text-base">판가 하한선(Floor Price) 가이드라인 엄격 통제</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-300 font-semibold">목표: 판가 하락(Price Effect -$653K) 완전 방어</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-rose-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-1"></i>
+                <span>Minimum Advertised Price (MAP) 제도 도입</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 대형 양판점의 온라인 상 무분별한 덤핑 가격 노출을 차단하기 위해 유통 계약서 내 MAP 가이드라인을 의무화.<br>
+                • 규정 위반 유통에 대해 마케팅 지원금 지급을 자동 유예하는 삼진아웃 페널티 시스템 가동.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-rose-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-2"></i>
+                <span>원가 절감분의 판가 인하 전이 차단</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 2026년 재료비 절감분(+$1,615K) 중 상당액이 유통 판촉비로 흡수되어 실질 판가 하락으로 연결됨.<br>
+                • 본사 원가 절감 시 법인 출하가 인하를 동결하고, 절감 마진을 법인 영업이익 유보금으로 확보하는 가격 결정 프로세스 구축.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-rose-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-3"></i>
+                <span>채널별 전용 모델(Derivation) 분리</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 동일 모델이 가격 비교 사이트(Toppreise 등)에서 무한 최저가 경쟁을 벌이지 않도록 대형 양판점(MSH/Conforama)과 전문 총판(Alltron/EP) 전용 스펙 이원화 운영.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. PLACE STRATEGY -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-400 font-black text-sm border border-amber-500/30">PLACE</span>
+              <h3 class="font-bold text-white text-base">적자 유통(MSH / FUST) 정상화 & 고수익 전문 채널 볼륨 확대</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300 font-semibold">목표: 적자 채널 흑자 전환 (+ $600K 개선)</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-amber-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-1"></i>
+                <span>MSH / FUST 비상 수익성 개선 TF 가동</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • <strong>핵심 조치:</strong> S/D%를 현행 38% 수준에서 상한선(Cap) 28% 이하로 강제 제한.<br>
+                • 유통 마진 보전용 사후 보상금을 전면 중단하고, 최소 영업이익률(COI% +2% 이상) 미달 모델은 출하를 즉각 중단(Stop-Shipment).
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-amber-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-2"></i>
+                <span>Alltron / EP 고수익 총판 공급 우선권 부여</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • Alltron(COI 26.3%), EP(COI 23.8%)는 합산 $10.0M 매출과 $2.51M의 영업이익을 창출하는 핵심 기반.<br>
+                • 신제품 출시 시 2~4주간 독점 선공급 혜택 및 연간 목표 달성 시 분기 성과 인센티브(Rebate 2%)를 설계하여 총판 충성도 극대화.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-amber-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-3"></i>
+                <span>자사몰(Online D2C) 매출 비중 15%로 확대</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 자사몰 실적: 매출 $3.43M, ASP $1,143, COI 15.4%로 유통 마진 누수 없는 고수익 채널.<br>
+                • 프리미엄 설치 서비스(Wall-Mount 무료), 추가 보증 3년 제공 등 D2C 전용 밸류 프로포지션을 강화하여 유통 의존도를 축소.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. PROMOTION STRATEGY -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden shadow-sm">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-black text-sm border border-emerald-500/30">PROMOTION</span>
+              <h3 class="font-bold text-white text-base">Sell-In 일괄 리베이트 축소 & 실판매(Sell-Out) 연동형 전환</h3>
+            </div>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 font-semibold">목표: S/D% 23.9% → 21.0%로 축소 (연간 $1.0M 절감)</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-emerald-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-1"></i>
+                <span>Trade Term(Sell-In 기본 계약) 삭감</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 실질 판매와 무관하게 유통 입점 조건으로 일괄 공제되는 Sell-In 리베이트 요율을 현행 대비 2~3%p 축소.<br>
+                • 유통의 재고 밀어넣기(Push) 유인을 제거하고 재고 건전성 확보.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-emerald-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-2"></i>
+                <span>Sell-Out 캐시백 및 소비자 직접 프로모션</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 유통에 자금을 지원하는 대신 최종 소비자 대상 'LG OLED 스위스 캐시백 캠페인'(구매 영수증 등록 시 CHF 200~500 환급)으로 마케팅 예산 이관.<br>
+                • 유통 중간 마진 잠식을 원천 차단하고 실판매를 직결 자극.
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-emerald-400 flex items-center space-x-1.5 text-sm">
+                <i class="fa-solid fa-3"></i>
+                <span>Co-Op(공동 광고비) 감사 및 ROI 정밀 검증</span>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                • 유통 전단지/웹 배너 게재 비용 등 집행 내역의 실질 노출 여부를 전수 검증하고, ROI 기준 미달 유통에는 차기 분기 Co-Op 예산 자동 삭감 조치.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Execution Timeline & Milestone Road -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <h3 class="font-bold text-white text-base mb-4 flex items-center space-x-2">
+          <i class="fa-solid fa-timeline text-brand-light"></i>
+          <span>4P 혁신 과제 단계별 실행 로드맵 (Execution Milestones)</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 relative">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-red/20 text-brand-light">Phase 1: '26. 10월</span>
+            <h4 class="font-bold text-white mt-2 text-sm">MSH/FUST 거래 조건 재협상</h4>
+            <p class="text-slate-400 mt-1.5 leading-relaxed">
+              • MSH/FUST 대상 S/D 상한선(28%) 통보 및 Black Friday 프로모션 가이드라인 합의.<br>
+              • 최저 출하가 가이드라인 공표.
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 relative">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">Phase 2: '26. 11~12월</span>
+            <h4 class="font-bold text-white mt-2 text-sm">성수기 Sell-Out 프로모션 전개</h4>
+            <p class="text-slate-400 mt-1.5 leading-relaxed">
+              • OLED 초대형 스위스 전국 소비자 캐시백 가동.<br>
+              • Alltron/EP 프리미엄 독점 모델 집중 판촉 전개.<br>
+              • 덤핑 거래선 출하량 즉시 제어.
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 relative">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">Phase 3: '27. 1분기</span>
+            <h4 class="font-bold text-white mt-2 text-sm">2027년 신모델 라인업/가격 재편</h4>
+            <p class="text-slate-400 mt-1.5 leading-relaxed">
+              • Y27 신모델 런칭 시 채널 전용 파생 모델 체계 안착.<br>
+              • QNED 미니LED 라인업 비중 확대.<br>
+              • MRGB 전문 전시 매장 120개점 확대.
+            </p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 relative">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Phase 4: '27. 상반기</span>
+            <h4 class="font-bold text-white mt-2 text-sm">COI 15% 이상 상시 고수익 정착</h4>
+            <p class="text-slate-400 mt-1.5 leading-relaxed">
+              • 스위스 법인 연간 매출 $55M+, COI% 15.0% 이상 상시 달성.<br>
+              • 자사몰 매출 비중 15% 돌파.<br>
+              • 전 유통 거래선 흑자화 달성.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: Interactive Simulation & Detail Explorer -->
+    <!-- ========================================== -->
+    <section id="tab-simulator" class="tab-pane hidden space-y-6">
+
+      <!-- Interactive Margin Simulator -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-white text-base flex items-center space-x-2">
+              <i class="fa-solid fa-calculator text-emerald-400"></i>
+              <span>유통 채널 매출차감률(S/D%) 개선 시뮬레이터</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">MSH 및 FUST의 S/D% 축소 조정 시 법인 전체 영업이익(COI) 개선 효과를 실시간 연산합니다.</p>
+          </div>
+          <button onclick="resetSimulator()" class="text-xs px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition border border-slate-700">
+            기본값 초기화
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-slate-950/60 rounded-xl border border-slate-800">
+          <div class="space-y-4 text-xs">
+            <!-- Slider 1: MSH S/D reduction -->
+            <div>
+              <div class="flex items-center justify-between font-bold text-slate-200 mb-1.5">
+                <span>MSH (MediaMarkt) S/D% 감축 목표 (현재 38.0%)</span>
+                <span id="label-msh-sd" class="text-rose-400 font-black text-sm">38.0% (-0.0%p)</span>
+              </div>
+              <input type="range" id="slider-msh-sd" min="20" max="38" step="0.5" value="38" oninput="updateSim()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-red">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>공격적 개선: 20%</span>
+                <span>권고 상한: 28%</span>
+                <span>현재 실적: 38%</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: FUST S/D reduction -->
+            <div>
+              <div class="flex items-center justify-between font-bold text-slate-200 mb-1.5">
+                <span>FUST S/D% 감축 목표 (현재 38.3%)</span>
+                <span id="label-fust-sd" class="text-rose-400 font-black text-sm">38.3% (-0.0%p)</span>
+              </div>
+              <input type="range" id="slider-fust-sd" min="20" max="38.3" step="0.5" value="38.3" oninput="updateSim()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-red">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>공격적 개선: 20%</span>
+                <span>권고 상한: 28%</span>
+                <span>현재 실적: 38.3%</span>
+              </div>
+            </div>
+
+            <!-- Slider 3: QNED S/D reduction -->
+            <div>
+              <div class="flex items-center justify-between font-bold text-slate-200 mb-1.5">
+                <span>QNED 세그먼트 S/D% 감축 목표 (현재 26.2%)</span>
+                <span id="label-qned-sd" class="text-sky-400 font-black text-sm">26.2% (-0.0%p)</span>
+              </div>
+              <input type="range" id="slider-qned-sd" min="18" max="26.2" step="0.5" value="26.2" oninput="updateSim()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>'25년 수준: 20.5%</span>
+                <span>현재 실적: 26.2%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulation Output Results -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">시뮬레이션 반영 후 예상 성과</span>
+              <div class="mt-3 grid grid-cols-2 gap-3">
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                  <span class="text-[11px] text-slate-400 block">예상 추가 이익 창출</span>
+                  <span id="sim-added-profit" class="text-xl font-black text-emerald-400">+$0K</span>
+                </div>
+                <div class="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                  <span class="text-[11px] text-slate-400 block">수정 전사 영업이익</span>
+                  <span id="sim-new-coi" class="text-xl font-black text-white">$4,972K</span>
+                </div>
+              </div>
+              <div class="mt-3 bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-baseline justify-between">
+                <span class="text-xs text-slate-300">수정 영업이익률 (COI%)</span>
+                <div class="flex items-baseline space-x-1.5">
+                  <span class="text-slate-400 text-xs line-through">13.78%</span>
+                  <span class="text-slate-400 text-xs">→</span>
+                  <span id="sim-new-coi-rate" class="text-2xl font-black text-emerald-400">13.78%</span>
+                </div>
+              </div>
+            </div>
+            <div id="sim-feedback" class="text-xs text-slate-400 mt-3 border-t border-slate-800 pt-2.5">
+              슬라이더를 조정하여 적자 유통의 할인율 정상화 시 이익 개선 효과를 확인하세요.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segment x Inch Cross Analysis Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <h3 class="font-bold text-white text-base mb-3 flex items-center space-x-2">
+          <i class="fa-solid fa-up-right-and-down-left-from-center text-sky-400"></i>
+          <span>인치대(Screen Size)별 3개년 수량 및 판가(ASP) 변화 추이</span>
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-800/80 text-slate-300 border-b border-slate-700 font-semibold">
+                <th class="py-2.5 px-3">인치 구분</th>
+                <th class="py-2.5 px-3 text-right">'24 판매 수량</th>
+                <th class="py-2.5 px-3 text-right">'25 판매 수량</th>
+                <th class="py-2.5 px-3 text-right">'26 판매 수량</th>
+                <th class="py-2.5 px-3 text-right">'24 ASP</th>
+                <th class="py-2.5 px-3 text-right">'25 ASP</th>
+                <th class="py-2.5 px-3 text-right text-emerald-400 font-bold">'26 ASP</th>
+                <th class="py-2.5 px-3 text-right font-bold">'26 COI%</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-200">
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-semibold text-slate-300">&lt; 50형 (중소형)</td>
+                <td class="py-2 px-3 text-right">11,881대</td>
+                <td class="py-2 px-3 text-right">9,475대</td>
+                <td class="py-2 px-3 text-right">9,958대</td>
+                <td class="py-2 px-3 text-right">$498</td>
+                <td class="py-2 px-3 text-right">$530</td>
+                <td class="py-2 px-3 text-right text-slate-200 font-bold">$545</td>
+                <td class="py-2 px-3 text-right text-slate-300">4.3%</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="py-2 px-3 font-semibold text-slate-300">50 ~ 59형 (중형 메인)</td>
+                <td class="py-2 px-3 text-right">13,074대</td>
+                <td class="py-2 px-3 text-right">12,456대</td>
+                <td class="py-2 px-3 text-right font-bold">13,240대</td>
+                <td class="py-2 px-3 text-right">$614</td>
+                <td class="py-2 px-3 text-right">$685</td>
+                <td class="py-2 px-3 text-right text-rose-300 font-bold">$644</td>
+                <td class="py-2 px-3 text-right text-slate-300">7.3%</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-indigo-950/20 font-semibold">
+                <td class="py-2 px-3 text-indigo-300">60 ~ 69형 (대형 OLED/QNED)</td>
+                <td class="py-2 px-3 text-right">10,185대</td>
+                <td class="py-2 px-3 text-right">10,109대</td>
+                <td class="py-2 px-3 text-right font-bold text-white">11,579대</td>
+                <td class="py-2 px-3 text-right">$822</td>
+                <td class="py-2 px-3 text-right">$996</td>
+                <td class="py-2 px-3 text-right text-white font-bold">$959</td>
+                <td class="py-2 px-3 text-right text-emerald-400 font-black">11.6%</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-indigo-950/20 font-semibold">
+                <td class="py-2 px-3 text-indigo-300">70 ~ 79형 (프리미엄 대형)</td>
+                <td class="py-2 px-3 text-right">4,278대</td>
+                <td class="py-2 px-3 text-right">3,980대</td>
+                <td class="py-2 px-3 text-right font-bold text-white">4,185대</td>
+                <td class="py-2 px-3 text-right">$1,292</td>
+                <td class="py-2 px-3 text-right text-emerald-400 font-bold">$1,441</td>
+                <td class="py-2 px-3 text-right text-white font-bold">$1,396</td>
+                <td class="py-2 px-3 text-right text-emerald-400 font-black">12.6%</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40 bg-purple-950/30 font-bold">
+                <td class="py-2 px-3 text-purple-300">80형 이상 (초대형 울트라)</td>
+                <td class="py-2 px-3 text-right">2,092대</td>
+                <td class="py-2 px-3 text-right">1,677대</td>
+                <td class="py-2 px-3 text-right font-black text-emerald-300">2,277대</td>
+                <td class="py-2 px-3 text-right">$1,371</td>
+                <td class="py-2 px-3 text-right font-black text-emerald-400">$1,853</td>
+                <td class="py-2 px-3 text-right font-black text-emerald-400">$1,824</td>
+                <td class="py-2 px-3 text-right text-emerald-400 font-black">9.5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+    <p>LG Electronics European Operations • TV Sales Management Portal • Swiss Branch P&L & 4P Strategic Advisory Report</p>
+    <p class="mt-1 text-[11px] text-slate-600">Generated on 2026-09-17 • Source Data: NERP Standard P&L Datamart (2024.01 ~ 2026.08)</p>
+  </footer>
+
+  <!-- Script Logic & Embedded Data -->
+  <script>
+    const PNL_DATA = {"summary": {"2024": {"qty": 41510.0, "gross_sales": 41476275.69376211, "sd": -10796437.703078065, "net_sales": 31272854.631176315, "cogs": 22152708.3954914, "mat_cost": 20225216.096133377, "var_sga": 1579189.3574841842, "fixed_cogs": 1868112.8776784516, "fixed_sga": 6830253.833995, "sga": 8409443.191479184, "mp": 9409069.755879179, "coi": 710703.0442057274, "asp": 753.3812245525492, "gross_asp": 999.1875618829706, "sd_rate": 0.2603039333327079, "mp_rate": 0.3008701913159905, "coi_rate": 0.02272587688548324, "cogs_rate": 0.7083686045535184, "sga_rate": 0.26890551856099826, "mat_rate": 0.6467339273841217, "tt": -4042024.1579973805, "nttsi": -124188.6688173532, "nttso": -6498046.877057077}, "2025": {"qty": 37697.0, "gross_sales": 42724039.27839515, "sd": -10275496.639814436, "net_sales": 33669928.77462429, "cogs": 21196643.769489113, "mat_cost": 19374952.536437705, "var_sga": 1501081.0809138566, "fixed_cogs": 1684046.9710446668, "fixed_sga": 7297482.234666832, "sga": 8798563.315580688, "mp": 12656250.895265989, "coi": 3674721.689554489, "asp": 893.1726337539934, "gross_asp": 1133.3538286440607, "sd_rate": 0.24050854772550934, "mp_rate": 0.37589182264040044, "coi_rate": 0.10913957419250568, "cogs_rate": 0.6295422812258574, "sga_rate": 0.261318144581637, "mat_rate": 0.5754378830477316, "tt": -3757589.135405842, "nttsi": 8800.958469062321, "nttso": -6406707.642903695}, "2026": {"qty": 41239.0, "gross_sales": 46084917.2226526, "sd": -11027560.9914621, "net_sales": 36076971.9394532, "cogs": 20921891.5500753, "mat_cost": 20367984.3456216, "var_sga": 1991423.3380745, "fixed_cogs": 1190529.0738237998, "fixed_sga": 8191475.416506301, "sga": 10182898.7545808, "mp": 14354186.1251272, "coi": 4972181.6347971, "asp": 874.8265462172507, "gross_asp": 1117.5081166529887, "sd_rate": 0.23928785503040045, "mp_rate": 0.3978766884653557, "coi_rate": 0.13782147911808534, "cogs_rate": 0.5799237138080165, "sga_rate": 0.28225480707389816, "mat_rate": 0.5645702300016898, "tt": -4170243.9053034997, "nttsi": 508.0, "nttso": -6600795.6443129005}}, "segment": {"2024": {"OLED": {"qty": 17930.0, "gross_sales": 26628104.01184908, "sd": -7287519.323999351, "net_sales": 19361401.10883668, "cogs": 13966553.205228513, "mat_cost": 12553092.691928599, "var_sga": 966443.4117280394, "fixed_cogs": 1195051.65580473, "fixed_sga": 4353727.457721092, "sga": 5320170.869449131, "mp": 5623456.147684857, "coi": 74677.03415903501, "asp": 1079.8327444973052, "gross_asp": 1485.1145572698872, "sd_rate": 0.2736777399080506, "mp_rate": 0.2904467562070326, "coi_rate": 0.003857005685655254, "cogs_rate": 0.7213606663442389, "sga_rate": 0.2747823279701058, "mat_rate": 0.6483566257092457, "tt": -2590751.9889371237, "nttsi": -29959.959802897687, "nttso": -4627614.577812181}, "QNED": {"qty": 4162.0, "gross_sales": 3559035.87735294, "sd": -816340.8262059947, "net_sales": 2745481.198700904, "cogs": 2211494.13207034, "mat_cost": 1946206.4144917435, "var_sga": 161173.65085704793, "fixed_cogs": 169369.3475429392, "fixed_sga": 557437.171682587, "sga": 718610.8225396349, "mp": 542182.763316455, "coi": -184623.7559090713, "asp": 659.6543005047823, "gross_asp": 855.1263520790341, "sd_rate": 0.22937133941261487, "mp_rate": 0.19748187078207013, "coi_rate": -0.06724641057328343, "cogs_rate": 0.8055032877722005, "sga_rate": 0.26174312280108286, "mat_rate": 0.708876249239165, "tt": -283388.2400122069, "nttsi": -31629.171455103504, "nttso": -490035.3435270835}, "MRGB": {"qty": 0.0, "gross_sales": 0.0, "sd": 0.0, "net_sales": 0.0, "cogs": 0.0, "mat_cost": 0.0, "var_sga": 0.0, "fixed_cogs": 0.0, "fixed_sga": 0.0, "sga": 0.0, "mp": 0.0, "coi": 0.0, "asp": 0.0, "gross_asp": 0.0, "sd_rate": 0.0, "mp_rate": 0.0, "coi_rate": 0.0, "cogs_rate": 0.0, "sga_rate": 0.0, "mat_rate": 0.0, "tt": 0.0, "nttsi": 0.0, "nttso": 0.0}, "UHD": {"qty": 17207.0, "gross_sales": 10633282.678452337, "sd": -2591813.9928181465, "net_sales": 8049789.906976372, "cogs": 6229244.55293891, "mat_cost": 5422311.446084356, "var_sga": 418905.96377311274, "fixed_cogs": 497039.3300891363, "fixed_sga": 1648713.472034368, "sga": 2067619.435807481, "mp": 1898678.7203534849, "coi": -247074.08177001955, "asp": 467.8206489786931, "gross_asp": 617.962612800159, "sd_rate": 0.24374542379751557, "mp_rate": 0.23586686637721935, "coi_rate": -0.030693233565747116, "cogs_rate": 0.7738393951797821, "sga_rate": 0.256853838385965, "mat_rate": 0.6735966414955867, "tt": -1103436.3782938593, "nttsi": -62600.585443593736, "nttso": -1345322.5007269331}, "FHD": {"qty": 2211.0, "gross_sales": 655853.1261077574, "sd": -100468.0714089566, "net_sales": 555896.910890313, "cogs": 331597.1505083128, "mat_cost": 298158.1796434555, "var_sga": 22660.33376379952, "fixed_cogs": 30521.50907160486, "fixed_sga": 108000.39271749981, "sga": 130660.72648129932, "mp": 232160.93568980548, "coi": 93639.03390070089, "asp": 251.42329755328493, "gross_asp": 296.6318978325452, "sd_rate": 0.15318684536154759, "mp_rate": 0.4176330739416798, "coi_rate": 0.16844676066058822, "cogs_rate": 0.5965083525598904, "sga_rate": 0.23504488677952143, "mat_rate": 0.536355165503495, "tt": -64447.5507541908, "nttsi": 1.047884241707606, "nttso": -34778.96634526296}, "Others": {"qty": 0.0, "gross_sales": 0.0, "sd": -295.488645617951, "net_sales": 560285.5057720423, "cogs": -586180.6452546776, "mat_cost": 5447.363985224814, "var_sga": 10005.997362184751, "fixed_cogs": -23868.964829958786, "fixed_sga": 162375.3398394532, "sga": 172381.337201638, "mp": 1112591.1888345766, "coi": 974084.8138250823, "asp": 0.0, "gross_asp": 0.0, "sd_rate": 0.0, "mp_rate": 1.9857575778289815, "coi_rate": 1.7385507991730884, "cogs_rate": -1.0462177572253155, "sga_rate": 0.3076669580522275, "mat_rate": 0.00972247885962827, "tt": 0.0, "nttsi": 0.0, "nttso": -295.488645617951}}, "2025": {"OLED": {"qty": 18443.0, "gross_sales": 30201061.435503714, "sd": -7572597.011701092, "net_sales": 22632625.415133275, "cogs": 15046945.648307534, "mat_cost": 13246812.130912872, "var_sga": 901813.6251773747, "fixed_cogs": 1550070.3425016701, "fixed_sga": 4853142.507439064, "sga": 5754956.132616439, "mp": 8233936.484150036, "coi": 1830723.634209301, "asp": 1227.1661560013704, "gross_asp": 1637.535186005732, "sd_rate": 0.2507394327140738, "mp_rate": 0.36380827823202627, "coi_rate": 0.08088869941642697, "cogs_rate": 0.6648342988191911, "sga_rate": 0.2542770017643819, "mat_rate": 0.5852971932304154, "tt": -2658331.6023920807, "nttsi": 6947.504297493485, "nttso": -4877486.5275763925}, "QNED": {"qty": 7536.0, "gross_sales": 5919399.707856271, "sd": -1214568.0395659588, "net_sales": 4705635.1343339905, "cogs": 3250700.8986751493, "mat_cost": 2796891.341223757, "var_sga": 230035.1568428848, "fixed_cogs": 332425.26891851623, "fixed_sga": 942879.3444281402, "sga": 1172914.5012710248, "mp": 1557324.3477344727, "coi": 282019.7343878166, "asp": 624.4207980804127, "gross_asp": 785.4829760955774, "sd_rate": 0.20518432603123168, "mp_rate": 0.3309488099431423, "coi_rate": 0.05993234204031251, "cogs_rate": 0.6908102319614364, "sga_rate": 0.24925742599825107, "mat_rate": 0.594370634649644, "tt": -605626.8396082397, "nttsi": 238.15919352780622, "nttso": -585528.165783224}, "MRGB": {"qty": 0.0, "gross_sales": 0.0, "sd": 0.0, "net_sales": 0.0, "cogs": 0.0, "mat_cost": 0.0, "var_sga": 0.0, "fixed_cogs": 0.0, "fixed_sga": 0.0, "sga": 0.0, "mp": 0.0, "coi": 0.0, "asp": 0.0, "gross_asp": 0.0, "sd_rate": 0.0, "mp_rate": 0.0, "coi_rate": 0.0, "cogs_rate": 0.0, "sga_rate": 0.0, "mat_rate": 0.0, "tt": 0.0, "nttsi": 0.0, "nttso": 0.0}, "UHD": {"qty": 10003.0, "gross_sales": 5801078.847703532, "sd": -1351569.4890107375, "net_sales": 4450314.372582284, "cogs": 3444282.3687226474, "mat_cost": 2978363.3478445075, "var_sga": 216923.51490138634, "fixed_cogs": 340605.3596794916, "fixed_sga": 923142.1289681774, "sga": 1140065.6438695637, "mp": 1129713.8486377418, "coi": -134033.64000992713, "asp": 444.89796786786803, "gross_asp": 579.9339045989735, "sd_rate": 0.2329858849523795, "mp_rate": 0.2538503472019277, "coi_rate": -0.030117791416194816, "cogs_rate": 0.7739413624220239, "sga_rate": 0.2561764289941709, "mat_rate": 0.6692478549816065, "tt": -423524.19760904857, "nttsi": 1403.2682615839074, "nttso": -877399.4489363808}, "FHD": {"qty": 1715.0, "gross_sales": 802499.2873316376, "sd": -133938.3766023282, "net_sales": 668669.5113400868, "cogs": 442968.23973088496, "mat_cost": 341656.2798403553, "var_sga": 59379.24906773494, "fixed_cogs": 62523.9544120802, "fixed_sga": 129160.79099099747, "sga": 188540.04005873244, "mp": 228845.97695354698, "coi": 37161.231550469296, "asp": 389.8947587988844, "gross_asp": 467.9296136044534, "sd_rate": 0.16690155208446605, "mp_rate": 0.3422407827372219, "coi_rate": 0.05557488553051286, "cogs_rate": 0.6624621464243646, "sga_rate": 0.2819629680451223, "mat_rate": 0.5109493913602233, "tt": -70012.09428958432, "nttsi": 212.0267164571236, "nttso": -63565.61383174543}, "Others": {"qty": 0.0, "gross_sales": 0.0, "sd": -2823.7229343189647, "net_sales": 1212684.3412346551, "cogs": -988253.3859471022, "mat_cost": 11229.436616211344, "var_sga": 92929.53492447574, "fixed_cogs": -601577.9544670911, "fixed_sga": 449157.462840452, "sga": 542086.9977649277, "mp": 1506430.2377901906, "coi": 1658850.7294168298, "asp": 0.0, "gross_asp": 0.0, "sd_rate": 0.0, "mp_rate": 1.242227830085171, "coi_rate": 1.3679163431168946, "cogs_rate": -0.8149304417841696, "sga_rate": 0.44701409866727515, "mat_rate": 0.009259983191321212, "tt": -94.40150688894832, "nttsi": 0.0, "nttso": -2727.886775951206}}, "2026": {"OLED": {"qty": 20940.0, "gross_sales": 31874512.148591504, "sd": -7775949.765058599, "net_sales": 24098562.3835329, "cogs": 15477432.972419, "mat_cost": 13913046.4696397, "var_sga": 1156927.6528238999, "fixed_cogs": 1323902.8394132, "fixed_sga": 5192210.923153201, "sga": 6349138.5759771, "mp": 8788104.5977032, "coi": 2271990.8351368, "asp": 1150.8387002642264, "gross_asp": 1522.1830061409505, "sd_rate": 0.24395509894579545, "mp_rate": 0.36467339660511505, "coi_rate": 0.0942791025861901, "cogs_rate": 0.6422554476940535, "sga_rate": 0.2634654497197564, "mat_rate": 0.5773392722856697, "tt": -2973113.5575995, "nttsi": 148.0, "nttso": -4681220.3395714}, "QNED": {"qty": 9695.0, "gross_sales": 7631030.505213, "sd": -1999531.0302622, "net_sales": 5631499.4749508, "cogs": 3665773.5702404, "mat_cost": 3243252.0219724, "var_sga": 296628.9724344, "fixed_cogs": 312500.95117260003, "fixed_sga": 1233062.6192014, "sga": 1529691.5916357997, "mp": 1981597.8834486003, "coi": 436034.31307459995, "asp": 580.8663718360805, "gross_asp": 787.1099025490458, "sd_rate": 0.26202634479003284, "mp_rate": 0.3518774870286058, "coi_rate": 0.07742774637804782, "cogs_rate": 0.6509409414927498, "sga_rate": 0.27163131212920233, "mat_rate": 0.5759126918858027, "tt": -691651.9890343, "nttsi": 140.0, "nttso": -1249414.0223520002}, "MRGB": {"qty": 647.0, "gross_sales": 743216.4586736, "sd": -167238.3366944, "net_sales": 575978.1219792, "cogs": 323888.6783285, "mat_cost": 293705.4114593, "var_sga": 29506.6652353, "fixed_cogs": 36282.8149997, "fixed_sga": 119438.93528539999, "sga": 148945.60052069998, "mp": 258865.5934151, "coi": 103143.84313000001, "asp": 890.2289365984544, "gross_asp": 1148.7116826485317, "sd_rate": 0.22501968940901299, "mp_rate": 0.44943650381298383, "coi_rate": 0.17907597388521082, "cogs_rate": 0.5623280919343607, "sga_rate": 0.2585959341804284, "mat_rate": 0.5099245965281758, "tt": -89560.24668910001, "nttsi": 0.0, "nttso": -76485.7913483}, "UHD": {"qty": 7709.0, "gross_sales": 4592700.734409999, "sd": -806394.9593509999, "net_sales": 3786305.7750589997, "cogs": 2446016.8472509, "mat_cost": 2194703.9806073, "var_sga": 164608.7114411, "fixed_cogs": 206958.147363, "fixed_sga": 734938.6458006001, "sga": 899547.3572417002, "mp": 1382638.3637299999, "coi": 440741.57056639995, "asp": 491.1539466933454, "gross_asp": 595.7582999623816, "sd_rate": 0.17558186478583898, "mp_rate": 0.3651681733782991, "coi_rate": 0.11640411439288263, "cogs_rate": 0.6460167225170254, "sga_rate": 0.23757916309009225, "mat_rate": 0.5796425621681601, "tt": -260029.44352420003, "nttsi": 220.0, "nttso": -474054.30591239996}, "FHD": {"qty": 2248.0, "gross_sales": 1243457.3757645, "sd": -276799.9295979, "net_sales": 966657.4461666, "cogs": 646251.936964, "mat_cost": 704283.418694, "var_sga": 86200.4612257, "fixed_cogs": 67105.6680686, "fixed_sga": 203576.0888963, "sga": 289776.550122, "mp": 301310.7160455, "coi": 30628.9590806, "asp": 430.0077607502669, "gross_asp": 553.1394020304715, "sd_rate": 0.22260508079556685, "mp_rate": 0.31170371390649815, "coi_rate": 0.03168543231323872, "cogs_rate": 0.6685428633760514, "sga_rate": 0.29977170431070993, "mat_rate": 0.7285760033059522, "tt": -155569.1864888, "nttsi": 0.0, "nttso": -118366.2543343}, "Others": {"qty": 0.0, "gross_sales": 0.0, "sd": -1646.970498, "net_sales": 1017968.7377647001, "cogs": -1637472.4551275, "mat_cost": 18993.0432489, "var_sga": 257550.8749141, "fixed_cogs": -756221.3471933, "fixed_sga": 708248.2041694002, "sga": 965799.0790835, "mp": 1641668.9707848001, "coi": 1689642.1138087, "asp": 0.0, "gross_asp": 0.0, "sd_rate": 0.0, "mp_rate": 1.6126909500085906, "coi_rate": 1.6598172921487644, "cogs_rate": -1.6085685094054392, "sga_rate": 0.9487512172566748, "mat_rate": 0.018657786378200328, "tt": -319.4819676, "nttsi": 0.0, "nttso": -1254.9307944999996}}}, "account": {"2024": {"Conforama": {"qty": 10987.0, "gross_sales": 8935593.685258836, "sd": -2135097.7972217253, "net_sales": 6732861.028047111, "cogs": 5071377.666682935, "mat_cost": 4559847.794719217, "var_sga": 257381.9847526793, "fixed_cogs": 403836.9770655132, "fixed_sga": 1364715.595235985, "sga": 1622097.5799886645, "mp": 1807938.3536770088, "coi": 39385.78137551069, "asp": 612.80249640913, "gross_asp": 813.2878570363916, "sd_rate": 0.23894302633120212, "mp_rate": 0.2685245315692202, "coi_rate": 0.005849783800889571, "cogs_rate": 0.7532277356620125, "sga_rate": 0.2409224805370978, "mat_rate": 0.6772526234722859, "tt": -673015.8067615535, "nttsi": 0.0, "nttso": -1329903.9912353694}, "MSH": {"qty": 6824.0, "gross_sales": 7285802.194193536, "sd": -2260906.374372797, "net_sales": 4969675.850283138, "cogs": 3547590.7608423172, "mat_cost": 3155560.1653800826, "var_sga": 321375.19125713676, "fixed_cogs": 333471.1276113073, "fixed_sga": 1115372.7447078484, "sga": 1436747.9359649853, "mp": 1434181.0257949913, "coi": -14662.84652416443, "asp": 728.2643391387952, "gross_asp": 1067.6732406496976, "sd_rate": 0.31031673851571756, "mp_rate": 0.2885864327978819, "coi_rate": -0.0029504633633859723, "cogs_rate": 0.713847515958249, "sga_rate": 0.2891029474051369, "mat_rate": 0.6349629755430226, "tt": -1528527.3138131802, "nttsi": 0.0, "nttso": -732379.0605596165}, "Alltron": {"qty": 3999.0, "gross_sales": 4376959.731412731, "sd": -591978.8727562348, "net_sales": 3975714.338399607, "cogs": 2654279.6251038807, "mat_cost": 2429081.6233417555, "var_sga": 190058.82053890865, "fixed_cogs": 205427.43333891127, "fixed_sga": 670444.862846915, "sga": 860503.6833858236, "mp": 1336803.3260957291, "coi": 460931.02990990283, "asp": 994.1771288821224, "gross_asp": 1094.5135612434935, "sd_rate": 0.1352488734378108, "mp_rate": 0.33624229819133555, "coi_rate": 0.11593665708272366, "cogs_rate": 0.6676233248116966, "sga_rate": 0.21644001810557964, "mat_rate": 0.6109799187231252, "tt": 0.0, "nttsi": 0.0, "nttso": -591978.8727562348}, "EP": {"qty": 3637.0, "gross_sales": 4898150.30902557, "sd": -629179.0454411763, "net_sales": 4477343.313291078, "cogs": 2795699.8547053523, "mat_cost": 2558771.232015549, "var_sga": 204381.70837498328, "fixed_cogs": 219764.68244656772, "fixed_sga": 747833.4154027377, "sga": 952215.1237777211, "mp": 1697026.4326573103, "coi": 729428.334808005, "asp": 1231.0539767091225, "gross_asp": 1346.7556527428017, "sd_rate": 0.1284523760493467, "mp_rate": 0.3790253089638347, "coi_rate": 0.16291543528562646, "cogs_rate": 0.6244104280335762, "sga_rate": 0.2126741366807974, "mat_rate": 0.5714931942832681, "tt": 18786.224192484093, "nttsi": 0.0, "nttso": -647965.2696336603}, "Online": {"qty": 5379.0, "gross_sales": 5674338.390066436, "sd": -1358899.8254983579, "net_sales": 4272431.174278246, "cogs": 3125834.452718612, "mat_cost": 2813439.807397535, "var_sga": 238557.8496725844, "fixed_cogs": 258867.33470369346, "fixed_sga": 867719.4720278558, "sga": 1106277.3217004403, "mp": 1166906.2065907433, "coi": 40319.39985919402, "asp": 794.2798241826076, "gross_asp": 1054.90581707872, "sd_rate": 0.23948163329089855, "mp_rate": 0.2731246353635812, "coi_rate": 0.009437109274441451, "cogs_rate": 0.7316289777907699, "sga_rate": 0.2589339129347887, "mat_rate": 0.6585102702965876, "tt": -473556.7181547778, "nttsi": 0.0, "nttso": -885343.1073435801}, "Interdiscount": {"qty": 4042.0, "gross_sales": 4437500.389322663, "sd": -1686817.1933099874, "net_sales": 2717072.4754165383, "cogs": 2236221.9343700334, "mat_cost": 2010727.2293194495, "var_sga": 141247.50880369477, "fixed_cogs": 203613.4177188417, "fixed_sga": 677204.5388388908, "sga": 818452.0476425856, "mp": 543216.4499616517, "coi": -337601.5065960806, "asp": 672.2099147492672, "gross_asp": 1097.8476965172347, "sd_rate": 0.38012778486031007, "mp_rate": 0.19992711084321532, "coi_rate": -0.12425193278818406, "cogs_rate": 0.8230262367319486, "sga_rate": 0.3012256960562355, "mat_rate": 0.740034447925868, "tt": -660422.1618550704, "nttsi": 0.0, "nttso": -1026395.0314549169}, "FUST": {"qty": 1868.0, "gross_sales": 2402996.56861225, "sd": -973509.884695946, "net_sales": 1411211.4313132595, "cogs": 1132754.4305371805, "mat_cost": 1015540.6004150666, "var_sga": 84983.46999302451, "fixed_cogs": 106437.3057524205, "fixed_sga": 367381.323194858, "sga": 452364.7931878825, "mp": 299910.8365354751, "coi": -173907.79241180347, "asp": 755.466504985685, "gross_asp": 1286.400732661804, "sd_rate": 0.4051232937291108, "mp_rate": 0.21252012978408275, "coi_rate": -0.1232329816446899, "cogs_rate": 0.8026822950853298, "sga_rate": 0.32055068655936003, "mat_rate": 0.7196232810203461, "tt": -366094.088394805, "nttsi": 0.0, "nttso": -607415.7963011409}, "OBS": {"qty": 338.0, "gross_sales": 494663.9880288347, "sd": 57.56425986882003, "net_sales": 489324.79886592645, "cogs": 271297.77548001497, "mat_cost": 248370.63371555958, "var_sga": 19739.862783394896, "fixed_cogs": 21817.45647011642, "fixed_sga": 400261.6642243103, "sga": 420001.5270077052, "mp": 220104.61707263291, "coi": -201974.50362179376, "asp": 1447.7065055204926, "gross_asp": 1463.5029231622327, "sd_rate": 0.00011637042772853828, "mp_rate": 0.4498129209530231, "coi_rate": -0.41276163417406153, "cogs_rate": 0.5544329167636357, "sga_rate": 0.8583287174104257, "mat_rate": 0.5075782676275363, "tt": 0.0, "nttsi": 0.0, "nttso": 57.56425986882003}, "FNAC": {"qty": 324.0, "gross_sales": 323511.9999367065, "sd": -155627.25075282436, "net_sales": 181532.04537755935, "cogs": 184502.8813381121, "mat_cost": 167641.5787307908, "var_sga": 19906.94537456785, "fixed_cogs": 15248.496087839241, "fixed_sga": 49655.67983106925, "sga": 69562.6252056371, "mp": -7629.285247281405, "coi": -72533.46116618988, "asp": 560.2840906714795, "gross_asp": 998.4938269651435, "sd_rate": 0.4810555737755386, "mp_rate": -0.04202720919831889, "coi_rate": -0.3995628486162385, "cogs_rate": 1.0163653527638818, "sga_rate": 0.3831974958523566, "mat_rate": 0.9234820132286921, "tt": 0.0, "nttsi": 0.0, "nttso": -155627.25075282436}}, "2025": {"Conforama": {"qty": 9366.0, "gross_sales": 7919241.185776774, "sd": -2069588.396527695, "net_sales": 5805778.094139344, "cogs": 4253075.173157491, "mat_cost": 3783250.8594762925, "var_sga": 245813.46445319196, "fixed_cogs": 428100.59650613717, "fixed_sga": 1252022.0310769733, "sga": 1497835.4955301653, "mp": 1734990.0530347985, "coi": 54867.425451688025, "asp": 619.8780796646748, "gross_asp": 845.5307693547697, "sd_rate": 0.2613367048657068, "mp_rate": 0.29883850620921737, "coi_rate": 0.009450486147080625, "cogs_rate": 0.732559030709556, "sga_rate": 0.2579904831433635, "mat_rate": 0.6516354566316105, "tt": -621831.9219431808, "nttsi": 0.0, "nttso": -1330142.1030309135}, "MSH": {"qty": 6309.0, "gross_sales": 7792294.436258715, "sd": -2575231.4599979995, "net_sales": 5185121.428543536, "cogs": 3584617.3085546587, "mat_cost": 3045196.82941961, "var_sga": 315594.4335916537, "fixed_cogs": 407391.3043075425, "fixed_sga": 1229266.477664573, "sga": 1544860.9112562267, "mp": 1692300.9907047672, "coi": 55643.20873265155, "asp": 821.8610601590642, "gross_asp": 1235.107693177796, "sd_rate": 0.33048436260507064, "mp_rate": 0.3263763470203093, "coi_rate": 0.010731322207102358, "cogs_rate": 0.6913275528749868, "sga_rate": 0.29794112491791097, "mat_rate": 0.5872951812962622, "tt": -1560200.1145968214, "nttsi": 0.0, "nttso": -1014425.3593328627}, "Alltron": {"qty": 6604.0, "gross_sales": 6636492.209470814, "sd": -759932.7085663974, "net_sales": 6045881.733684342, "cogs": 3871529.4558656644, "mat_cost": 3464387.9570208727, "var_sga": 195384.9141642417, "fixed_cogs": 366685.83240999805, "fixed_sga": 1049490.1420654366, "sga": 1244875.0562296784, "mp": 2345653.196064434, "coi": 929477.2215889993, "asp": 915.4878458032015, "gross_asp": 1004.9200801742602, "sd_rate": 0.11450818965505778, "mp_rate": 0.38797536891860435, "coi_rate": 0.1537372483504699, "cogs_rate": 0.6403581191963486, "sga_rate": 0.20590463245318152, "mat_rate": 0.5730161636671125, "tt": -26087.717210589923, "nttsi": 0.0, "nttso": -733544.6886034257}, "EP": {"qty": 3626.0, "gross_sales": 4990559.671274055, "sd": -428609.82622654666, "net_sales": 4689124.241092648, "cogs": 2894456.4878663933, "mat_cost": 2605432.978062054, "var_sga": 130999.63482151867, "fixed_cogs": 268719.4973604876, "fixed_sga": 789426.6674215491, "sga": 920426.3022430675, "mp": 1932387.6157652235, "coi": 874241.4509831871, "asp": 1293.1947713989653, "gross_asp": 1376.3264399542347, "sd_rate": 0.08588412011054576, "mp_rate": 0.4120998967847658, "coi_rate": 0.18644024044444457, "cogs_rate": 0.6172701636909356, "sga_rate": 0.19628959586461972, "mat_rate": 0.5556331724439322, "tt": -14523.286528259054, "nttsi": 0.0, "nttso": -413743.66398096486}, "Online": {"qty": 4349.0, "gross_sales": 5847578.3273140285, "sd": -1604041.1245163744, "net_sales": 4211127.40971016, "cogs": 2848180.821169798, "mat_cost": 2475982.8549672943, "var_sga": 176108.84178925116, "fixed_cogs": 305395.965089581, "fixed_sga": 924179.3596301499, "sga": 1100288.201419401, "mp": 1492233.7118406924, "coi": 262658.38712096144, "asp": 968.2978638101082, "gross_asp": 1344.5799786879809, "sd_rate": 0.2743086171285472, "mp_rate": 0.3543549189226261, "coi_rate": 0.06237246266054901, "cogs_rate": 0.6763463899482989, "sga_rate": 0.2612811473911521, "mat_rate": 0.5879619907149066, "tt": -484692.56649695354, "nttsi": 0.0, "nttso": -1118976.3590754766}, "Interdiscount": {"qty": 4213.0, "gross_sales": 5419772.093481653, "sd": -1785741.4999466136, "net_sales": 3604004.602927438, "cogs": 2493643.078047974, "mat_cost": 2200815.939693044, "var_sga": 138593.38702778379, "fixed_cogs": 290838.7722228282, "fixed_sga": 854123.0038044802, "sga": 992716.3908322641, "mp": 1262606.9100745078, "coi": 117645.13404719958, "asp": 855.4485171914166, "gross_asp": 1286.4400886498108, "sd_rate": 0.3294864560992003, "mp_rate": 0.35033443327151287, "coi_rate": 0.032642892284776646, "cogs_rate": 0.6919089603888001, "sga_rate": 0.27544814732642314, "mat_rate": 0.6106584708314132, "tt": -688590.916316218, "nttsi": 1730.812585101281, "nttso": -1098468.9879630536}, "FUST": {"qty": 1868.0, "gross_sales": 2516148.7083323565, "sd": -1063875.8806290233, "net_sales": 1438337.274403084, "cogs": 1108953.8536541588, "mat_cost": 971879.9360138269, "var_sga": 64498.22715780973, "fixed_cogs": 131351.16484238775, "fixed_sga": 396650.73545091297, "sga": 461148.9626087226, "mp": 396236.3584335033, "coi": -131765.54185979738, "asp": 769.987834262893, "gross_asp": 1346.9746832614328, "sd_rate": 0.4228191589415774, "mp_rate": 0.27548222901888086, "coi_rate": -0.09160962745297735, "cogs_rate": 0.7709970904525013, "sga_rate": 0.32061253700047604, "mat_rate": 0.6756968294638412, "tt": -358380.27693806996, "nttsi": 0.0, "nttso": -705159.0867276313}, "OBS": {"qty": 719.0, "gross_sales": 948064.6027812749, "sd": -686.7082270875947, "net_sales": 948739.1691432318, "cogs": 550717.6709823388, "mat_cost": 482726.66425983317, "var_sga": 127942.46816267, "fixed_cogs": 52046.22880436516, "fixed_sga": 253510.15372778714, "sga": 381452.6218904572, "mp": 322125.2588025882, "coi": 16568.876270435914, "asp": 1319.5259654286951, "gross_asp": 1318.587764647114, "sd_rate": 0.0007243264067375195, "mp_rate": 0.3395298405287584, "coi_rate": 0.017464100576134744, "cogs_rate": 0.5804732100179545, "sga_rate": 0.4020626894059109, "mat_rate": 0.5088086166989018, "tt": -687.3728660198568, "nttsi": 0.0, "nttso": 0.0}, "FNAC": {"qty": 576.0, "gross_sales": 649131.4961446164, "sd": -50159.92209715669, "net_sales": 614160.9790371091, "cogs": 338336.42443006294, "mat_cost": 303153.3737813455, "var_sga": 19402.035608963284, "fixed_cogs": 33970.980239785575, "fixed_sga": 102562.94244910212, "sga": 121964.9780580654, "mp": 290393.4992378685, "coi": 153859.57654898078, "asp": 1066.2516997172033, "gross_asp": 1126.964403028848, "sd_rate": 0.07727235913689488, "mp_rate": 0.47282961495396836, "coi_rate": 0.25051994802763955, "cogs_rate": 0.5508920885213384, "sga_rate": 0.19858796345102217, "mat_rate": 0.4936057224876676, "tt": -2568.6170235924437, "nttsi": 0.0, "nttso": -47575.23554787658}}, "2026": {"Conforama": {"qty": 13124.0, "gross_sales": 11121471.942094598, "sd": -2397585.7275705, "net_sales": 8681419.127737101, "cogs": 5470491.6640479, "mat_cost": 4965385.4959537, "var_sga": 310267.87580139993, "fixed_cogs": 479179.53612009995, "fixed_sga": 1779028.8326648, "sga": 2089296.7084662002, "mp": 3379839.1240079002, "coi": 1121630.7552230002, "asp": 661.4918567309586, "gross_asp": 847.4148081449708, "sd_rate": 0.215581690989632, "mp_rate": 0.3893187362892464, "coi_rate": 0.12919900983001664, "cogs_rate": 0.630137951359784, "sga_rate": 0.24066303881019926, "mat_rate": 0.5719555089892288, "tt": -804597.9426154, "nttsi": 0.0, "nttso": -1392411.0627285999}, "MSH": {"qty": 8722.0, "gross_sales": 10780989.1342111, "sd": -4093666.2376922, "net_sales": 6656978.3443215, "cogs": 4861899.4075527005, "mat_cost": 4322757.5156758, "var_sga": 500803.4007007, "fixed_cogs": 450320.39488950005, "fixed_sga": 1724585.5867628, "sga": 2225388.9874635, "mp": 1744595.9309576, "coi": -430310.0506947, "asp": 763.2398927220247, "gross_asp": 1236.0684629914126, "sd_rate": 0.3797115632648075, "mp_rate": 0.2620702427920268, "coi_rate": -0.06464044622614114, "cogs_rate": 0.7303462856687782, "sga_rate": 0.334294160557363, "mat_rate": 0.6493573047842608, "tt": -2338909.2093395, "nttsi": 0.0, "nttso": -1737387.0823573}, "Alltron": {"qty": 4416.0, "gross_sales": 5179767.244745499, "sd": -206829.67123560002, "net_sales": 5136164.8902767, "cogs": 2784760.8562348, "mat_cost": 2587234.4640127, "var_sga": 169182.5985633, "fixed_cogs": 205205.0800089, "fixed_sga": 831688.8360343999, "sga": 1000871.4345976999, "mp": 2387426.5154875, "coi": 1350532.5994442, "asp": 1163.0808175445427, "gross_asp": 1172.9545391180932, "sd_rate": 0.03993030216664925, "mp_rate": 0.4648266881009115, "coi_rate": 0.262945724737323, "cogs_rate": 0.5421868097550071, "sga_rate": 0.19486746550766987, "mat_rate": 0.5037288559233382, "tt": -8312.1552373, "nttsi": 0.0, "nttso": -190129.13903910003}, "EP": {"qty": 3981.0, "gross_sales": 5040266.457142199, "sd": -299361.0664771, "net_sales": 4885018.9783067, "cogs": 2763946.7170934, "mat_cost": 2547659.2108378997, "var_sga": 150359.05991450002, "fixed_cogs": 212052.7619002, "fixed_sga": 807651.3848804, "sga": 958010.4447949, "mp": 2182765.963199, "coi": 1163061.8164184, "asp": 1227.0833906824164, "gross_asp": 1266.0804966446117, "sd_rate": 0.05939389693433707, "mp_rate": 0.4468285533571488, "coi_rate": 0.23808747142709233, "cogs_rate": 0.565800609857911, "sga_rate": 0.19611191871499678, "mat_rate": 0.5215249361673919, "tt": -249.40720299999884, "nttsi": 0.0, "nttso": -290956.3998691}, "Online": {"qty": 2999.0, "gross_sales": 4403620.3856283, "sd": -958303.715765, "net_sales": 3428441.1625329996, "cogs": 2052180.3910646, "mat_cost": 1888314.2097340003, "var_sga": 143899.7073008, "fixed_cogs": 184289.551088, "fixed_sga": 705395.630441, "sga": 849295.3377418, "mp": 1416650.6152556, "coi": 526965.4337265999, "asp": 1143.1947857729242, "gross_asp": 1468.3629161814938, "sd_rate": 0.21761724032628466, "mp_rate": 0.41320546221914767, "coi_rate": 0.15370409137698823, "cogs_rate": 0.5985753564889558, "sga_rate": 0.24772055213405614, "mat_rate": 0.5507792376226391, "tt": -368963.1056526, "nttsi": 0.0, "nttso": -582231.6593268}, "Interdiscount": {"qty": 3375.0, "gross_sales": 4005302.7624494, "sd": -1319686.258322, "net_sales": 2670281.1845851, "cogs": 1846143.4663037998, "mat_cost": 1663939.664438, "var_sga": 110246.22604809998, "fixed_cogs": 177886.7535408, "fixed_sga": 640259.9452235, "sga": 750506.1712716, "mp": 891778.245774, "coi": 73631.5470097, "asp": 791.1944250622519, "gross_asp": 1186.7563740590815, "sd_rate": 0.32948476971437735, "mp_rate": 0.333964172358336, "coi_rate": 0.027574454493690576, "cogs_rate": 0.6913666908792783, "sga_rate": 0.28105885462703106, "mat_rate": 0.6231327524769784, "tt": -103358.04887910004, "nttsi": 0.0, "nttso": -1209860.8105221}, "FUST": {"qty": 3228.0, "gross_sales": 3816422.6037544003, "sd": -1460435.5449323002, "net_sales": 2342902.7963639, "cogs": 1728675.925547, "mat_cost": 1556157.4284465, "var_sga": 103369.7927081, "fixed_cogs": 164795.7932379, "fixed_sga": 610626.7819934001, "sga": 713996.5747015, "mp": 675652.8713467, "coi": -99769.7038846, "asp": 725.8063185761772, "gross_asp": 1182.2870519685255, "sd_rate": 0.38267133820442184, "mp_rate": 0.28838280119657067, "coi_rate": -0.04258379990814769, "cogs_rate": 0.737835102775003, "sga_rate": 0.30474869713314473, "mat_rate": 0.6642005937513071, "tt": -587189.3583926, "nttsi": 0.0, "nttso": -867086.0598501001}, "OBS": {"qty": 956.0, "gross_sales": 1224873.4600512, "sd": -3933.3081837, "net_sales": 1224316.3410325, "cogs": 664103.5631800999, "mat_cost": 608554.0415973, "var_sga": 232456.7817463, "fixed_cogs": 52363.5157875, "fixed_sga": 309039.071603, "sga": 541495.8533493, "mp": 380119.5118936, "coi": 18716.9245031, "asp": 1280.6656286950836, "gross_asp": 1281.2483891748952, "sd_rate": 0.0032111955332394804, "mp_rate": 0.3104749149823767, "coi_rate": 0.01528765391411463, "cogs_rate": 0.5424280808177754, "sga_rate": 0.44228426526811, "mat_rate": 0.4970562110476198, "tt": -1957.8946114, "nttsi": 0.0, "nttso": 0.0}, "FNAC": {"qty": 438.0, "gross_sales": 512203.23257570004, "sd": -111788.31047, "net_sales": 413805.7994893, "cogs": 252119.41889540004, "mat_cost": 227982.31492569996, "var_sga": 17307.4903699, "fixed_cogs": 22108.4897036, "fixed_sga": 82127.9460048, "sga": 99435.4363747, "mp": 166487.3799276, "coi": 62250.944219199984, "asp": 944.7620992906393, "gross_asp": 1169.4137730038813, "sd_rate": 0.21824991206684444, "mp_rate": 0.4023321570965681, "coi_rate": 0.150435166196383, "cogs_rate": 0.6092699019843467, "sga_rate": 0.24029493181927036, "mat_rate": 0.550940357063785, "tt": -819.7676689, "nttsi": 0.0, "nttso": -110141.2574398}}}, "inch": {"2024": {"<50": {"qty": 11881.0, "gross_sales": 7923996.01899223, "sd": -2009027.7456487247, "net_sales": 5921163.115661964, "cogs": 4080243.8452225747, "mat_cost": 3543763.6186133986, "var_sga": 291947.95698572986, "fixed_cogs": 386423.69551306934, "fixed_sga": 1246334.9315798897, "sga": 1538282.8885656195, "mp": 1935395.0089667283, "coi": 302636.38187376934, "asp": 498.37245313205653, "gross_asp": 666.9468915909629, "sd_rate": 0.25353719775142336, "mp_rate": 0.32686061355875323, "coi_rate": 0.051110968565157615, "cogs_rate": 0.689094991223936, "sga_rate": 0.2597940402109063, "mat_rate": 0.5984911324668378, "tt": -923615.3041244539, "nttsi": -39411.18787511504, "nttso": -1037001.0291971277}, "50-59": {"qty": 13074.0, "gross_sales": 11164696.258724172, "sd": -3146626.489678752, "net_sales": 8026827.695963107, "cogs": 6087163.08076579, "mat_cost": 5386854.654682053, "var_sga": 433367.6164120892, "fixed_cogs": 519596.01663349976, "fixed_sga": 1782539.4540521817, "sga": 2215907.070464271, "mp": 2025893.0154187274, "coi": -276242.4552669541, "asp": 613.9534722321483, "gross_asp": 853.9617759464718, "sd_rate": 0.2818371782591001, "mp_rate": 0.25239024582994346, "coi_rate": -0.03441489785633287, "cogs_rate": 0.7583522795471462, "sga_rate": 0.2760626183091866, "mat_rate": 0.6711063023554421, "tt": -1192306.6229258152, "nttsi": -55231.45547807564, "nttso": -1869901.7513981622}, "60-69": {"qty": 10185.0, "gross_sales": 12025430.812715638, "sd": -3664714.393253967, "net_sales": 8370122.539665142, "cogs": 6504552.252183773, "mat_cost": 5816903.875152798, "var_sga": 437376.29787302855, "fixed_cogs": 542989.3773706453, "fixed_sga": 1939379.0332328437, "sga": 2376755.331105872, "mp": 1971183.3669789871, "coi": -511185.043624502, "asp": 821.8087913269653, "gross_asp": 1180.7001288871515, "sd_rate": 0.304747035705275, "mp_rate": 0.2355023307768499, "coi_rate": -0.0610725877909253, "cogs_rate": 0.7771155346124713, "sga_rate": 0.2839570531784541, "mat_rate": 0.6949604199445223, "tt": -1227416.055563753, "nttsi": -29546.560321744237, "nttso": -2367491.591069832}, "70-79": {"qty": 4278.0, "gross_sales": 6691194.041065924, "sd": -1170033.8354721547, "net_sales": 5526360.551089397, "cogs": 3836978.172865769, "mat_cost": 3468947.4458033657, "var_sga": 274296.1452535598, "fixed_cogs": 288761.31720335106, "fixed_sga": 1104853.3519117066, "sga": 1379149.4971652664, "mp": 1703847.5501734193, "coi": 310232.88105836144, "asp": 1291.8093854813924, "gross_asp": 1564.0939787437878, "sd_rate": 0.17486174041453525, "mp_rate": 0.3083127737363326, "coi_rate": 0.056136923783810314, "cogs_rate": 0.6943047123679608, "sga_rate": 0.2495583638482289, "mat_rate": 0.6277092154473238, "tt": -477190.46864516527, "nttsi": 0.48028027744931934, "nttso": -665508.5382946683}, "80+": {"qty": 2092.0, "gross_sales": 3670958.562264151, "sd": -805739.7503788499, "net_sales": 2868095.2230246584, "cogs": 2229951.6897081705, "mat_cost": 2003299.1378965357, "var_sga": 132195.34359759232, "fixed_cogs": 154211.43578784482, "fixed_sga": 594771.7233789254, "sga": 726967.0669765176, "mp": 660159.6255067404, "coi": -88823.5336600297, "asp": 1370.9824201838712, "gross_asp": 1754.7603070096325, "sd_rate": 0.2194902875400181, "mp_rate": 0.2301735382448509, "coi_rate": -0.03096952044930973, "cogs_rate": 0.777502668602645, "sga_rate": 0.2534668518466646, "mat_rate": 0.6984772059917456, "tt": -221495.70673819323, "nttsi": 0.05457730425560445, "nttso": -557848.4784516697}}, "2025": {"<50": {"qty": 9475.0, "gross_sales": 6695951.365540929, "sd": -1674302.0733346224, "net_sales": 5022291.425407201, "cogs": 3554805.3173502544, "mat_cost": 2980381.9635981033, "var_sga": 246373.33989646804, "fixed_cogs": 405829.42409272096, "fixed_sga": 1062746.8723536788, "sga": 1309120.212250147, "mp": 1626942.1922531999, "coi": 158365.89580679976, "asp": 530.0571425231874, "gross_asp": 706.696714041259, "sd_rate": 0.25004692864870665, "mp_rate": 0.32394420284388203, "coi_rate": 0.03153259785078275, "cogs_rate": 0.7078054649252129, "sga_rate": 0.2606619372240043, "mat_rate": 0.593430709440852, "tt": -649926.9004294225, "nttsi": 3093.9140148888373, "nttso": -1017796.5674367857}, "50-59": {"qty": 12456.0, "gross_sales": 11204963.8011177, "sd": -2680567.327114382, "net_sales": 8526207.760869633, "cogs": 5860680.023074513, "mat_cost": 5036508.476858699, "var_sga": 363981.8961934707, "fixed_cogs": 631350.5618257276, "fixed_sga": 1796311.7210443867, "sga": 2160293.6172378575, "mp": 2932896.4034273773, "coi": 505234.1205572625, "asp": 684.5060822791934, "gross_asp": 899.5635678482417, "sd_rate": 0.23923034243510846, "mp_rate": 0.3439860352556358, "coi_rate": 0.05925660442805478, "cogs_rate": 0.6873724154332302, "sga_rate": 0.253370980138715, "mat_rate": 0.5907090957803494, "tt": -1078961.3335088198, "nttsi": 2510.5670249001387, "nttso": -1571488.122721233}, "60-69": {"qty": 10109.0, "gross_sales": 13596112.125372607, "sd": -3530661.7247240655, "net_sales": 10067328.307512052, "cogs": 6813367.182427874, "mat_cost": 6041993.029812353, "var_sga": 433615.2583412263, "fixed_cogs": 694771.2663178365, "fixed_sga": 2178352.854614336, "sga": 2611968.112955563, "mp": 3515117.133060791, "coi": 641993.0121286188, "asp": 995.8777631330549, "gross_asp": 1344.9512439779016, "sd_rate": 0.2596817157851518, "mp_rate": 0.3491608722482882, "coi_rate": 0.06376994893963829, "cogs_rate": 0.6767800725584628, "sga_rate": 0.25944997850189916, "mat_rate": 0.6001585371268692, "tt": -1260591.3261794336, "nttsi": 3155.308162462674, "nttso": -2228157.4020056203}, "70-79": {"qty": 3980.0, "gross_sales": 7329693.700151913, "sd": -1596324.860972744, "net_sales": 5734384.948785756, "cogs": 3746279.995461111, "mat_cost": 3360796.7662285087, "var_sga": 231665.4167781539, "fixed_cogs": 358893.6138712829, "fixed_sga": 1182116.4453608575, "sga": 1413781.8621390113, "mp": 2115333.1504177726, "coi": 574323.0911856323, "asp": 1440.8002383883809, "gross_asp": 1841.6315829527418, "sd_rate": 0.2177887543840555, "mp_rate": 0.3688857949562124, "coi_rate": 0.10015426175866411, "cogs_rate": 0.6533011001039227, "sga_rate": 0.24654463813741292, "mat_rate": 0.5860779832962122, "tt": -520096.07272883365, "nttsi": 23.746727393390998, "nttso": -1056752.134343747}, "80+": {"qty": 1677.0, "gross_sales": 3897318.286212002, "sd": -790816.9307343033, "net_sales": 3107031.9908149904, "cogs": 2209764.637122462, "mat_cost": 1944042.8633238291, "var_sga": 132515.63478006187, "fixed_cogs": 194780.05940419054, "fixed_sga": 628796.8784531204, "sga": 761312.5132331823, "mp": 959531.7783166573, "coi": 135954.84045934628, "asp": 1852.7322545110258, "gross_asp": 2323.9822815813964, "sd_rate": 0.2029130988690528, "mp_rate": 0.30882584445645417, "coi_rate": 0.04375714214119972, "cogs_rate": 0.7112139957538157, "sga_rate": 0.24502886210498467, "mat_rate": 0.6256912928707556, "tt": -247919.10105244356, "nttsi": 17.4225394172818, "nttso": -529785.5296203571}}, "2026": {"<50": {"qty": 9958.0, "gross_sales": 7335643.8361353, "sd": -1910712.9237505998, "net_sales": 5424930.9123847, "cogs": 3708144.8038638, "mat_cost": 3409989.4114133003, "var_sga": 298234.7291238, "fixed_cogs": 333464.39543780003, "fixed_sga": 1184878.0307867, "sga": 1483112.7599105001, "mp": 1752015.7748349002, "coi": 233673.34861039993, "asp": 544.7811721615485, "gross_asp": 736.6583486779775, "sd_rate": 0.26046969651640517, "mp_rate": 0.3229563294225891, "coi_rate": 0.04307397686428442, "cogs_rate": 0.6835377009868256, "sga_rate": 0.27338832214889003, "mat_rate": 0.6285774817202845, "tt": -760340.5440059, "nttsi": 136.0, "nttso": -1126466.6339449}, "50-59": {"qty": 13240.0, "gross_sales": 11392294.470663302, "sd": -2862112.026605, "net_sales": 8530182.444058299, "cogs": 5662994.9644877, "mat_cost": 5009089.9260356, "var_sga": 398695.87956190004, "fixed_cogs": 516275.84188809997, "fixed_sga": 1843126.6503718002, "sga": 2241822.5299337, "mp": 2984767.4418968, "coi": 625364.9496368999, "asp": 644.2735984938292, "gross_asp": 860.4452017117297, "sd_rate": 0.2512322723025924, "mp_rate": 0.34990663581595965, "coi_rate": 0.07331202512233463, "cogs_rate": 0.6638773556868365, "sga_rate": 0.26281061919082893, "mat_rate": 0.5872195534955624, "tt": -1060459.9039851, "nttsi": 222.0, "nttso": -1735139.8802832998}, "60-69": {"qty": 11579.0, "gross_sales": 14535399.607044201, "sd": -3427533.8729585996, "net_sales": 11107865.7340856, "cogs": 6930356.642194001, "mat_cost": 6255169.3562457, "var_sga": 526563.4016073, "fixed_cogs": 599423.9660350999, "fixed_sga": 2361590.453702, "sga": 2888153.8553093, "mp": 4250369.6563194, "coi": 1289355.2365823002, "asp": 959.3113165286813, "gross_asp": 1255.3242600435444, "sd_rate": 0.23580596100691548, "mp_rate": 0.3826450335348144, "coi_rate": 0.11607587519047734, "cogs_rate": 0.6239143331493021, "sga_rate": 0.2600097916602206, "mat_rate": 0.5631297232060598, "tt": -1322171.9451321, "nttsi": 150.0, "nttso": -2019117.3113771}, "70-79": {"qty": 4185.0, "gross_sales": 7461922.4583974, "sd": -1618198.1183767999, "net_sales": 5843724.3400206, "cogs": 3595721.0925201997, "mat_cost": 3231713.9599557, "var_sga": 291355.9397473, "fixed_cogs": 291024.686118, "fixed_sga": 1218166.2386834, "sga": 1509522.1784307002, "mp": 2247671.9938711, "coi": 738481.0690697001, "asp": 1396.3499020359857, "gross_asp": 1783.0161190913739, "sd_rate": 0.21686075235956564, "mp_rate": 0.3846300515029387, "coi_rate": 0.12637164693280123, "cogs_rate": 0.6153132631351198, "sga_rate": 0.258315089932079, "mat_rate": 0.5530229990185177, "tt": -645525.2084142, "nttsi": 0.0, "nttso": -927634.4852759}, "80+": {"qty": 2277.0, "gross_sales": 5359656.8504124, "sd": -1207357.0792731, "net_sales": 4152299.7711393, "cogs": 2662147.0418283, "mat_cost": 2443028.6487224, "var_sga": 219022.51312010002, "fixed_cogs": 206561.5315381, "fixed_sga": 875465.838793, "sga": 1094488.3519131, "mp": 1477691.747729, "coi": 395664.3773979, "asp": 1823.5835622043478, "gross_asp": 2353.8238253897234, "sd_rate": 0.2252676081641681, "mp_rate": 0.3558730894141474, "coi_rate": 0.09528800886390203, "cogs_rate": 0.6411259274514916, "sga_rate": 0.2635860636846064, "mat_rate": 0.5883555579736206, "tt": -381426.82179859997, "nttsi": 0.0, "nttso": -791182.4026372}}}, "waterfall": {"last_coi": 3674721.689554489, "volume": 345275.8634480728, "price": -653461.316799818, "sd": 213418.5541067125, "var_cogs": 1614632.6790937616, "fixed_oh": -400475.2846186012, "other_gap": 178069.45001248294, "this_coi": 4972181.6347971}, "cost_stack": [{"label": "2023 YTD", "material": 0.6627372236638146, "var_oh": 0.005457324877858331, "var_sga": 0.07861711041721008, "fixed_cogs": 0.07567745914812324, "mp_residual": 0.17751088189299374}, {"label": "2024 YTD", "material": 0.6467339273841217, "var_oh": 0.0018987528442758518, "var_sga": 0.05049712845561178, "fixed_cogs": 0.05973592432512079, "mp_residual": 0.24113426699086984}, {"label": "2025 YTD", "material": 0.5754378830477316, "var_oh": 0.004088047317476787, "var_sga": 0.04458224699439112, "fixed_cogs": 0.05001635086064891, "mp_residual": 0.3258754717797515}, {"label": "2026 YTD", "material": 0.5645702300016898, "var_oh": -0.01764621128509679, "var_sga": 0.055199292818051374, "fixed_cogs": 0.03299969509142358, "mp_residual": 0.36487699337393203}], "ytd_trend": [{"year": 2023, "month_str": "2023 YTD", "sales": 31468540.8118246, "mp_rate": 0.253188341041117, "coi_rate": -0.07101595764738239, "is_loss": true, "is_spacer": false}, {"year": 2024, "month_str": "2024 YTD", "sales": 31272854.631176315, "mp_rate": 0.30087019131599063, "coi_rate": 0.022725876885483352, "is_loss": false, "is_spacer": false}, {"year": 2025, "month_str": "2025 YTD", "sales": 33669928.77462429, "mp_rate": 0.37589182264040044, "coi_rate": 0.10913957419250571, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "2026 YTD", "sales": 36076971.9394532, "mp_rate": 0.3978766884653556, "coi_rate": 0.13782147911808523, "is_loss": false, "is_spacer": false}, {"year": null, "month_str": "", "sales": null, "mp_rate": null, "coi_rate": null, "is_loss": false, "is_spacer": true}, {"year": 2026, "month_str": "01월 누적", "sales": 5463463.6201459, "mp_rate": 0.40124050127947203, "coi_rate": 0.21636658703963915, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "02월 누적", "sales": 11015699.593369499, "mp_rate": 0.39096046911701016, "coi_rate": 0.21231878873250834, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "03월 누적", "sales": 15858088.542401202, "mp_rate": 0.39420394320841884, "coi_rate": 0.18197816818697962, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "04월 누적", "sales": 20468293.5330076, "mp_rate": 0.38503600727599907, "coi_rate": 0.14936258306013142, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "05월 누적", "sales": 24707953.905810602, "mp_rate": 0.3883588861594284, "coi_rate": 0.14574945862212452, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "06월 누적", "sales": 28583522.485813297, "mp_rate": 0.393603434328139, "coi_rate": 0.14500172270002745, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "07월 누적", "sales": 32415555.668272395, "mp_rate": 0.3962017839058216, "coi_rate": 0.14114269819575578, "is_loss": false, "is_spacer": false}, {"year": 2026, "month_str": "08월 누계", "sales": 36076971.9394532, "mp_rate": 0.3978766884653556, "coi_rate": 0.13782147911808523, "is_loss": false, "is_spacer": false}]};
+
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-red', 'text-white', 'shadow-lg', 'shadow-brand-red/20');
+        btn.classList.add('text-slate-400', 'font-medium');
+      });
+
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.remove('hidden');
+
+      const targetBtn = document.getElementById('btn-' + tabId);
+      if (targetBtn) {
+        targetBtn.classList.add('bg-brand-red', 'text-white', 'shadow-lg', 'shadow-brand-red/20');
+        targetBtn.classList.remove('text-slate-400', 'font-medium');
+      }
+
+      // Trigger resize for charts if tab changed
+      if (tabId === 'tab-overview') {
+        initOverviewCharts();
+      } else if (tabId === 'tab-4p-diagnostic') {
+        initDiagnosticCharts();
+      }
+    }
+
+    // Charts Instances
+    let chartWaterfallInst = null;
+    let chartCostStackInst = null;
+    let chartSegmentShareInst = null;
+
+    function initOverviewCharts() {
+      // 1. Waterfall Chart
+      const wfCtx = document.getElementById('chartWaterfall');
+      if (wfCtx && !chartWaterfallInst) {
+        const wf = PNL_DATA.waterfall;
+        const labels = ['2025 COI', '판매량 효과', '판가 효과', 'S/D 할인율', '재료/변동원가', '고정비/기타', '2026 COI'];
+        
+        // Waterfall logic
+        const startVal = wf.last_coi / 1000;
+        const vol = wf.volume / 1000;
+        const prc = wf.price / 1000;
+        const sd = wf.sd / 1000;
+        const cogs = wf.var_cogs / 1000;
+        const fixed = (wf.fixed_oh + wf.other_gap) / 1000;
+        const endVal = wf.this_coi / 1000;
+
+        const dataVals = [startVal, vol, prc, sd, cogs, fixed, endVal];
+        const bgColors = [
+          '#64748B',
+          vol >= 0 ? '#10B981' : '#EF4444',
+          prc >= 0 ? '#10B981' : '#EF4444',
+          sd >= 0 ? '#10B981' : '#EF4444',
+          cogs >= 0 ? '#10B981' : '#EF4444',
+          fixed >= 0 ? '#10B981' : '#EF4444',
+          '#A50034'
+        ];
+
+        chartWaterfallInst = new Chart(wfCtx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: '영업이익 증감 (K$)',
+              data: dataVals,
+              backgroundColor: bgColors,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    const val = ctx.raw;
+                    return (val >= 0 ? '+' : '') + val.toFixed(1) + ' K$';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                grid: { color: '#1F2937' },
+                ticks: { color: '#9CA3AF' }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { color: '#9CA3AF', font: { size: 11 } }
+              }
+            }
+          }
+        });
+      }
+
+      // 2. Cost Stack Chart
+      const csCtx = document.getElementById('chartCostStack');
+      if (csCtx && !chartCostStackInst) {
+        const labels = ['2024 YTD', '2025 YTD', '2026 YTD'];
+        // Data from cost_stack
+        // '24: mat 64.7%, cogs_other 6.0%, sga 27.1%, coi 2.3%
+        chartCostStackInst = new Chart(csCtx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: '재료비율 (Material)', data: [64.67, 57.54, 56.46], backgroundColor: '#3B82F6', stack: 'stack1', borderRadius: 4 },
+              { label: '기타 제조원가/경비', data: [6.03, 5.46, 1.54], backgroundColor: '#6366F1', stack: 'stack1' },
+              { label: '판관비 (SG&A)', data: [27.03, 26.09, 28.22], backgroundColor: '#F59E0B', stack: 'stack1' },
+              { label: '영업이익률 (COI%)', data: [2.27, 10.91, 13.78], backgroundColor: '#10B981', stack: 'stack1', borderRadius: 4 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { color: '#9CA3AF', boxWidth: 12, font: { size: 11 } }
+              }
+            },
+            scales: {
+              y: {
+                stacked: true,
+                max: 100,
+                grid: { color: '#1F2937' },
+                ticks: { color: '#9CA3AF', callback: v => v + '%' }
+              },
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { color: '#9CA3AF' }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function initDiagnosticCharts() {
+      const segCtx = document.getElementById('chartSegmentShare');
+      if (segCtx && !chartSegmentShareInst) {
+        chartSegmentShareInst = new Chart(segCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['OLED ($24.1M)', 'QNED ($5.6M)', 'UHD ($3.8M)', 'Others ($1.0M)', 'FHD ($1.0M)', 'MRGB ($0.6M)'],
+            datasets: [{
+              data: [24.10, 5.63, 3.79, 1.02, 0.97, 0.58],
+              backgroundColor: ['#A855F7', '#38BDF8', '#FBBF24', '#64748B', '#94A3B8', '#10B981'],
+              borderWidth: 2,
+              borderColor: '#0F172A'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'right',
+                labels: { color: '#E2E8F0', font: { size: 11 }, boxWidth: 12 }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    // Margin Simulator Logic
+    function updateSim() {
+      const mshSlider = parseFloat(document.getElementById('slider-msh-sd').value);
+      const fustSlider = parseFloat(document.getElementById('slider-fust-sd').value);
+      const qnedSlider = parseFloat(document.getElementById('slider-qned-sd').value);
+
+      const mshDeltaRate = (38.0 - mshSlider) / 100;
+      const fustDeltaRate = (38.3 - fustSlider) / 100;
+      const qnedDeltaRate = (26.2 - qnedSlider) / 100;
+
+      document.getElementById('label-msh-sd').innerText = mshSlider.toFixed(1) + '% (-' + (38.0 - mshSlider).toFixed(1) + '%p)';
+      document.getElementById('label-fust-sd').innerText = fustSlider.toFixed(1) + '% (-' + (38.3 - fustSlider).toFixed(1) + '%p)';
+      document.getElementById('label-qned-sd').innerText = qnedSlider.toFixed(1) + '% (-' + (26.2 - qnedSlider).toFixed(1) + '%p)';
+
+      // Gross Sales basis:
+      // MSH Gross Sales approx $10,732K (since Net is $6,657K and SD% is 38.0%)
+      const mshGross = 6656978 / (1 - 0.3797);
+      const fustGross = 2342903 / (1 - 0.3827);
+      const qnedGross = 5631499 / (1 - 0.262);
+
+      const addedMshProfit = mshGross * mshDeltaRate;
+      const addedFustProfit = fustGross * fustDeltaRate;
+      const addedQnedProfit = qnedGross * qnedDeltaRate;
+
+      const totalAdded = addedMshProfit + addedFustProfit + addedQnedProfit;
+      const baseCoi = 4972182;
+      const baseSales = 36076972;
+
+      const newCoi = baseCoi + totalAdded;
+      const newSales = baseSales + totalAdded;
+      const newCoiRate = (newCoi / newSales) * 100;
+
+      document.getElementById('sim-added-profit').innerText = '+ $' + Math.round(totalAdded / 1000).toLocaleString() + 'K';
+      document.getElementById('sim-new-coi').innerText = '$' + Math.round(newCoi / 1000).toLocaleString() + 'K';
+      document.getElementById('sim-new-coi-rate').innerText = newCoiRate.toFixed(2) + '%';
+
+      const feedback = document.getElementById('sim-feedback');
+      if (totalAdded > 0) {
+        feedback.innerHTML = '<span class="text-emerald-400 font-bold">시뮬레이션 분석:</span> MSH/FUST/QNED 할인율 정상화 시 영업이익이 현행 대비 <strong class="text-emerald-300">+$' + Math.round(totalAdded / 1000).toLocaleString() + 'K</strong> 증가하여 영업이익률이 <strong class="text-emerald-300">' + newCoiRate.toFixed(2) + '%</strong>에 도달합니다.';
+      } else {
+        feedback.innerText = '슬라이더를 조정하여 적자 유통의 할인율 정상화 시 이익 개선 효과를 확인하세요.';
+      }
+    }
+
+    function resetSimulator() {
+      document.getElementById('slider-msh-sd').value = 38.0;
+      document.getElementById('slider-fust-sd').value = 38.3;
+      document.getElementById('slider-qned-sd').value = 26.2;
+      updateSim();
+    }
+
+    // Initial Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initOverviewCharts();
+    });
+  </script>
+</body>
+</html>

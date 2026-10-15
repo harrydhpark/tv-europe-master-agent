@@ -21,7 +21,7 @@ const state = {
   activeAgentFilter: null,
   isFullscreenCanvas: false,
   apiKey: localStorage.getItem('lge_master_gemini_key') || '',
-  model: localStorage.getItem('lge_master_gemini_model') || 'gemini-2.0-flash',
+  model: localStorage.getItem('lge_master_gemini_model') || 'gemini-3.8-flash',
   isServerMode: true,
   chartInstance: null,
   pendingPipelineAgent: null
@@ -61,7 +61,79 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupEventListeners();
   await loadAgentsAndStatus();
   loadChatHistory();
+  initSSEListener();
 });
+
+// SSE Live Event Listener for Automated Excel Ingestion & Deployment
+function initSSEListener() {
+  if (typeof EventSource === 'undefined') return;
+  try {
+    const evtSource = new EventSource('/api/events');
+    evtSource.onmessage = (e) => {
+      try {
+        const payload = JSON.parse(e.data);
+        if (payload.event === 'SYNC_COMPLETED') {
+          showSyncCompletedToast(payload);
+          loadAgentsAndStatus();
+        } else if (payload.event === 'DEPLOY_COMPLETED') {
+          alert('🎉 Firebase Hosting 웹 배포가 성공적으로 완료되었습니다!');
+        }
+      } catch (err) {}
+    };
+  } catch (e) {}
+}
+
+function showSyncCompletedToast(payload) {
+  let container = document.getElementById('toastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toastContainer';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'sync-toast-card';
+  toast.innerHTML = `
+    <div style="display:flex; align-items:flex-start; gap:10px;">
+      <i class="ri-checkbox-circle-fill" style="color:#10B981; font-size:22px; margin-top:1px;"></i>
+      <div style="flex:1;">
+        <div style="font-weight:700; font-size:13px; color:#0F172A;">주간 엑셀 자동 갱신 완료</div>
+        <div style="font-size:12px; color:#475569; margin:4px 0 8px 0; line-height:1.4;">
+          <strong>${escapeHtml(payload.fileName)}</strong> 원천 데이터가 중앙 DuckDB 및 정적 번들에 안전하게 반영되었습니다.
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-toast-deploy" onclick="triggerWebDeploy(this)">
+            <i class="ri-upload-cloud-line"></i> Firebase 웹 배포 실행
+          </button>
+          <button class="btn-toast-dismiss" onclick="this.closest('.sync-toast-card').remove()">닫기</button>
+        </div>
+      </div>
+    </div>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 20000);
+}
+
+window.triggerWebDeploy = async function(btn) {
+  if (!btn) return;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> 배포 진행 중...';
+  try {
+    const res = await fetch('/api/analytics/deploy', { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+      btn.innerHTML = '<i class="ri-check-line"></i> 배포 성공!';
+      btn.style.background = '#10B981';
+    } else {
+      btn.innerHTML = '배포 실패';
+      alert('배포 실패: ' + (data.error || '알 수 없는 오류'));
+      btn.disabled = false;
+    }
+  } catch (err) {
+    btn.innerHTML = '오류 발생';
+    alert('배포 요청 중 네트워크 오류가 발생했습니다: ' + err.message);
+    btn.disabled = false;
+  }
+};
 
 // 1. Load Agents & Status (Server Mode vs Static Bundle Mode)
 async function loadAgentsAndStatus() {
@@ -300,15 +372,15 @@ async function handleSendMessage() {
         const taskRes = await fetch(`${bridgeBase}/api/bridge/task`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query })
+         body: JSON.stringify({ query, apiKey: (state.apiKey || '').trim() || undefined })
         });
         const taskData = await taskRes.json();
 
         if (taskData.success && taskData.taskId) {
           const taskId = taskData.taskId;
           const startTime = Date.now();
-          while (Date.now() - startTime < 35000) {
-            await new Promise(r => setTimeout(r, 350));
+          while (Date.now() - startTime < 90000) {
+            await new Promise(r => setTimeout(r, 400));
             const pollRes = await fetch(`${bridgeBase}/api/bridge/status/${taskId}`);
             const pollData = await pollRes.json();
 
@@ -586,6 +658,56 @@ function renderArtifactToCanvas(artifact, answerMarkdown) {
         <ul class="action-list">
           ${artifact.actionItems.map(item => `<li>${item}</li>`).join('')}
         </ul>
+      </div>
+    `;
+  }
+
+  // 6. Strategic Slides Evidence Viewer
+  if (artifact.slides && artifact.slides.length > 0) {
+    html += `
+      <div style="margin-top:16px;">
+        <div style="font-size:13px; font-weight:700; color:#0F766E; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between;">
+          <span style="display:flex; align-items:center; gap:6px;">
+            <i class="ri-book-read-line"></i>
+            <span>참조된 영업 전략 보고서 원문 슬라이드 (${artifact.slides.length}건)</span>
+          </span>
+          <span style="font-size:11px; padding:2px 8px; background:#F0FDFA; color:#0F766E; border-radius:12px; font-weight:600; border:1px solid #CCFBF1;">
+            2025~2026 전략회의/PD회의 DB
+          </span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          ${artifact.slides.map((s, idx) => `
+            <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:12px 14px; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-size:10.5px; font-weight:700; padding:2px 6px; background:#A50034; color:#FFFFFF; border-radius:4px;">
+                    ${escapeHtml(s.meeting_type || '전략회의')}
+                  </span>
+                  <span style="font-size:11px; color:#64748B; font-weight:600;">
+                    ${escapeHtml(s.report_date || '')}
+                  </span>
+                </div>
+                <span style="font-size:11px; font-weight:700; color:#0D9488; font-family:monospace; background:#CCFBF1; padding:1px 6px; border-radius:4px;">
+                  Slide p.${s.slide_no}
+                </span>
+              </div>
+              <div style="font-size:12.5px; font-weight:700; color:#1E293B; margin-bottom:6px;">
+                ${escapeHtml(s.slide_title || '무제 슬라이드')}
+              </div>
+              <div style="font-size:11.5px; color:#475569; line-height:1.5; white-space:pre-line; max-height:120px; overflow-y:auto; background:#F8FAFC; padding:8px 10px; border-radius:6px; border:1px solid #F1F5F9;">
+                ${escapeHtml(s.content_text || '(텍스트 없음)')}
+              </div>
+              ${s.tables_markdown ? `
+                <div style="margin-top:8px; font-size:11px; color:#0F766E;">
+                  <span style="font-weight:600;">📊 수치표 포함</span> (본문 테이블 참조)
+                </div>
+              ` : ''}
+              <div style="margin-top:6px; font-size:10.5px; color:#94A3B8; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                📁 ${escapeHtml(s.report_name)}
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
     `;
   }
@@ -964,7 +1086,7 @@ const SUBS_FLAGS = {
   'LA': '🇱🇻'
 };
 
-async function callGeminiOrchestrator(queryText, apiKey, model = 'gemini-2.0-flash') {
+async function callGeminiOrchestrator(queryText, apiKey, model = 'gemini-3.8-flash') {
   const raw = (queryText || '').trim();
   const q = raw.toLowerCase();
   const bundle = state.bundleData || {};
@@ -1021,6 +1143,11 @@ async function callGeminiOrchestrator(queryText, apiKey, model = 'gemini-2.0-fla
       nameKr: msSeriesMap[msTarget].nameKr,
       metrics: msSeriesMap[msTarget].metrics
     };
+  }
+
+  // Inject 2026 Product Lineup & Specs (MRGB, OLED, QNED)
+  if (datasets.productLineup2026) {
+    groundTruthContext.productLineup2026 = datasets.productLineup2026;
   }
 
   const systemInstruction = `당신은 LG전자(LGE) TV 유럽영업본부의 수석 전략 참모 AI 에이전트(Master Orchestrator)입니다.
@@ -1490,17 +1617,115 @@ async function fallbackClientQuery(queryText) {
     };
   }
 
-  // 4. Default Executive Briefing
+  // 3.5. 2026 TV Product Lineup & Specs (MRGB, OLED, QNED)
+  if (q.includes('mrgb') || q.includes('라인업') || q.includes('lineup') || q.includes('스펙') || q.includes('spec') || q.includes('제품') || q.includes('micro rgb') || q.includes('mini rgb') || q.includes('신모델')) {
+    const lineupData = datasets.productLineup2026 || {};
+    const mrgbList = lineupData.mrgbLineup || [];
+    const oledList = lineupData.oledLineup || [];
+
+    const isMrgbQuery = q.includes('mrgb') || q.includes('micro rgb') || q.includes('mini rgb');
+
+    const headers = isMrgbQuery 
+      ? ["모델명", "시리즈 구분", "지원 인치대", "백라이트 기술", "화질 프로세서", "주사율 / VRR", "오디오 출력"]
+      : ["세그먼트", "대표 모델 / 시리즈", "주요 인치대", "핵심 프로세서", "기술 특장점"];
+
+    const rows = isMrgbQuery
+      ? mrgbList.map(m => [
+          m.modelCode,
+          m.series.replace('LG ', ''),
+          m.sizes.join(', '),
+          m.backlight,
+          m.processor.replace('AI Processor 4K Gen3', 'Gen3'),
+          m.refreshRate,
+          m.audio
+        ])
+      : [
+          ["4K OLED evo", "OLED W6 / G6 / C6 / B6", "97\" ~ 42\" 풀 라인업", "α11 AI Processor 4K Gen3", "165Hz VRR, 무선 Zero Connect, 완벽한 블랙"],
+          ["4K Micro RGB", "MRGB 95B / 9MB / 85B", "100\" ~ 50\" 프리미엄", "α11 / α8 AI Gen3", "초미세 독립 RGB 백라이트, 165Hz/144Hz VRR"],
+          ["4K QNED MiniLED", "115/100/86~50 QNED85/80", "115\" ~ 43\" 대화면", "α8 / α7 AI Processor", "초대형 115\"/100\" 거함, Quantum Dot + NanoCell"],
+          ["4K NanoCell / UHD", "98/85~43 NU85 / NU80", "98\" ~ 32\" 볼륨", "4K Quad Processor", "대형 엔트리 세그먼트 커버리지"]
+        ];
+
+    const title = isMrgbQuery 
+      ? "2026년 LG Micro RGB (MRGB) TV 전략 제품 라인업 및 상세 스펙"
+      : "2026년 LG TV 유럽 시장 전체 전략 제품 라인업 아키텍처";
+
+    const answerMarkdown = isMrgbQuery
+      ? `### 📺 2026년 LG Micro RGB (MRGB) 제품 라인업 상세 브리핑
+
+2026년 LG전자는 초프리미엄 OLED 시장의 지배력을 유지하면서, **차세대 초고화질 LCD 최상위 세그먼트로 'Micro RGB(MRGB)' 라인업**을 신규 출격시켰습니다.
+
+#### 1. MRGB 95B 시리즈 (최상위 플래그십 Micro RGB)
+* **운영 인치대**: **100인치, 86인치, 75인치** (초대형 거함 라인업)
+* **백라이트 엔진**: **Micro RGB (초미세 독립 RGB LED 백라이트)** 탑재로 LCD 한계를 뛰어넘는 색재현율 및 명암비 구현
+* **핵심 스펙**: **α11 AI Processor 4K Gen3 with Dual AI Engine**, **120Hz Native (VRR 165Hz 지원)**, **40W 2.2ch Dolby Atmos**
+
+#### 2. MRGB 9MB 시리즈 (무선 Zero Connect 하이엔드)
+* **운영 인치대**: **86인치, 75인치, 65인치**
+* **핵심 특장점**: Zero Connect 무선 AV 전송 박스 지원으로 전원선 외 케이블 없는 깔끔한 인테리어 설치 지원
+* **핵심 스펙**: α11 AI 프로세서, 120Hz Native (VRR 144Hz), 20W Dolby Atmos
+
+#### 3. MRGB 85B 시리즈 (대형 & 중형 프리미엄 볼륨)
+* **운영 인치대**: **86인치, 75인치, 65인치, 55인치, 50인치**
+* **핵심 스펙**: **α8 AI Processor 4K Gen3**, **120Hz Native (VRR 144Hz)**, 20W Dolby Atmos
+* **포지셔닝**: 유럽 주요 프리미엄 유통(MediaMarkt, Fnac 등) 주력 판매 모델로 최적의 화질/가격 밸런스 제공
+
+> 우측 라이브 아티팩트 캔버스에 2026년 MRGB 전 모델 상세 스펙 비교 매트릭스가 렌더링되었습니다.`
+      : `### 📺 2026년 LG TV 유럽 시장 전략 제품 라인업 종합 안내
+
+2026년 유럽 TV 시장은 **OLED evo 리더십 강화**, **차세대 Micro RGB(MRGB) 신규 세그먼트 개척**, **QNED 115/100인치 초대형화**의 3대 축으로 전개됩니다.
+
+* **4K OLED evo (W6/G6/C6/B6)**: α11 AI Processor Gen3 탑재, 165Hz VRR, 무선 올레드 확장
+* **4K Micro RGB (MRGB 95B/9MB/85B)**: 100인치~50인치 전 구간 초미세 RGB 백라이트 신기술 적용
+* **4K QNED MiniLED (115/100/86~50 QNED85/80)**: 115인치/100인치 초대형 라인업 확대
+* **4K NanoCell (98~43 NU85/NU80)**: 합리적 대화면 세그먼트 공략
+
+> 우측 라이브 아티팩트 캔버스에 세그먼트별 상세 스펙 및 라인업 비교 매트릭스가 렌더링되었습니다.`;
+
+    return {
+      dispatchedAgents: ['spec-finder', 'prm-consulting', 'product-profile'],
+      timeline: [
+        { step: 1, agent: "07. Spec Sheet Finder", status: "completed", desc: "2026 TV NERP Spec DB(v7.5) 실시간 파싱 완료" },
+        { step: 2, agent: "2025/26 거래선 PRM", status: "completed", desc: "유럽 권역별 제품 세그먼트 및 인치대 믹스 매핑 완료" },
+        { step: 3, agent: "Master AI Orchestrator", status: "completed", desc: isMrgbQuery ? "2026년 Micro RGB(MRGB) 전략 라인업 브리핑 생성" : "2026년 TV 전체 라인업 아키텍처 브리핑 생성" }
+      ],
+      answerMarkdown: answerMarkdown,
+      artifact: {
+        title: title,
+        metrics: isMrgbQuery ? [
+          { label: "MRGB 최상위 모델", value: "MRGB95B", change: "100/86/75\"", status: "positive" },
+          { label: "화질 프로세서", value: "α11 AI Gen3", change: "Dual AI Engine", status: "positive" },
+          { label: "최대 주사율", value: "VRR 165Hz", change: "게이밍 최적화", status: "positive" },
+          { label: "무선 지원 모델", value: "MRGB9MB", change: "Zero Connect", status: "positive" }
+        ] : [
+          { label: "초프리미엄 OLED", value: "OLED evo G6/C6", change: "α11 AI Gen3", status: "positive" },
+          { label: "신규 LCD 기술", value: "Micro RGB (MRGB)", change: "100\"~50\"", status: "positive" },
+          { label: "초대형 QNED", value: "115/100인치", change: "거함 라인업", status: "positive" },
+          { label: "운영 모델 수", value: "총 31개 모델군", change: "2026 NERP DB", status: "positive" }
+        ],
+        table: { headers, rows },
+        actionItems: [
+          "Micro RGB(MRGB) 95B 100인치 플래그십 매장 집중 전시 및 VMD 차별화",
+          "OLED evo G6/C6 vs 삼성 S90D/S95D 화질 비교 전시 강화",
+          "QNED 115/100인치 초대형 세그먼트 조기 런칭을 통한 시장 선점"
+        ]
+      }
+    };
+  }
+
+  // 4. Default Briefing & Strategy Guidance
   return {
-    dispatchedAgents: ['kpi-sheet', 'price-tracker', 'tv-pnl', 'fx-monitor'],
+    dispatchedAgents: ['master-orchestrator', 'kpi-sheet', 'tv-pnl'],
     timeline: [
-      { step: 1, agent: "KPI Sheet", status: "completed", desc: "유럽 21개 지사 매출 진척률 및 WOS 집계" },
-      { step: 2, agent: "Price Tracker", status: "completed", desc: "유럽 11개국 유통 실시간 ASP 및 Price Gap 분석" },
-      { step: 3, agent: "TV P&L", status: "completed", desc: "권역별 손익 트렌드 요약 합성" }
+      { step: 1, agent: "Master Orchestrator", status: "completed", desc: `질의: "${raw}" 수신 및 분석 완료` },
+      { step: 2, agent: "Data Engine", status: "completed", desc: "유럽영업 종합 핵심 운영 지표 매핑" }
     ],
-    answerMarkdown: `### 📊 TV Europe 종합 주간 Executive Briefing
-유럽 전체 매출 진척률 **96.4%**, 유통 재고 주수 **8.4주**로 전반적으로 안정적인 운영세를 유지하고 있습니다.
-스위스(11.8주) 등 일부 지점의 재고 적체에 대한 판촉 지원이 권고됩니다.`,
+    answerMarkdown: `### 🤖 TV Europe Master AI Agent 브리핑
+입력하신 질의: **"${raw}"**
+
+질의하신 세부 내용에 대한 고도화된 자율 분석을 진행하려면 **로컬 안티그래비티 브릿지(\`server.js\` & \`watch_bridge.js\`)**를 기동하시거나, 우측 상단 **⚙️ 설정**에서 Google Gemini API Key를 저장해 주시면 15대 전문 에이전트의 원천 문서를 심층 분석하여 즉시 답변합니다.
+
+*(※ 아래 우측 라이브 캔버스에 유럽 TV 주요 5개국 종합 사업현황 매트릭스가 렌더링되었습니다.)*`,
     artifact: {
       title: "TV Europe 주요 5개국 종합 사업현황 매트릭스",
       metrics: [

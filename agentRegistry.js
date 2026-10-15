@@ -501,6 +501,37 @@ const AGENTS = [
         }
       }
     }
+  },
+  {
+    id: "strategic-reports",
+    name: "Strategic Reports Knowledge (전략회의/PD회의 지식베이스)",
+    category: "market",
+    categoryName: "시장 및 전략 정보",
+    period: "monthly",
+    mentionTag: "@전략보고서",
+    icon: "ri-book-read-line",
+    desc: "2025~2026년 유럽전략회의, PD회의, NPI 핵심 보고서 1,282개 슬라이드 지식 검색 및 영업 의사결정 참모 지원",
+    agentUrl: "#strategic-reports",
+    dataPath: "data/strategic_reports_catalog.json",
+    duckDbTable: "fact_strategic_slides",
+    sampleQueries: [
+      "지난 9월 전략회의에서 독일 법인 OLED 프로모션과 가격 정책 어떻게 결정됐어?",
+      "26년 4분기 M/S 사수와 수익성 가이드라인 핵심 내용 알려줘",
+      "@전략보고서 최근 PD회의에서 논의된 QNED 마케팅 액션아이템 정리해줘"
+    ],
+    toolDefinition: {
+      name: "query_strategic_reports",
+      description: "2025~2026년 유럽전략회의, PD회의, NPI 등 주요 영업 보고서 슬라이드를 검색하여 전략 결정사항과 가이드라인을 조회합니다.",
+      parameters: {
+        type: "object",
+        properties: {
+          keyword: { type: "string", description: "검색할 전략 키워드 (예: OLED 판가, 독일 프로모션, QNED 마케팅 등)" },
+          subsidiary: { type: "string", description: "대상 법인 코드 (예: DG, UK, FS, IS, ES, PL, SWISS 등)" },
+          limit: { type: "integer", description: "반환할 최대 슬라이드 개수 (기본 5)" }
+        },
+        required: ["keyword"]
+      }
+    }
   }
 ];
 

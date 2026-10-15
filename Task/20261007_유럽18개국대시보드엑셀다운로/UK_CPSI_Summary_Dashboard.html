@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko" style=""><head>
+<script>
+    window.onerror = function(message, source, lineno, colno, error) {
+        const errorMsg = "JS Error Caught: " + message + " (Line " + lineno + ", Col " + colno + ")";
+        console.error(errorMsg, error);
+        
+        // Render a big visual error banner at the top of the body
+        const banner = document.createElement('div');
+        banner.style.position = 'fixed';
+        banner.style.top = '0';
+        banner.style.left = '0';
+        banner.style.width = '100%';
+        banner.style.backgroundColor = '#ba1a1a';
+        banner.style.color = '#ffffff';
+        banner.style.padding = '15px';
+        banner.style.zIndex = '99999';
+        banner.style.fontFamily = 'monospace';
+        banner.style.fontSize = '12px';
+        banner.style.fontWeight = 'bold';
+        banner.innerHTML = "JS Exception Caught: " + message + " (Line " + lineno + ", Col " + colno + ")<br>Stack: " + (error ? error.stack : 'No stacktrace available');
+        document.body.appendChild(banner);
+        return false;
+    };
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Intelligence | LGE UK C-PSI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#051c2c",
+                        "on-primary": "#ffffff",
+                        "secondary": "#a50034",
+                        "surface": "#f6faff",
+                        "surface-variant": "#ebf5ff",
+                        "outline": "#73777d",
+                        "outline-variant": "#c3c7cc",
+                        "error": "#ba1a1a",
+                        "background": "#ffffff",
+                        "mck-navy": "#001E62",
+                        "mck-blue": "#00558C",
+                        "mck-ocean": "#007DB3",
+                        "mck-sky": "#42B4E6",
+                        "mck-gray": "#98A4AE",
+                        "mck-orange": "#f07d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["\"Source Serif 4\"", "serif"],
+                        "body": ["Inter", "Noto Sans KR", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #f6faff; color: #051c2c; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Source Serif 4', serif; }
+        .view { display: none; }
+        .view.active { display: block; }
+                .sidebar-item.active { background-color: rgba(255, 255, 255, 0.1); border-right: 4px solid #ffffff; }
+        .iframe-mode aside { display: none !important; }
+        .iframe-mode main { margin-left: 0 !important; }
+        .iframe-mode header { display: none !important; }
+        table { border-collapse: collapse; width: 100%; font-size: 0.8125rem; }
+        th { background-color: #f8fafc; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; color: #475569; padding: 12px 16px; border-bottom: 2px solid #e2e8f0; text-align: left; }
+        td { padding: 12px 16px; border-bottom: 1px solid #e2e8f0; }
+        tr:nth-child(even) { background-color: rgba(246, 250, 255, 0.5); }
+        .num-cell { font-variant-numeric: tabular-nums; text-align: right; }
+        .chart-container { height: 380px; position: relative; width: 100%; margin-top: 1rem; }
+        .slicer-btn.active { background-color: #001E62; color: white; border-color: #001E62; }
+    </style>
+    <style>
+        .channel-btn {
+            background-color: #f8fafc;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .channel-btn:hover {
+            border-color: #1A2530;
+            color: #1A2530;
+        }
+        .channel-btn.active {
+            background-color: #1A2530 !important;
+            color: #ffffff !important;
+            border-color: #1A2530 !important;
+        }
+    </style>
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            var div = document.createElement('div');
+            div.style.position = 'fixed';
+            div.style.top = '0';
+            div.style.left = '0';
+            div.style.width = '100%';
+            div.style.background = '#e11d48';
+            div.style.color = '#ffffff';
+            div.style.zIndex = '999999';
+            div.style.padding = '16px';
+            div.style.fontFamily = 'monospace';
+            div.style.fontSize = '12px';
+            div.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
+            div.innerHTML = "<strong>JS Exception Caught:</strong> " + message + " (Line " + lineno + ", Col " + colno + ")<br>Stack: " + (error ? error.stack.replace(/\n/g, '<br>') : 'N/A');
+            document.body.appendChild(div);
+            return false;
+        };
+    </script>
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('iframe-mode');
+        }
+    </script>
+</head>
+<body class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-primary text-white fixed h-screen flex flex-col z-50">
+<div class="p-8 border-b border-white/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-white/80">insights</span>
+<h1 class="text-xl font-bold tracking-tight">C-PSI Weekly Report</h1>
+</div>
+<p class="text-[10px] text-white/50 uppercase tracking-[0.2em] font-medium">LGE UK C-PSI Portal</p>
+</div>
+<nav class="flex-1 py-8 px-4 space-y-2 overflow-y-auto">
+<button class="sidebar-item active w-full flex items-center gap-4 px-6 py-4 rounded transition-all hover:bg-white/5 text-left" id="btn_summary" onclick="switchTab('tab_summary')"><span class="text-xs font-medium opacity-50">Ⅰ.</span><span class="font-medium text-sm">Executive Summary</span></button>
+<button class="sidebar-item w-full flex items-center gap-4 px-6 py-4 rounded transition-all hover:bg-white/5 text-left" id="btn_weekly" onclick="switchTab('tab_weekly')">
+<span class="text-xs font-medium opacity-50">II.</span>
+<span class="font-medium text-sm">주간 판매 현황</span>
+</button>
+<button class="sidebar-item w-full flex items-center gap-4 px-6 py-4 rounded transition-all hover:bg-white/5 text-left" id="btn_monthly" onclick="switchTab('tab_monthly')"><span class="text-xs font-medium opacity-50">Ⅲ.</span><span class="font-medium text-sm">월간 판매 현황</span></button>
+<button class="sidebar-item w-full flex items-center gap-4 px-6 py-4 rounded transition-all hover:bg-white/5 text-left" id="btn_channel" onclick="switchTab('tab_channel')"><span class="text-xs font-medium opacity-50">Ⅳ.</span><span class="font-medium text-sm">유통별 판매 현황</span></button>
+<button class="sidebar-item w-full flex items-center gap-4 px-6 py-4 rounded transition-all hover:bg-white/5 text-left" id="btn_inventory" onclick="switchTab('tab_inventory')"><span class="text-xs font-medium opacity-50">Ⅴ.</span><span class="font-medium text-sm">재고 관리 대상 모델</span></button>
+</nav>
+<div class="p-8 border-t border-white/10 bg-black/10 flex flex-col gap-1 text-[10px] text-white/40 font-sans tracking-tight leading-relaxed">
+    <p class="font-bold text-white/50 text-[11px] mb-1">System Admin</p>
+    <p class="text-white/60">Harry Park</p>
+    <p><a href="mailto:harry.park@lge.com" class="hover:text-primary text-white/50 underline decoration-white/20 transition-all">harry.park@lge.com</a></p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 flex-1 flex flex-col min-h-screen">
+<!-- Top Bar -->
+<header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-12 sticky top-0 z-40">
+<div class="flex items-center gap-6">
+<span class="text-xs font-bold tracking-widest text-slate-400 uppercase">UK C-PSI</span>
+<div class="h-4 w-px bg-slate-200"></div>
+<p class="text-sm font-semibold" id="page-indicator">Executive Summary</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Report Week</p>
+<p class="text-sm font-bold">W40 / September 28, 2026</p>
+</div>
+<div class="h-8 w-px bg-slate-200"></div>
+</div>
+</header>
+<div class="p-12 max-w-7xl mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-12 border-b border-slate-200 pb-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+    <h2 class="text-4xl font-headline font-bold text-primary" id="main-title">C-PSI TV Sell-out 주간 요약</h2>
+    <a href="UK_CPSI_Revised_Final.xlsb" download="UK_CPSI_Revised_Final.xlsb" 
+       class="inline-flex items-center gap-2.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-xs font-bold rounded-lg shadow-sm hover:shadow transition-all duration-200 cursor-pointer self-start md:self-auto shrink-0 group"
+       title="UK_CPSI_Revised_Final.xlsb 원본 파일 다운로드">
+        <svg class="w-4 h-4 text-emerald-100 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+            <path d="M8 12h2.5l1.5 2.5 1.5-2.5H16l-2.5 4 2.5 4h-2.5l-1.5-2.5-1.5 2.5H8l2.5-4z"/>
+        </svg>
+        <span>Excel 다운로드 (.xlsb)</span>
+        <svg class="w-3.5 h-3.5 text-emerald-200 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Report Category</span>
+<span class="text-sm font-medium">C-PSI 실적 및 시뮬레이션 대시보드</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Reference Basis</span>
+<span class="text-sm font-medium">기준: W40 / 9월 28일 (GDMi System 기준)</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">UPDATED DATE</span>
+<span class="text-sm font-medium">2026년 10월 07일</span>
+</div>
+</div>
+</div>
+<!-- Content Views -->
+    <!-- Channel Selection Menu (Visible only in Channel Analysis) -->
+    <div class="hidden bg-white p-4 border border-slate-200 rounded-lg flex items-center justify-between mb-8 shadow-sm" id="channel-selector-container">
+        <div class="flex flex-wrap items-center gap-2 py-1">
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap active" onclick="updateChannelView('AMAZON')">AMAZON</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('AO')">AO</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('ARGOS')">ARGOS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('CURRYS')">CURRYS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('IRELAND_HARVEY_MS')">IRELAND_HARVEY_MS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('JOHN LEWIS')">JOHN LEWIS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('OBS')">OBS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('RICHER SOUNDS')">RICHER SOUNDS</button>
+<button class="channel-btn px-6 py-2 text-xs font-bold border border-transparent rounded transition-all whitespace-nowrap" onclick="updateChannelView('VERY')">VERY</button>
+</div>
+        <div class="px-4 border-l border-slate-200 hidden md:block">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Current Channel: </span>
+            <span class="text-xs font-bold text-[#1A2530]" id="current-channel-label">AMAZON</span>
+        </div>
+    </div>
+    
+    <div class="content-wrapper">
+<!-- I. SUMMARY VIEW -->
+<section class="view active" id="tab_summary">
+
+        <div class="mb-12">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-6 w-1 bg-primary"></span>
+                <h3 class="text-2xl font-headline font-bold">Executive Summary — 판매 현황 (4주 평균 + 최근 주차 흐름) <span class="text-slate-400 text-lg ml-2">요약 (10)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">01</span>
+                        <span class="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold rounded uppercase">Target Achievement</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">전체 TV 당주 판매량 15,960대 기록 (초과 달성)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">전체 TV 당주(W40) sell-out은 15,960대를 기록하여 전년 동기 대비 +9.0% 변동하였으며, 주간 사업 계획 대비 진척율은 103.9% 수준을 기록하였습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">02</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">최근 4주 평균 판매량 15,600대 기록하며 성장세 유지</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">최근 4주 평균 판매량은 15,600대를 기록하여 전년 동기 대비 +13.6% 증감하였고, 주간 계획 대비 99.5%의 진척율을 나타내며 실판매 흐름을 이어가고 있습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">03</span>
+                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded uppercase">Premium Growth</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">OLED TV 당주 2,679대 판매하며 전체 실적의 17% 점유로 판매 견인</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">OLED TV 당주 sell-out은 2,679대로 전체 TV 판매량의 16.8% 비중을 차지하며 핵심 프리미엄 라인업의 입지를 확고히 하였습니다. (전년비 +3.2%, 계획비 78.1%)</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">04</span>
+                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded uppercase">Premium Growth</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">OLED TV 4주 평균 2,920대 기록 (계획 대비 80.6% 진척)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">OLED TV의 최근 4주 평균 판매량은 2,920대로 전년 동기 대비 +21.2% 신장하였으며, 주간 계획 대비 80.6%를 달성하여 견고한 프리미엄 판매세를 유지하고 있습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">05</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">QNED TV 당주 3,601대 판매 (전년비 +228.3% / 진척율 121.3%)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">QNED TV 당주 판매량은 3,601대(4주 평균 3,001대)를 기록하여 전년 대비 +228.3% 성장하였으며, 계획 대비 121.3%의 진척율을 보였습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">06</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">Nanocell TV 당주 220대 판매 (4주 평균 299대)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">Nanocell(NANO) TV 당주 판매량은 220대(4주 평균 299대)로 전년 동기 대비 -90.6%, 계획 대비 180.3% 수준을 기록하며 잔여 수요에 안정적으로 대응하였습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">07</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">UHD TV 당주 5,794대 판매로 보급형 수요 안정적 지지</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">UHD TV 당주 sell-out은 5,794대(4주 평균 5,794대)를 기록하여 전년 동기 대비 +39.0%, 주간 계획 대비 96.7%의 진척율을 보였습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">08</span>
+                        <span class="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold rounded uppercase">Target Achievement</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">FHD/STV TV 당주 3,666대 판매 (계획 대비 128.5% 달성)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">FHD/STV TV 당주 판매량은 3,666대(4주 평균 3,587대)로 전년 동기 대비 -17.4%, 계획 대비 128.5%의 실적을 기록하였습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">09</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">주요 거래선 CURRYS 당주 8,620대 판매하며 최대 유통 실적 견인</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">최대 유통 거래선인 CURRYS은(는) 당주 8,620대(4주 평균 8,498대)를 판매하여 전년 대비 +37.5%, 계획 대비 110.7%를 기록하였으며, 채널 재고 38,754대(WOS 4.6주)를 유지하고 있습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">10</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">주요 거래선 ARGOS 당주 2,287대 판매 (4주 평균 2,033대)</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">ARGOS 거래선은 당주 2,287대(4주 평균 2,033대)를 판매하여 전년 대비 -43.9%, 계획 대비 93.2%의 진척율을 나타냈으며, 채널 재고는 13,231대(WOS 6.5주) 수준입니다.</p>
+                </div>
+            
+</div></div>
+
+        <div class="mb-12">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-6 w-1 bg-secondary"></span>
+                <h3 class="text-2xl font-headline font-bold">재고 현황 — 9월 마감 재고 예상 (Ch.Inv / WOS(-4) 기준, 관리 기준 8.0주) <span class="text-slate-400 text-lg ml-2">요약 (5)</span></h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">11</span>
+                        <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase">Channel Strength</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">전체 TV 채널 재고 101,273대, WOS 6.5주로 매우 건전한 수준 유지</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">전체 TV 채널 재고는 101,273대이며, 판매속도(4주 평균) 기준 재고일수(WOS)는 6.5주로 마감되어 당사 관리 기준인 8.0주 이내의 건강한 수준을 유지하고 있습니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">12</span>
+                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-bold rounded uppercase">Premium Growth</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">제품군별 재고일수 OLED 10.2주, QNED 4.7주, UHD 7.9주 분포</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">제품군별 WOS는 UHD(7.9주), QNED(4.7주), OLED(10.2주), FHD(2.8주), NANO(4.1주) 순으로 나타났으며, 일부 라인업(OLED)의 재고일수가 8.0주를 초과하여 공급 속도 조절 및 판촉 강화가 요구됩니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-error">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">13</span>
+                        <span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold rounded uppercase">Supply Adjustment</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-error">재고 관리 대상 모델 총 39개 (Critical 18개, Warning 8개) 집중 관리</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">Ch.Inv 50대 이상 및 WOS 8주 초과 재고 관리 모델은 총 39개(Critical 18개, Warning 8개, Watch 13개)입니다. 최다 재고 모델은 &#x27;43UA75006LA.AEK&#x27;(856대, WOS 10.6주)입니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">14</span>
+                        <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase">Channel Strength</span>
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">유통 채널 AMAZON 재고 16,517대 (WOS 11.7주) 재고 건전화 필요</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">주요 거래선 중 AMAZON의 재고가 16,517대(WOS 11.7주)로 관리 기준을 상회하고 있어, Sell-out 활성화를 위한 프로모션 집중 및 주간 공급 속도 조절이 필요합니다.</p>
+                </div>
+            
+
+                <div class="bg-white border border-slate-200 p-8 rounded-lg hover:shadow-lg transition-all border-l-4 border-l-primary">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-primary opacity-40">15</span>
+                        
+                    </div>
+                    <h4 class="text-lg font-headline font-bold mb-3 text-primary">향후 8주 판매 예측 기반 재고 운영 및 공급(PSI) 밸런싱 지속</h4>
+                    <p class="text-sm text-slate-600 leading-relaxed">향후 8주간의 판매 계획 및 시뮬레이션 WOS를 종합 감안하여, 주력 프리미엄 라인업(OLED/QNED)의 공급 연속성을 확보하고 재고 일수가 높은 일부 보급형 모델 및 특정 채널에 대해 선제적 공급 조절을 실행할 필요가 있습니다.</p>
+                </div>
+            
+</div></div>
+</section>
+<!-- II. WEEKLY VIEW -->
+<!-- II. WEEKLY VIEW -->
+<section class="view" id="tab_weekly">
+<div class="space-y-12">
+<div class="bg-white p-8 border border-slate-200 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-3">
+<span class="w-1.5 h-6 bg-primary"></span> Key KPIs (Current Week) — 제품군별
+                        </h3>
+<div class="overflow-x-auto">
+<table class="min-w-full">
+<thead>
+<tr class="border-t-2 border-primary bg-slate-50/50">
+<th rowspan="2" class="text-left font-bold text-primary align-middle border-b-2 border-slate-200 py-3 px-4">Metric</th>
+<th colspan="3" class="text-center font-bold text-primary border-b border-r border-slate-200 py-2 px-4">Current Week Performance</th>
+<th colspan="4" class="text-center font-bold text-primary border-b border-r border-slate-200 py-2 px-4">4-Week Average & Forecast</th>
+<th colspan="2" class="text-center font-bold text-primary border-b border-slate-200 py-2 px-4">Annual Accm.</th>
+</tr>
+<tr class="bg-slate-50/30">
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">Current (W)</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">vs. PY</th>
+<th class="text-right font-semibold text-slate-600 border-r border-slate-200 py-2.5 px-4 border-b border-slate-200">vs. Plan</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W Avg</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W vs.PY</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W vs.Plan</th>
+<th class="text-right font-semibold text-slate-600 border-r border-slate-200 py-2.5 px-4 border-b border-slate-200">Next 4W FCST</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">YTD</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">vs. PY</th>
+</tr>
+</thead>
+<tbody id="weekly-kpi-body" class="text-sm">
+<tr class="font-bold bg-slate-50">
+<td class="py-3 px-4 border-b border-slate-200">UK TTL</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">15,960</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+9%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">104%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">15,600</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+14%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">99%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">15,535</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">594,277</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-13%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200">OLED</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">2,679</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+3%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">78%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">2,920</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+21%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">81%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">3,284</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">134,619</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-15%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200">QNED / MRGB</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">3,601</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+228%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">121%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">3,001</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+201%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">106%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">3,044</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">83,926</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+124%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200">NANO</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">220</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-91%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">180%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">299</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-86%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">104%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">214</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">72,170</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+95%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200">UHD</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">5,794</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+39%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">97%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">5,794</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+35%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">100%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">6,534</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">175,817</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-33%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200">FHD / STV</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">3,666</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-17%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">128%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">3,587</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-8%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">115%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">2,459</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">127,745</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-33%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-white p-8 border border-slate-200 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-3">
+<span class="w-1.5 h-6 bg-primary"></span> Key KPIs (Current Week) — 유통별
+</h3>
+<div class="overflow-x-auto">
+<table class="min-w-full">
+<thead>
+<tr class="border-t-2 border-primary bg-slate-50/50">
+<th rowspan="2" class="text-left font-bold text-primary align-middle border-b-2 border-slate-200 py-3 px-4">Metric</th>
+<th colspan="3" class="text-center font-bold text-primary border-b border-r border-slate-200 py-2 px-4">Current Week Performance</th>
+<th colspan="4" class="text-center font-bold text-primary border-b border-r border-slate-200 py-2 px-4">4-Week Average & Forecast</th>
+<th colspan="2" class="text-center font-bold text-primary border-b border-slate-200 py-2 px-4">Annual Accm.</th>
+</tr>
+<tr class="bg-slate-50/30">
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">Current (W)</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">vs. PY</th>
+<th class="text-right font-semibold text-slate-600 border-r border-slate-200 py-2.5 px-4 border-b border-slate-200">vs. Plan</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W Avg</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W vs.PY</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W vs.Plan</th>
+<th class="text-right font-semibold text-slate-600 border-r border-slate-200 py-2.5 px-4 border-b border-slate-200">Next 4W FCST</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">YTD</th>
+<th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">vs. PY</th>
+</tr>
+</thead>
+<tbody id="channel-kpi-body" class="text-sm">
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">CURRYS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">8,620</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+38%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">111%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">8,498</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+36%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">117%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">8,536</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">261,040</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-16%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">ARGOS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">2,287</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-44%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">93%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">2,033</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-43%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">72%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">2,013</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">118,851</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-25%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">AMAZON</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">1,396</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+81%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">92%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">1,416</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+170%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">105%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">1,448</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">70,351</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+85%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">JOHN LEWIS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">1,354</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-6%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">110%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">1,338</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-6%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">85%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">1,528</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">56,714</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-20%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">OBS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">825</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+20%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">148%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">735</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-6%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">109%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">556</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">23,394</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-37%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">RICHER SOUNDS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">503</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-37%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">61%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">574</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+2%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">66%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">516</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">28,090</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-18%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">VERY</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">540</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+94%</td>
+<td class="num-cell text-green-600 border-r border-slate-200 py-3 px-4 border-b border-slate-200">112%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">549</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+89%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">105%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">430</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">17,891</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+20%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">AO</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">435</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+33%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">86%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">458</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">+29%</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">77%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">507</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">17,946</td>
+<td class="num-cell text-error py-3 px-4 border-b border-slate-200">-14%</td>
+</tr>
+<tr>
+<td class="py-3 px-4 border-b border-slate-200 font-medium">IRELAND_HARVEY_MS</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">332</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">0%</td>
+<td class="num-cell text-error border-r border-slate-200 py-3 px-4 border-b border-slate-200">88%</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">345</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">0%</td>
+<td class="num-cell text-green-600 py-3 px-4 border-b border-slate-200">101%</td>
+<td class="num-cell border-r border-slate-200 py-3 px-4 border-b border-slate-200">393</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">12,506</td>
+<td class="num-cell py-3 px-4 border-b border-slate-200">0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-white p-8 border border-slate-200 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-4">Weekly Sell-out Trend</h3>
+<div class="chart-container"><canvas id="weeklyTrendChart"></canvas></div>
+</div>
+<div class="bg-white p-8 border border-slate-200 rounded-lg">
+<h3 class="text-xl font-headline font-bold mb-4">BLU Sell-out Trend (Last 4 Weeks)</h3>
+<div class="chart-container"><canvas id="bluMixChart"></canvas></div>
+</div>
+</div>
+</div>
+</section>
+<!-- III. MONTHLY VIEW -->
+<!-- III. MONTHLY VIEW -->
+<section class="view" id="tab_monthly">
+<div class="space-y-12">
+<div class="bg-white p-8 border border-slate-200 rounded-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<h3 class="text-xl font-headline font-bold" id="monthly-chart-header">Monthly Sell-out (<span id="table-category-label" class="text-primary font-bold">UK TTL</span>)</h3>
+<!-- Product Category Slicer -->
+<div class="flex flex-wrap gap-2">
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy active" data-category="UK TTL" onclick="updateMonthlyData('UK TTL')">UK TTL</button>
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy" data-category="OLED" onclick="updateMonthlyData('OLED')">OLED</button>
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy" data-category="QNED/MRGB" onclick="updateMonthlyData('QNED/MRGB')">QNED/MRGB</button>
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy" data-category="NANO" onclick="updateMonthlyData('NANO')">NANO</button>
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy" data-category="UHD" onclick="updateMonthlyData('UHD')">UHD</button>
+<button class="slicer-btn px-4 py-1.5 text-xs font-bold border border-slate-200 rounded-full transition-all hover:border-mck-navy" data-category="FHD/STV" onclick="updateMonthlyData('FHD/STV')">FHD/STV</button>
+</div>
+</div>
+<div class="chart-container mb-12"><canvas id="monthlyTrendChart"></canvas></div>
+<div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-t-2 border-primary bg-slate-50/50 font-bold text-primary text-xs">
+                                <th class="py-3 px-4 border-b border-slate-200">Metric</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JAN</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">FEB</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">MAR</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">APR</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">MAY</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JUN</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JUL</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">AUG</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">SEP</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">OCT</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">NOV</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200">DEC</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70 border-l border-slate-200">1Q</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">2Q</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">3Q</th>
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">4Q</th>
+                                <th class="py-2 px-4 text-right border-b border-slate-200 bg-slate-50/90 font-black">Y TTL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthly-table-body" class="text-sm">
+                            <!-- Filled dynamically by updateMonthlyData() -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border-t border-slate-100 pt-8 mt-8">
+                    <h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-3">
+                        <span class="w-1.5 h-6 bg-primary"></span> Monthly Channel Inventory & WOS (<span id="inv-table-category-label" class="text-primary font-bold">UK TTL</span>)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-t-2 border-primary bg-slate-50/50 font-bold text-primary text-xs">
+                                    <th class="py-3 px-4 border-b border-slate-200">Metric</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">JAN</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">FEB</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">MAR</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">APR</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">MAY</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">JUN</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">JUL</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">AUG</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">SEP</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">OCT</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">NOV</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200">DEC</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70 border-l border-slate-200">1Q</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">2Q</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">3Q</th>
+                                    <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">4Q</th>
+                                    <th class="py-2 px-4 text-right border-b border-slate-200 bg-slate-50/90 font-black">Y TTL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="monthly-inv-table-body" class="text-sm">
+                                <!-- Filled dynamically by updateMonthlyData() -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+</div>
+</div>
+</section>
+<!-- IV. CHANNEL VIEW -->
+
+    <section class="view" id="tab_channel">
+
+        <div class="space-y-12">
+
+            <div class="bg-white p-8 border border-slate-200 rounded-lg">
+
+                <h3 class="text-xl font-headline font-bold mb-6 flex items-center gap-3">
+
+                    <span class="w-1.5 h-6 bg-primary"></span> Key KPIs (Current Week)
+
+                </h3>
+
+                <div class="overflow-x-auto">
+
+                    <table class="min-w-full text-left border-collapse">
+
+                        <thead>
+
+                            <tr class="border-t-2 border-primary bg-slate-50/50">
+
+                                <th rowspan="2" class="text-left font-bold text-primary align-middle border-b-2 border-slate-200 py-3 px-4">Metric</th>
+
+                                <th colspan="3" class="text-center font-bold text-primary border-b border-r border-slate-200 py-2 px-4">Current Week Performance</th>
+
+                                <th colspan="4" class="text-center font-bold text-primary border-b border-slate-200 py-2 px-4">4-Week Average & Forecast</th>
+
+                            </tr>
+
+                            <tr class="bg-slate-50/30">
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">Current (W)</th>
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">vs. PY</th>
+
+                                <th class="text-right font-semibold text-slate-600 border-r border-slate-200 py-2.5 px-4 border-b border-slate-200">vs. Plan</th>
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W Avg</th>
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">4W vs.PY</th>
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200 border-r border-slate-200">4W vs.Plan</th>
+
+                                <th class="text-right font-semibold text-slate-600 py-2.5 px-4 border-b border-slate-200">Next 4W FCST</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="channel-weekly-kpi-body" class="text-sm">
+
+                            <!-- Filled dynamically by updateChannelView() -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <div class="bg-white p-8 border border-slate-200 rounded-lg">
+
+                    <h3 class="text-xl font-headline font-bold mb-4">Weekly Sell-out Trend</h3>
+
+                    <div class="chart-container" style="position: relative; height:320px; width:100%;">
+
+                        <canvas id="channelWeeklyTrendChart"></canvas>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white p-8 border border-slate-200 rounded-lg">
+
+                    <h3 class="text-xl font-headline font-bold mb-4">BLU Sell-out Trend (Last 4 Weeks)</h3>
+
+                    <div class="chart-container" style="position: relative; height:320px; width:100%;">
+
+                        <canvas id="channelBluMixChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="bg-white p-8 border border-slate-200 rounded-lg">
+
+                <h3 class="text-xl font-headline font-bold mb-6">Monthly Sell-out</h3>
+
+                <div class="chart-container" style="position: relative; height:320px; width:100%; mb-8;">
+
+                    <canvas id="channelMonthlyTrendChart"></canvas>
+
+                </div>
+
+                <div class="overflow-x-auto mt-8">
+
+                    <table class="w-full text-left border-collapse">
+
+                        <thead>
+
+                            <tr class="border-t-2 border-primary bg-slate-50/50 font-bold text-primary text-xs">
+
+                                <th class="py-3 px-4 border-b border-slate-200">Metric</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JAN</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">FEB</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">MAR</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">APR</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">MAY</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JUN</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">JUL</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">AUG</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">SEP</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">OCT</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">NOV</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200">DEC</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70 border-l border-slate-200">1Q</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">2Q</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">3Q</th>
+
+                                <th class="py-2 px-2 text-right border-b border-slate-200 bg-slate-50/70">4Q</th>
+
+                                <th class="py-2 px-4 text-right border-b border-slate-200 bg-slate-50/90 font-black">Y TTL</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="channel-monthly-table-body" class="text-sm">
+
+                            <!-- Filled dynamically by updateChannelView() -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    
+
+               <!-- V. INVENTORY VIEW -->
+
+<section class="view" id="tab_inventory">
+
+            <div class="space-y-12">
+
+                <!-- Top Section: 전체 재고 현황 요약 -->
+
+                <div class="bg-white p-8 border border-slate-200 rounded-lg shadow-sm">
+
+                    <div class="flex items-center gap-4 mb-8">
+
+                        <span class="h-6 w-1 bg-primary"></span>
+
+                        <h3 class="text-2xl font-headline font-bold">전체 재고 현황 요약</h3>
+
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4" id="inventory-highlights-container">
+
+                        <!-- Filled dynamically by updateInventoryView() -->
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Middle Section: 재고 관리 대상 모델 LIST -->
+
+                <div class="bg-white p-8 border border-slate-200 rounded-lg shadow-sm">
+
+                    <div class="flex items-center justify-between mb-6">
+
+                        <h3 class="text-xl font-headline font-bold">재고 관리 대상 모델 LIST</h3>
+
+                        <span class="text-xs text-slate-400 font-medium">조건: Ch.Inv ≥ 50대 AND WOS(-4) > 8.0주 AND WOS(+8) > 8.0주</span>
+
+                    </div>
+
+                    <div class="overflow-x-auto">
+
+                        <table class="w-full text-left border-collapse">
+
+                            <thead>
+
+                                <tr class="border-t-2 border-primary bg-slate-50/50 font-bold text-primary text-xs">
+
+                                    <th class="py-4 px-4 border-b border-slate-200">Model Name</th>
+
+                                    <th class="py-4 px-4 border-b border-slate-200">Category</th>
+
+                                    <th class="py-4 px-4 text-right border-b border-slate-200">Ch.Inv (Units)</th>
+
+                                    <th class="py-4 px-4 text-right border-b border-slate-200">WOS (L4W)</th>
+
+                                    <th class="py-4 px-4 text-right border-b border-slate-200">WOS (+8W)</th>
+
+                                    <th class="py-4 px-4 text-center border-b border-slate-200">Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="inventory-models-list-body" class="text-sm divide-y divide-slate-100">
+
+                                <!-- Filled dynamically by updateInventoryView() -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Bottom Section: Critical 모델 핵심 채널 -->
+
+                <div class="bg-white p-8 border border-slate-200 rounded-lg shadow-sm">
+
+                    <h3 class="text-xl font-headline font-bold mb-6">Critical 모델 핵심 채널 <span class="text-slate-400 text-sm ml-2">(Ch.Inv 80% 이상 채널)</span></h3>
+
+                    <div class="w-full">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="inventory-critical-channels-container">
+
+                            <!-- Filled dynamically by updateInventoryView() -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="mt-20 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-slate-400">
+<div>
+<p class="text-xs font-bold text-primary mb-1">C-PSI Weekly Report Portfolio</p>
+<p class="text-[10px]">© 2026 LG Electronics Inc. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8 text-[10px] font-bold uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Confidentiality Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Access Logs</a>
+<a class="hover:text-primary transition-colors" href="#">Internal Support</a>
+</div>
+</footer>
+</div>
+</main>
+<script>
+    // Tab Switching Logic
+        function switchTab(tabId) {
+        // Hide all views
+        document.querySelectorAll('.view').forEach(v => {
+            v.classList.remove('on', 'active');
+        });
+        
+        // Show targeted view
+        const targetView = document.getElementById(tabId);
+        if (targetView) {
+            targetView.classList.add('on', 'active');
+        }
+
+        // Update sidebar items active state
+        document.querySelectorAll('.sidebar-item').forEach(btn => {
+            const btnId = btn.id;
+            const targetId = 'btn_' + tabId.replace('tab_', '');
+            const isMatch = (btnId === targetId) || btn.getAttribute('onclick')?.includes(tabId);
+            
+            if (isMatch) {
+                btn.classList.add('active');
+                btn.classList.add('bg-white/10');
+            } else {
+                btn.classList.remove('active');
+                btn.classList.remove('bg-white/10');
+            }
+        });
+        
+        const indicator = document.getElementById('page-indicator');
+        const title = document.getElementById('main-title');
+        const headerCat = document.getElementById('header-category');
+        const channelSelector = document.getElementById('channel-selector-container');
+
+        if (channelSelector) {
+            channelSelector.classList.add('hidden');
+        }
+
+        switch(tabId) {
+            case 'tab_summary': 
+                if (indicator) indicator.innerText = 'Executive Summary'; 
+                if (title) title.innerText = 'C-PSI TV Sell-out 주간 요약'; 
+                if (headerCat) headerCat.innerText = 'C-PSI 실적 및 시뮬레이션 대시보드';
+                break;
+            case 'tab_weekly': 
+                if (indicator) indicator.innerText = 'Weekly Performance'; 
+                if (title) title.innerText = '주간 판매 실적 및 트렌드'; 
+                if (headerCat) headerCat.innerText = '주간 판매량 분석';
+                break;
+            case 'tab_monthly': 
+                if (indicator) indicator.innerText = 'Monthly Simulation'; 
+                if (title) title.innerText = '월간 실판매 추이 및 연간 전망'; 
+                if (headerCat) headerCat.innerText = '월간 시뮬레이션 데이터';
+                break;
+            case 'tab_channel': 
+                if (indicator) indicator.innerText = 'Channel Analysis'; 
+                if (title) title.innerText = '유통 거래선별 실적 분석'; 
+                if (headerCat) headerCat.innerText = 'C-PSI 채널별 심층 분석';
+                if (channelSelector) {
+                    channelSelector.classList.remove('hidden');
+                }
+                break;
+            case 'tab_inventory': 
+                if (indicator) indicator.innerText = 'Inventory Risk'; 
+                if (title) title.innerText = '채널 재고 현황 및 리스크 분석'; 
+                if (headerCat) headerCat.innerText = '재고 소진 현황 및 공급 관리';
+                break;
+        }
+
+        // Trigger dynamic tab view initializers
+        if (tabId === 'tab_inventory' && typeof updateInventoryView === 'function') {
+            updateInventoryView();
+        }
+        
+        // Trigger Chart.js redraw
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    function initChannelCharts() {
+        const ctxWeekly = document.getElementById('channelWeeklyTrendChart');
+        if (ctxWeekly) {
+            channelWeeklyChart = new Chart(ctxWeekly, {
+                type: 'line',
+                data: {
+                    labels: ["9/7W", "9/14W", "9/21W", "9/28W", "10/5W", "10/12W", "10/19W", "10/26W"],
+                    datasets: [
+                        { 
+                            label: 'GDMi 실적', 
+                            data: [], 
+                            borderColor: Colors.mckNavy, 
+                            borderWidth: 3, 
+                            tension: 0, 
+                            pointRadius: 5, 
+                            pointStyle: 'circle',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '예측(FCST)', 
+                            data: [], 
+                            borderColor: Colors.mckNavy, 
+                            borderWidth: 2, 
+                            borderDash: [5, 5], 
+                            tension: 0, 
+                            pointRadius: 5, 
+                            pointStyle: 'rect',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '전년(PY)', 
+                            data: [], 
+                            borderColor: Colors.lightGray, 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        },
+                        { 
+                            label: '계획(Plan)', 
+                            data: [], 
+                            borderColor: '#f07d00', 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        legend: {
+                            ...commonOptions.plugins.legend,
+                            labels: {
+                                ...commonOptions.plugins.legend.labels,
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        const ctxBlu = document.getElementById('channelBluMixChart');
+        if (ctxBlu) {
+            channelBluChart = new Chart(ctxBlu, {
+                type: 'bar',
+                data: {
+                    labels: ["9/7W", "9/14W", "9/21W", "9/28W"],
+                    datasets: [
+                        { label: 'OLED', data: [], backgroundColor: Colors.mckNavy },
+                        { label: 'QNED', data: [], backgroundColor: Colors.mckBlue },
+                        { label: 'NANO', data: [], backgroundColor: Colors.mckOcean },
+                        { label: 'UHD', data: [], backgroundColor: Colors.mckSky },
+                        { label: 'FHD/STV', data: [], backgroundColor: Colors.mckGray }
+                    ]
+                },
+                options: { 
+                    ...commonOptions, 
+                    scales: { 
+                        x: { grid: { display: false }, stacked: true }, 
+                        y: { 
+                            grid: { color: '#f1f5f9' }, 
+                            stacked: true, 
+                            ticks: { callback: (v) => Math.round(v).toLocaleString() },
+                            title: { display: true, text: 'Units (대)', font: { size: 10, weight: 'bold' } }
+                        } 
+                    },
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    const chart = context.chart;
+                                    const dataIndex = context.dataIndex;
+                                    let sum = 0;
+                                    chart.data.datasets.forEach(dataset => {
+                                        const val = dataset.data[dataIndex];
+                                        if (val !== null && val !== undefined) { sum += val; }
+                                    });
+                                    const val = context.parsed.y;
+                                    if (sum > 0 && val !== null && val !== undefined) {
+                                        const pct = Math.round((val / sum) * 100);
+                                        label += pct + '%';
+                                    } else {
+                                        label += '0%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: '#fff',
+                            font: { size: 9, weight: 'bold' },
+                            anchor: 'center',
+                            align: 'center',
+                            formatter: (value) => value ? value.toLocaleString() : ''
+                        }
+                    }
+                }
+            });
+        }
+
+        const ctxMonthly = document.getElementById('channelMonthlyTrendChart');
+        if (ctxMonthly) {
+            channelMonthlyChart = new Chart(ctxMonthly, {
+                type: 'bar',
+                data: {
+                    labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+                    datasets: [
+                        { label: '실적/예측', data: [], backgroundColor: Colors.mckNavy },
+                        { label: 'PY (전년)', data: [], backgroundColor: Colors.lightGray }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    layout: { padding: { top: 25, left: 15, right: 15, bottom: 0 } },
+                    scales: { 
+                        y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                        x: { grid: { display: false }, offset: true } 
+                    },
+                    plugins: {
+                        ...commonOptions.plugins,
+                        datalabels: {
+                            display: true,
+                            align: 'top',
+                            anchor: 'end',
+                            offset: 2,
+                            font: { size: 9, weight: 'bold' },
+                            formatter: (value) => value ? value.toLocaleString() : '0'
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
+    let monthlyChartInstance = null;
+
+    function initMonthlyChart() {
+        const ctx = document.getElementById('monthlyTrendChart');
+        if (!ctx) return;
+        monthlyChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+                datasets: [
+                    { label: '실적/예측', data: monthlyDataRepo["UK TTL"].actual, backgroundColor: Colors.mckNavy },
+                    { label: 'PY (전년)', data: monthlyDataRepo["UK TTL"].py, backgroundColor: Colors.lightGray }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                layout: { padding: { top: 25, left: 15, right: 15, bottom: 0 } },
+                scales: { 
+                    y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                    x: { grid: { display: false }, offset: true } 
+                },
+                plugins: {
+                    ...commonOptions.plugins,
+                    datalabels: {
+                        display: true,
+                        align: 'top',
+                        anchor: 'end',
+                        offset: 2,
+                        font: { size: 9, weight: 'bold' },
+                        formatter: (value) => value ? value.toLocaleString() : '0'
+                    }
+                }
+            }
+        });
+    }
+
+
+        // 차트 데이터 주입
+    const DATA_WEEKLY_TREND = {"labels": ["9/7W", "9/14W", "9/21W", "9/28W", "10/5W", "10/12W", "10/19W", "10/26W", "11/2W", "11/9W", "11/16W", "11/23W"], "GDMi": [14589.0, 15966.0, 15887.0, 15960.0, null, null, null, null, null, null, null, null], "PY": [12526.0, 13024.0, 14713.0, 14646.0, 15669.0, 13054.0, 13009.0, 17039.0, 19629.0, 21052.0, 26961.0, 42044.0], "Plan": [15167.0, 15892.0, 16303.0, 15363.0, 16532.0, 16540.0, 16751.0, 17592.0, 20361.0, 22930.0, 30853.0, 42504.0], "FCST": [null, null, null, 15960.0, 15102.0, 15101.0, 15463.0, 16473.0, 19226.0, 21424.0, 27123.0, 36351.0]};
+    const DATA_BLU_MIX = {"labels": ["9/7W", "9/14W", "9/21W", "9/28W"], "OLED_pct": [20.481184454040715, 19.38494300388325, 18.35462957134764, 16.785714285714285], "QNED_pct": [17.629721022688326, 17.217837905549295, 19.40580348712784, 22.562656641604008], "NANO_pct": [2.38535883199671, 2.1545784792684453, 1.787625102284887, 1.3784461152882206], "UHD_pct": [36.02714373843307, 38.04334210196668, 38.094039151507516, 36.30325814536341], "FHD_pct": [23.47659195284118, 23.19929850933233, 22.35790268773211, 22.969924812030076]};
+    const DATA_MONTHLY_TREND = {"UK TTL": {"actual": [74577, 53302, 63189, 75259, 56792, 72387, 72599, 57401, 64985, 80002, 106995, 93184], "py": [102299, 74509, 69929, 102793, 85956, 66884, 68243, 46294, 53259, 73417, 109686, 86135], "table": {"q": [[191068, 204438, 194985, 280181, 870672], [246737, 255633, 167796, 269238, 939404], ["-23%", "-20%", "16%", "4%", "-7%"]]}, "inv": {"ch_inv": [85697, 111923, 109137, 117059, 118989, 104320, 90350, 90702, 90872, 107523, 105691, 71701], "py": [99349, 115939, 127496, 119497, 107995, 98720, 83346, 69332, 71897, 113559, 105574, 66397], "wos_4": [6.0, 8.2, 6.9, 8.1, 8.4, 5.8, 6.6, 6.3, 5.4, 6.9, 4.1, 4.3], "wos_8": [6.0, 7.2, 7.4, 7.3, 7.3, 7.4, 5.9, 5.6, 4.7, 4.9, 0.0, 0.0], "q_ch_inv": [109137, 104320, 90872, 71701, 71701], "q_py": [127496, 98720, 71897, 66397, 66397], "q_wos_4": [6.9, 5.8, 5.4, 4.3, 4.3], "q_wos_8": [7.4, 7.4, 4.7, 0.0, 0.0]}}, "OLED": {"actual": [17923, 12349, 12803, 16351, 12990, 18671, 17196, 14638, 13417, 16272, 28038, 21202], "py": [24232, 17707, 17598, 19920, 20228, 16721, 18780, 10521, 9682, 15296, 32158, 18789], "table": {"q": [[43075, 48012, 45251, 65512, 201850], [59537, 56869, 38983, 66243, 221632], ["-28%", "-16%", "16%", "-1%", "-9%"]]}, "inv": {"ch_inv": [20888, 26562, 27343, 30216, 31441, 23301, 19176, 21143, 21534, 25220, 22878, 13285], "py": [29501, 33113, 33412, 36244, 31105, 26652, 19285, 14214, 19035, 26235, 21335, 13399], "wos_4": [6.3, 8.2, 8.5, 9.6, 9.8, 5.0, 5.9, 5.8, 6.3, 7.7, 3.4, 3.8], "wos_8": [6.8, 8.0, 8.6, 7.7, 7.9, 6.7, 5.5, 6.5, 4.9, 4.6, 0.0, 0.0], "q_ch_inv": [27343, 23301, 21534, 13285, 13285], "q_py": [33412, 26652, 19035, 13399, 13399], "q_wos_4": [8.5, 5.0, 6.3, 3.8, 3.8], "q_wos_8": [8.6, 6.7, 4.9, 0.0, 0.0]}}, "QNED/MRGB": {"actual": [8632, 4860, 6125, 8979, 8411, 11496, 13498, 8662, 11620, 16327, 18941, 18879], "py": [5163, 3072, 3277, 4811, 5465, 3922, 3637, 3276, 3821, 5435, 10337, 9444], "table": {"q": [[19617, 28886, 33780, 54147, 136430], [11512, 14198, 10734, 25216, 61660], ["70%", "103%", "2%", "115%", "121%"]]}, "inv": {"ch_inv": [14532, 18175, 17763, 16148, 16957, 16302, 14804, 14857, 14105, 15730, 15695, 8303], "py": [5493, 7104, 7434, 6793, 5980, 6110, 6167, 6837, 7580, 14840, 16242, 13000], "wos_4": [9.1, 15.0, 11.9, 9.4, 8.1, 5.5, 5.4, 6.6, 4.4, 5.2, 3.4, 2.3], "wos_8": [10.8, 11.0, 9.4, 6.6, 6.1, 6.5, 5.8, 4.6, 3.5, 3.9, 0.0, 0.0], "q_ch_inv": [17763, 16302, 14105, 8303, 8303], "q_py": [7434, 6110, 7580, 13000, 13000], "q_wos_4": [11.9, 5.5, 4.4, 2.3, 2.3], "q_wos_8": [9.4, 6.5, 3.5, 0.0, 0.0]}}, "NANO": {"actual": [15204, 10133, 10216, 15268, 7848, 5406, 5103, 3178, 1573, 1075, 98, 68], "py": [2858, 1566, 1782, 2019, 1616, 3026, 6293, 7277, 8257, 10751, 13835, 16224], "table": {"q": [[35553, 28522, 9854, 1241, 75170], [6206, 6661, 21827, 40810, 75504], ["5%", "3%", "-55%", "-97%", "0%"]]}, "inv": {"ch_inv": [12133, 11383, 12725, 10612, 8767, 6440, 4031, 2493, 1266, 276, 192, 130], "py": [3699, 3649, 3752, 3692, 4871, 7127, 8424, 7582, 7635, 13281, 16567, 12162], "wos_4": [4.4, 4.3, 4.9, 3.6, 4.4, 4.8, 4.1, 3.3, 3.4, 1.3, 7.8, 10.0], "wos_8": [4.9, 3.9, 4.6, 6.4, 7.4, 6.7, 6.9, 8.1, 8.8, 14.2, 0.0, 0.0], "q_ch_inv": [12725, 6440, 1266, 130, 130], "q_py": [3752, 7127, 7635, 12162, 12162], "q_wos_4": [4.9, 4.8, 3.4, 10.0, 10.0], "q_wos_8": [4.6, 6.7, 8.8, 0.0, 0.0]}}, "UHD": {"actual": [19508, 16421, 19787, 18976, 15143, 20733, 20777, 18105, 23468, 32635, 45367, 40283], "py": [36211, 29888, 29933, 43080, 41492, 28180, 19867, 12437, 16950, 23626, 34117, 20641], "table": {"q": [[55716, 54852, 62350, 118285, 291203], [96032, 112752, 49254, 78384, 336422], ["-42%", "-51%", "27%", "51%", "-13%"]]}, "inv": {"ch_inv": [27393, 35550, 33868, 38369, 39694, 39374, 35804, 37843, 42819, 48562, 51048, 38916], "py": [34477, 43615, 45143, 39287, 32444, 22896, 21251, 22666, 19428, 31946, 27211, 16939], "wos_4": [6.8, 8.6, 6.9, 10.5, 10.5, 7.7, 9.6, 8.4, 7.2, 7.4, 4.6, 5.4], "wos_8": [6.1, 8.2, 9.1, 8.6, 8.5, 9.6, 6.9, 6.2, 5.5, 5.1, 0.0, 0.0], "q_ch_inv": [33868, 39374, 42819, 38916, 38916], "q_py": [45143, 22896, 19428, 16939, 16939], "q_wos_4": [6.9, 7.7, 7.2, 5.4, 5.4], "q_wos_8": [9.1, 9.6, 5.5, 0.0, 0.0]}}, "FHD / STV": {"actual": [13310, 9539, 14258, 15685, 12400, 16081, 16025, 12818, 14907, 13693, 14551, 12752], "py": [33835, 22276, 17339, 32963, 17155, 15035, 19666, 12783, 14549, 18309, 19239, 21037], "table": {"q": [[37107, 44166, 43750, 40996, 166019], [73450, 65153, 46998, 58585, 244186], ["-49%", "-32%", "-7%", "-30%", "-32%"]]}, "inv": {"ch_inv": [10751, 20253, 17438, 21714, 22130, 18903, 16535, 14366, 11148, 17735, 15878, 11067], "py": [26179, 28458, 37755, 33481, 33595, 35935, 28219, 18033, 18219, 27257, 24219, 10897], "wos_4": [4.0, 8.4, 4.9, 7.2, 7.1, 4.7, 5.3, 4.4, 2.9, 7.2, 4.4, 4.7], "wos_8": [3.6, 5.9, 5.6, 6.1, 6.1, 6.0, 4.7, 4.4, 3.7, 5.8, 0.0, 0.0], "q_ch_inv": [17438, 18903, 11148, 11067, 11067], "q_py": [37755, 35935, 18219, 10897, 10897], "q_wos_4": [4.9, 4.7, 2.9, 4.7, 4.7], "q_wos_8": [5.6, 6.0, 3.7, 0.0, 0.0]}}, "FHD/STV": {"actual": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "table": {"q": [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], ["0%", "0%", "0%", "0%", "0%"]]}, "inv": {"ch_inv": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "wos_4": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "wos_8": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "q_ch_inv": [0, 0, 0, 0, 0], "q_py": [0, 0, 0, 0, 0], "q_wos_4": [0.0, 0.0, 0.0, 0.0, 0.0], "q_wos_8": [0.0, 0.0, 0.0, 0.0, 0.0]}}};
+    const DATA_CHANNEL = {"AMAZON": {"weekly": [1296, 1444, 1529, 1396, 1800, 1331, 1338, 1325], "weekly_py": [241, 444, 643, 772, 2433, 1153, 1092, 1148], "weekly_plan": [1162, 1290, 1434, 1524, 1774, 1626, 1524, 1413], "blu": [[225, 116, 102, 104], [158, 178, 189, 157], [3, 6, 3, 1], [438, 495, 424, 471], [472, 649, 811, 663]], "monthly": [6234, 6735, 8193, 9823, 7348, 12395, 7819, 4549, 5859, 7190, 12260, 8691], "monthly_py": [2552, 2952, 4309, 5259, 4760, 3907, 10687, 1140, 1665, 6598, 9188, 8237], "monthly_q": [21162, 29566, 18227, 28141, 50728], "monthly_q_py": [9813, 13926, 13492, 24023, 23739], "monthly_y": 97096, "monthly_y_py": 61254, "kpi": [1396, "+81%", "92%", 1416, "+170%", "105%", 1448], "categories": {"OLED": {"weekly": [225, 116, 102, 104, 348, 149, 142, 99], "weekly_py": [60, 65, 73, 69, 242, 111, 116, 116], "kpi": [104, "+51%", "90%", 137, "+105%", "100%", 184]}, "QNED": {"weekly": [158, 178, 189, 157, 142, 121, 112, 73], "weekly_py": [68, 57, 45, 72, 150, 77, 69, 93], "kpi": [157, "+118%", "183%", 170, "+182%", "118%", 112]}, "NANO": {"weekly": [3, 6, 3, 1, 3, 0, 0, 0], "weekly_py": [1, 1, 4, 4, 8, 13, 2, 13], "kpi": [1, "-75%", "33%", 3, "+30%", "100%", 1]}, "UHD": {"weekly": [438, 495, 424, 471, 1089, 853, 771, 741], "weekly_py": [44, 129, 292, 433, 663, 527, 473, 547], "kpi": [471, "+9%", "56%", 457, "+104%", "86%", 864]}, "FHD_STV": {"weekly": [472, 649, 811, 663, 218, 208, 313, 412], "weekly_py": [68, 192, 229, 194, 1370, 425, 432, 379], "kpi": [663, "+242%", "140%", 649, "+280%", "121%", 288]}}}, "AO": {"weekly": [455, 504, 438, 435, 498, 510, 507, 513], "weekly_py": [392, 370, 333, 326, 319, 328, 416, 621], "weekly_plan": [635, 664, 576, 505, 494, 448, 518, 541], "blu": [[88, 94, 84, 97], [152, 122, 126, 115], [0, 0, 0, 0], [131, 153, 144, 147], [84, 135, 84, 76]], "monthly": [2049, 1588, 2062, 2623, 1952, 1589, 1813, 1928, 1907, 2463, 3398, 3048], "monthly_py": [2760, 1863, 2517, 2969, 2960, 2416, 2247, 1265, 1484, 2010, 3430, 1976], "monthly_q": [5699, 6164, 5648, 8909, 11863], "monthly_q_py": [7140, 8345, 4996, 7416, 15485], "monthly_y": 26420, "monthly_y_py": 27897, "kpi": [435, "+33%", "86%", 458, "+29%", "77%", 507], "categories": {"OLED": {"weekly": [88, 94, 84, 97, 87, 86, 92, 91], "weekly_py": [47, 43, 48, 44, 71, 100, 128, 192], "kpi": [97, "+120%", "91%", 91, "+99%", "54%", 89]}, "QNED": {"weekly": [152, 122, 126, 115, 77, 87, 80, 83], "weekly_py": [75, 89, 68, 84, 79, 81, 77, 186], "kpi": [115, "+37%", "144%", 129, "+63%", "97%", 82]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [131, 153, 144, 147, 184, 187, 185, 189], "weekly_py": [270, 238, 217, 198, 169, 147, 194, 196], "kpi": [147, "-26%", "74%", 144, "-38%", "77%", 186]}, "FHD_STV": {"weekly": [84, 135, 84, 76, 150, 150, 150, 150], "weekly_py": [0, 0, 0, 0, 0, 0, 17, 47], "kpi": [76, "0%", "63%", 95, "0%", "87%", 150]}}}, "ARGOS": {"weekly": [2134, 1936, 1775, 2287, 1741, 1986, 2114, 2212], "weekly_py": [3092, 3294, 3724, 4077, 3424, 2807, 2205, 4146], "weekly_plan": [2951, 2938, 2975, 2453, 2337, 2384, 2437, 2600], "blu": [[84, 74, 73, 72], [96, 108, 203, 323], [48, 62, 64, 30], [779, 794, 725, 791], [1127, 898, 710, 1071]], "monthly": [13467, 10870, 15766, 14436, 11808, 15860, 14521, 11098, 8738, 10340, 16253, 14941], "monthly_py": [21187, 17888, 15078, 30622, 22832, 14732, 10386, 9752, 12919, 16659, 25051, 16837], "monthly_q": [40103, 42104, 34357, 41534, 82207], "monthly_q_py": [54153, 68186, 33057, 58547, 122339], "monthly_y": 158098, "monthly_y_py": 213943, "kpi": [2287, "-44%", "93%", 2033, "-43%", "72%", 2013], "categories": {"OLED": {"weekly": [84, 74, 73, 72, 69, 73, 73, 96], "weekly_py": [43, 58, 79, 63, 63, 54, 52, 77], "kpi": [72, "+14%", "81%", 76, "+25%", "71%", 78]}, "QNED": {"weekly": [96, 108, 203, 323, 196, 167, 205, 212], "weekly_py": [72, 85, 114, 101, 82, 65, 47, 108], "kpi": [323, "+220%", "191%", 182, "+96%", "118%", 195]}, "NANO": {"weekly": [48, 62, 64, 30, 42, 42, 12, 8], "weekly_py": [113, 109, 132, 180, 172, 148, 147, 267], "kpi": [30, "-83%", "55%", 51, "-62%", "76%", 26]}, "UHD": {"weekly": [779, 794, 725, 791, 863, 904, 953, 1025], "weekly_py": [1534, 1364, 1408, 1387, 1990, 1586, 1111, 2707], "kpi": [791, "-43%", "62%", 772, "-46%", "48%", 936]}, "FHD_STV": {"weekly": [1127, 898, 710, 1071, 571, 800, 871, 871], "weekly_py": [1330, 1678, 1991, 2346, 1117, 954, 848, 987], "kpi": [1071, "-54%", "125%", 952, "-48%", "108%", 778]}}}, "COSTCO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "CURRYS": {"weekly": [7684, 8658, 9032, 8620, 8252, 8369, 8468, 9053], "weekly_py": [5846, 5869, 7003, 6269, 6088, 5798, 6065, 7166], "weekly_plan": [6508, 7274, 7483, 7784, 8386, 8540, 8637, 9192], "blu": [[1261, 1439, 1390, 1179], [1616, 1759, 2062, 2243], [265, 245, 170, 152], [3280, 3880, 4047, 3763], [1262, 1335, 1363, 1283]], "monthly": [33891, 21670, 24216, 30788, 22371, 26333, 33405, 25744, 34002, 42762, 50281, 47436], "monthly_py": [51213, 34914, 32464, 43838, 36790, 30202, 26260, 22810, 24702, 31386, 42976, 36801], "monthly_q": [79777, 79492, 93151, 140479, 159269], "monthly_q_py": [118591, 110830, 73772, 111163, 229421], "monthly_y": 392899, "monthly_y_py": 414356, "kpi": [8620, "+38%", "111%", 8498, "+36%", "117%", 8536], "categories": {"OLED": {"weekly": [1261, 1439, 1390, 1179, 1382, 1481, 1568, 1680], "weekly_py": [951, 977, 1240, 1142, 1251, 1182, 1214, 1689], "kpi": [1179, "+3%", "79%", 1317, "+22%", "100%", 1528]}, "QNED": {"weekly": [1616, 1759, 2062, 2243, 2094, 2084, 2058, 2292], "weekly_py": [349, 318, 434, 396, 381, 379, 355, 481], "kpi": [2243, "+466%", "105%", 1920, "+413%", "107%", 2132]}, "NANO": {"weekly": [265, 245, 170, 152, 181, 177, 176, 146], "weekly_py": [1441, 1460, 1970, 1826, 1510, 1419, 1471, 1871], "kpi": [152, "-92%", "400%", 208, "-88%", "111%", 170]}, "UHD": {"weekly": [3280, 3880, 4047, 3763, 3883, 3887, 3944, 4289], "weekly_py": [1899, 1794, 1895, 1633, 1772, 1749, 1709, 1873], "kpi": [3763, "+130%", "119%", 3742, "+107%", "132%", 4001]}, "FHD_STV": {"weekly": [1262, 1335, 1363, 1283, 712, 740, 722, 646], "weekly_py": [1206, 1320, 1464, 1272, 1174, 1069, 1316, 1252], "kpi": [1283, "+1%", "135%", 1311, "0%", "117%", 705]}}}, "HARVEY UK": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "IRELAND_CURRYS": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "IRELAND_HARVEY_MS": {"weekly": [308, 376, 363, 332, 397, 399, 414, 361], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [325, 344, 318, 376, 397, 399, 414, 361], "blu": [[96, 117, 100, 71], [95, 98, 95, 95], [17, 17, 6, 0], [60, 94, 118, 124], [40, 50, 44, 42]], "monthly": [0, 398, 1554, 1674, 1395, 1974, 2203, 1558, 1418, 1903, 2871, 1408], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [1952, 5043, 5179, 6182, 6995], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 18356, "monthly_y_py": 0, "kpi": [332, "0%", "88%", 345, "0%", "101%", 393], "categories": {"OLED": {"weekly": [96, 117, 100, 71, 94, 96, 103, 91], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [71, "0%", "70%", 96, "0%", "117%", 96]}, "QNED": {"weekly": [95, 98, 95, 95, 100, 99, 123, 132], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [95, "0%", "113%", 96, "0%", "115%", 114]}, "NANO": {"weekly": [17, 17, 6, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 10, "0%", "0%", 0]}, "UHD": {"weekly": [60, 94, 118, 124, 153, 154, 138, 138], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [124, "0%", "89%", 99, "0%", "83%", 146]}, "FHD_STV": {"weekly": [40, 50, 44, 42, 50, 50, 50, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [42, "0%", "84%", 44, "0%", "78%", 38]}}}, "IRELAND_KEY": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "IRELAND_NATIONAL_MS": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "JD.COM": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "JOHN LEWIS": {"weekly": [1295, 1449, 1252, 1354, 1281, 1405, 1562, 1866], "weekly_py": [1347, 1441, 1452, 1441, 1416, 1488, 1734, 2052], "weekly_plan": [1585, 1683, 1780, 1236, 1727, 1779, 1852, 2103], "blu": [[483, 462, 433, 458], [218, 185, 186, 279], [33, 35, 23, 24], [176, 192, 227, 193], [385, 575, 383, 400]], "monthly": [8549, 5496, 4773, 6841, 5237, 6424, 6099, 6335, 5606, 7468, 10383, 9494], "monthly_py": [11874, 8368, 6669, 8619, 7956, 8254, 6340, 5238, 5726, 8131, 13973, 11594], "monthly_q": [18818, 18502, 18040, 27345, 37320], "monthly_q_py": [26911, 24829, 17304, 33698, 51740], "monthly_y": 82705, "monthly_y_py": 102742, "kpi": [1354, "-6%", "110%", 1338, "-6%", "85%", 1528], "categories": {"OLED": {"weekly": [483, 462, 433, 458, 445, 481, 581, 779], "weekly_py": [330, 404, 374, 405, 465, 476, 552, 710], "kpi": [458, "+13%", "89%", 459, "+21%", "67%", 572]}, "QNED": {"weekly": [218, 185, 186, 279, 245, 254, 253, 289], "weekly_py": [153, 153, 178, 204, 178, 197, 213, 251], "kpi": [279, "+37%", "139%", 217, "+26%", "92%", 260]}, "NANO": {"weekly": [33, 35, 23, 24, 19, 21, 22, 6], "weekly_py": [173, 129, 126, 158, 116, 154, 175, 218], "kpi": [24, "-85%", "92%", 29, "-80%", "111%", 17]}, "UHD": {"weekly": [176, 192, 227, 193, 206, 223, 250, 286], "weekly_py": [301, 302, 330, 251, 286, 280, 325, 330], "kpi": [193, "-23%", "125%", 197, "-33%", "73%", 241]}, "FHD_STV": {"weekly": [385, 575, 383, 400, 366, 426, 456, 506], "weekly_py": [390, 453, 444, 423, 371, 381, 469, 543], "kpi": [400, "-5%", "117%", 436, "+2%", "124%", 438]}}}, "MS_INDY": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "MS_INDY_CIH": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 1, 7, 3, 0, 1, 4, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [8, 4, 4, 0, 12], "monthly_y": 0, "monthly_y_py": 16, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "MS_INDY_OTHERS": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "MS_INDY_SOLOCO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "OBS": {"weekly": [649, 740, 726, 825, 543, 549, 551, 583], "weekly_py": [907, 764, 765, 687, 772, 703, 714, 883], "weekly_plan": [693, 729, 722, 558, 543, 549, 551, 583], "blu": [[285, 321, 313, 307], [185, 210, 204, 302], [0, 0, 25, 13], [139, 181, 161, 164], [40, 28, 23, 39]], "monthly": [4159, 2401, 2643, 3358, 2030, 1792, 1814, 1742, 2630, 3051, 5350, 3286], "monthly_py": [5596, 3765, 3374, 4883, 3936, 2385, 5513, 3420, 3663, 3759, 6368, 3848], "monthly_q": [9203, 7180, 6186, 11687, 16383], "monthly_q_py": [12735, 11204, 12596, 13975, 23939], "monthly_y": 34256, "monthly_y_py": 50510, "kpi": [825, "+20%", "148%", 735, "-6%", "109%", 556], "categories": {"OLED": {"weekly": [285, 321, 313, 307, 332, 332, 333, 332], "weekly_py": [431, 366, 276, 290, 320, 331, 390, 471], "kpi": [307, "+6%", "92%", 306, "-10%", "74%", 332]}, "QNED": {"weekly": [185, 210, 204, 302, 137, 136, 137, 153], "weekly_py": [109, 141, 133, 108, 118, 121, 104, 111], "kpi": [302, "+180%", "227%", 225, "+84%", "139%", 141]}, "NANO": {"weekly": [0, 0, 25, 13, 0, 0, 0, 0], "weekly_py": [143, 136, 180, 162, 163, 134, 136, 175], "kpi": [13, "-92%", "0%", 10, "-94%", "0%", 0]}, "UHD": {"weekly": [139, 181, 161, 164, 57, 64, 64, 80], "weekly_py": [159, 63, 81, 70, 68, 70, 47, 105], "kpi": [164, "+134%", "219%", 161, "+73%", "205%", 66]}, "FHD_STV": {"weekly": [40, 28, 23, 39, 17, 17, 17, 18], "weekly_py": [65, 58, 95, 57, 103, 47, 37, 21], "kpi": [39, "-32%", "217%", 32, "-53%", "167%", 17]}}}, "OTHERS_MS": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "RICHER SOUNDS": {"weekly": [613, 606, 572, 503, 548, 529, 489, 496], "weekly_py": [423, 443, 587, 796, 945, 543, 581, 844], "weekly_plan": [1123, 737, 809, 820, 797, 792, 744, 707], "blu": [[474, 502, 479, 410], [86, 75, 48, 56], [-1, -5, -1, 0], [49, 30, 31, 32], [5, 4, 15, 5]], "monthly": [3710, 2613, 2207, 3157, 3002, 4138, 3227, 2967, 2566, 2565, 3237, 2296], "monthly_py": [4739, 3246, 3416, 4065, 4561, 3783, 5993, 1848, 1932, 3709, 6246, 4557], "monthly_q": [8530, 10297, 8760, 8098, 18827], "monthly_q_py": [11401, 12409, 9773, 14512, 23810], "monthly_y": 35685, "monthly_y_py": 48095, "kpi": [503, "-37%", "61%", 574, "+2%", "66%", 516], "categories": {"OLED": {"weekly": [474, 502, 479, 410, 453, 433, 408, 410], "weekly_py": [316, 353, 421, 556, 651, 414, 446, 642], "kpi": [410, "-26%", "59%", 466, "+13%", "68%", 426]}, "QNED": {"weekly": [86, 75, 48, 56, 55, 53, 43, 34], "weekly_py": [41, 39, 74, 84, 81, 40, 50, 70], "kpi": [56, "-33%", "67%", 66, "+11%", "56%", 46]}, "NANO": {"weekly": [-1, -5, -1, 0, 0, 0, 0, 0], "weekly_py": [34, 45, 21, 12, 13, 11, 2, 4], "kpi": [0, "-100%", "0%", -2, "-106%", "0%", 0]}, "UHD": {"weekly": [49, 30, 31, 32, 30, 39, 28, 48], "weekly_py": [2, -5, -2, -3, -6, -3, -7, -6], "kpi": [32, "-1167%", "94%", 36, "-1875%", "70%", 36]}, "FHD_STV": {"weekly": [5, 4, 15, 5, 10, 4, 10, 4], "weekly_py": [30, 11, 73, 147, 206, 81, 90, 134], "kpi": [5, "-97%", "100%", 7, "-89%", "52%", 7]}}}, "TESCO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "Undefined_LGEUK": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_plan": [0, 0, 0, 0, 0, 0, 0, 0], "blu": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], "monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "monthly_q": [0, 0, 0, 0, 0], "monthly_q_py": [0, 0, 0, 0, 0], "monthly_y": 0, "monthly_y_py": 0, "kpi": [0, "0%", "0%", 0, "0%", "0%", 0], "categories": {"OLED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "QNED": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "NANO": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "UHD": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}, "FHD_STV": {"weekly": [0, 0, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [0, "0%", "0%", 0, "0%", "0%", 0]}}}, "VERY": {"weekly": [463, 629, 563, 540, 439, 422, 434, 425], "weekly_py": [278, 399, 206, 278, 272, 234, 202, 179], "weekly_plan": [510, 577, 524, 483, 474, 422, 488, 453], "blu": [[88, 87, 42, 52], [61, 112, 65, 126], [0, 1, 0, 0], [264, 349, 293, 233], [50, 80, 163, 129]], "monthly": [2518, 1531, 1775, 2559, 1649, 1882, 1698, 1480, 2259, 2260, 2962, 2584], "monthly_py": [2378, 1512, 2095, 2535, 2161, 1204, 813, 821, 1168, 1165, 2454, 2285], "monthly_q": [5824, 6090, 5437, 7806, 11914], "monthly_q_py": [5985, 5900, 2802, 5904, 11885], "monthly_y": 25157, "monthly_y_py": 20591, "kpi": [540, "+94%", "112%", 549, "+89%", "105%", 430], "categories": {"OLED": {"weekly": [88, 87, 42, 52, 90, 75, 67, 71], "weekly_py": [14, 41, 30, 27, 35, 40, 42, 57], "kpi": [52, "+93%", "63%", 67, "+140%", "67%", 76]}, "QNED": {"weekly": [61, 112, 65, 126, 72, 75, 82, 76], "weekly_py": [33, 47, 17, 48, 26, 20, 25, 23], "kpi": [126, "+162%", "159%", 91, "+151%", "95%", 76]}, "NANO": {"weekly": [0, 1, 0, 0, 0, 0, 0, 0], "weekly_py": [0, 0, 0, 3, 24, 8, 11, 21], "kpi": [0, "-100%", "0%", 0, "-67%", "12%", 0]}, "UHD": {"weekly": [264, 349, 293, 233, 202, 197, 210, 203], "weekly_py": [231, 311, 159, 200, 187, 166, 124, 78], "kpi": [233, "+16%", "99%", 285, "+26%", "118%", 203]}, "FHD_STV": {"weekly": [50, 80, 163, 129, 75, 75, 75, 75], "weekly_py": [0, 0, 0, 0, 0, 0, 0, 0], "kpi": [129, "0%", "152%", 106, "0%", "126%", 75]}}}};
+    const DATA_INVENTORY = {"highlights": [{"blu": "UK TTL", "ch_inv": 101273, "wos": 6.5, "status": "✓ Healthy"}, {"blu": "OLED", "ch_inv": 29761, "wos": 10.2, "status": "⛔ Critical"}, {"blu": "QNED/MRGB", "ch_inv": 14219, "wos": 4.7, "status": "✓ Healthy"}, {"blu": "NANO", "ch_inv": 1224, "wos": 4.1, "status": "✓ Healthy"}, {"blu": "UHD", "ch_inv": 46024, "wos": 7.9, "status": "✓ Healthy"}, {"blu": "FHD/STV", "ch_inv": 10045, "wos": 2.8, "status": "✓ Healthy"}], "models_list": [{"model": "43UA75006LA.AEK", "category": "UHD", "ch_inv": 856, "sell_out": 322, "wos4": 10.6, "wos8": 12.5, "status": "⚠ Warning"}, {"model": "OLED77G54LW.AEK", "category": "OLED", "ch_inv": 637, "sell_out": 216, "wos4": 11.8, "wos8": 9.0, "status": "🔍 Watch"}, {"model": "43NU850B6LA.AEK", "category": "UHD", "ch_inv": 607, "sell_out": 5, "wos4": 485.6, "wos8": 54.6, "status": "⛔ Critical"}, {"model": "32LQ63806LC.AEK", "category": "FHD/STV", "ch_inv": 511, "sell_out": 243, "wos4": 8.4, "wos8": 10.6, "status": "🔍 Watch"}, {"model": "50NU850B6LA.AEK", "category": "UHD", "ch_inv": 498, "sell_out": 2, "wos4": 996.0, "wos8": 86.6, "status": "⛔ Critical"}, {"model": "43QNED72B6B.AEI", "category": "QNED", "ch_inv": 496, "sell_out": 75, "wos4": 26.5, "wos8": 23.1, "status": "⛔ Critical"}, {"model": "55NU850B6LA.AEK", "category": "UHD", "ch_inv": 495, "sell_out": 1, "wos4": 1980.0, "wos8": 60.9, "status": "⛔ Critical"}, {"model": "50QNED7EB3C.AEK", "category": "QNED", "ch_inv": 460, "sell_out": 4, "wos4": 460.0, "wos8": 9.3, "status": "🔍 Watch"}, {"model": "43QNED7EB3C.AEK", "category": "QNED", "ch_inv": 421, "sell_out": 10, "wos4": 168.4, "wos8": 13.7, "status": "⛔ Critical"}, {"model": "55NU850B6LA.AEI", "category": "UHD", "ch_inv": 409, "sell_out": 96, "wos4": 17.0, "wos8": 9.1, "status": "🔍 Watch"}, {"model": "OLED55C64LA.AEI", "category": "OLED", "ch_inv": 354, "sell_out": 85, "wos4": 16.7, "wos8": 15.1, "status": "⛔ Critical"}, {"model": "55QNED72B6B.AEI", "category": "QNED", "ch_inv": 339, "sell_out": 54, "wos4": 25.1, "wos8": 10.0, "status": "⚠ Warning"}, {"model": "65QNED70A6A.AEK", "category": "QNED", "ch_inv": 310, "sell_out": 95, "wos4": 13.1, "wos8": 12.7, "status": "⛔ Critical"}, {"model": "55QNED70A6A.AEK", "category": "QNED", "ch_inv": 301, "sell_out": 90, "wos4": 13.4, "wos8": 10.2, "status": "⚠ Warning"}, {"model": "50QNED86A6C.AEK", "category": "QNED", "ch_inv": 291, "sell_out": 71, "wos4": 16.4, "wos8": 9.7, "status": "🔍 Watch"}, {"model": "50QNED72B6B.AEI", "category": "QNED", "ch_inv": 276, "sell_out": 34, "wos4": 32.5, "wos8": 12.0, "status": "⛔ Critical"}, {"model": "65QNED72B6B.AEI", "category": "QNED", "ch_inv": 222, "sell_out": 40, "wos4": 22.2, "wos8": 11.6, "status": "⚠ Warning"}, {"model": "OLED55B65LA.AEI", "category": "OLED", "ch_inv": 211, "sell_out": 21, "wos4": 40.2, "wos8": 10.6, "status": "⚠ Warning"}, {"model": "75NANO80A6B.AEK", "category": "NANO", "ch_inv": 152, "sell_out": 32, "wos4": 19.0, "wos8": 15.8, "status": "⛔ Critical"}, {"model": "75QNED9MA6B.AEK", "category": "QNED", "ch_inv": 142, "sell_out": 5, "wos4": 113.6, "wos8": 40.6, "status": "⛔ Critical"}, {"model": "OLED77C54LA.AEK", "category": "OLED", "ch_inv": 138, "sell_out": 47, "wos4": 11.7, "wos8": 9.0, "status": "🔍 Watch"}, {"model": "86QNED9MA6B.AEK", "category": "QNED", "ch_inv": 138, "sell_out": 4, "wos4": 138.0, "wos8": 61.3, "status": "⛔ Critical"}, {"model": "86QNED80A6A.AEK", "category": "QNED", "ch_inv": 137, "sell_out": 5, "wos4": 109.6, "wos8": 91.3, "status": "⛔ Critical"}, {"model": "75QNED80A6A.AEK", "category": "QNED", "ch_inv": 129, "sell_out": 12, "wos4": 43.0, "wos8": 19.8, "status": "⛔ Critical"}, {"model": "75NU850B6LA.AEK", "category": "UHD", "ch_inv": 120, "sell_out": 1, "wos4": 480.0, "wos8": 17.5, "status": "⛔ Critical"}, {"model": "75NANO90A6B.AEK", "category": "NANO", "ch_inv": 119, "sell_out": 14, "wos4": 34.0, "wos8": 34.0, "status": "⛔ Critical"}, {"model": "OLED42C64LA.AEI", "category": "OLED", "ch_inv": 105, "sell_out": 11, "wos4": 38.2, "wos8": 8.3, "status": "🔍 Watch"}, {"model": "OLED55C64LA.AEK", "category": "OLED", "ch_inv": 99, "sell_out": 1, "wos4": 396.0, "wos8": 14.1, "status": "⛔ Critical"}, {"model": "43QNED72B6B.AEK", "category": "QNED", "ch_inv": 83, "sell_out": 1, "wos4": 332.0, "wos8": 14.1, "status": "⛔ Critical"}, {"model": "65QNED86B6B.AEI", "category": "QNED", "ch_inv": 70, "sell_out": 20, "wos4": 14.0, "wos8": 9.3, "status": "🔍 Watch"}, {"model": "OLED83G54LW.AEK", "category": "OLED", "ch_inv": 66, "sell_out": 10, "wos4": 26.4, "wos8": 11.2, "status": "⚠ Warning"}], "channels_list": {"43NU850B6LA.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 392, "sell_out": 8, "pct": 65, "wos4": 196.0}, {"channel": "CURRYS", "ch_inv": 320, "sell_out": 3, "pct": 53, "wos4": 426.7}, {"channel": "ARGOS", "ch_inv": 176, "sell_out": 0, "pct": 29, "wos4": 0.0}], "50NU850B6LA.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 472, "sell_out": 4, "pct": 95, "wos4": 472.0}, {"channel": "AMAZON", "ch_inv": 330, "sell_out": 14, "pct": 66, "wos4": 94.3}, {"channel": "CURRYS", "ch_inv": 310, "sell_out": 4, "pct": 62, "wos4": 310.0}], "43QNED72B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "55NU850B6LA.AEK": [{"channel": "CURRYS", "ch_inv": 421, "sell_out": 4, "pct": 85, "wos4": 421.0}, {"channel": "AMAZON", "ch_inv": 243, "sell_out": 20, "pct": 49, "wos4": 48.6}, {"channel": "ARGOS", "ch_inv": 183, "sell_out": 0, "pct": 37, "wos4": 0.0}, {"channel": "JOHN LEWIS", "ch_inv": 116, "sell_out": 6, "pct": 23, "wos4": 77.3}], "43QNED7EB3C.AEK": [{"channel": "VERY", "ch_inv": 46, "sell_out": 8, "pct": 11, "wos4": 23.0}], "OLED55C64LA.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "65QNED70A6A.AEK": [{"channel": "CURRYS", "ch_inv": 168, "sell_out": 449, "pct": 54, "wos4": 1.5}, {"channel": "ARGOS", "ch_inv": 109, "sell_out": 33, "pct": 35, "wos4": 13.2}], "50QNED72B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "75NANO80A6B.AEK": [{"channel": "ARGOS", "ch_inv": 97, "sell_out": 32, "pct": 64, "wos4": 12.1}, {"channel": "JOHN LEWIS", "ch_inv": 43, "sell_out": 10, "pct": 28, "wos4": 17.2}], "75QNED9MA6B.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 79, "sell_out": 11, "pct": 56, "wos4": 28.7}], "86QNED9MA6B.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 64, "sell_out": 6, "pct": 46, "wos4": 42.7}], "86QNED80A6A.AEK": [{"channel": "AMAZON", "ch_inv": 31, "sell_out": 0, "pct": 23, "wos4": 0.0}, {"channel": "VERY", "ch_inv": 21, "sell_out": 0, "pct": 15, "wos4": 0.0}], "75QNED80A6A.AEK": [{"channel": "VERY", "ch_inv": 12, "sell_out": 2, "pct": 9, "wos4": 24.0}, {"channel": "AO", "ch_inv": 6, "sell_out": 11, "pct": 5, "wos4": 2.2}], "75NU850B6LA.AEK": [{"channel": "AMAZON", "ch_inv": 164, "sell_out": 5, "pct": 137, "wos4": 131.2}, {"channel": "CURRYS", "ch_inv": 139, "sell_out": 13, "pct": 116, "wos4": 42.8}, {"channel": "ARGOS", "ch_inv": 70, "sell_out": 0, "pct": 58, "wos4": 0.0}], "75NANO90A6B.AEK": [{"channel": "ARGOS", "ch_inv": 107, "sell_out": 34, "pct": 90, "wos4": 12.6}], "OLED55C64LA.AEK": [{"channel": "CURRYS", "ch_inv": 1364, "sell_out": 6, "pct": 1378, "wos4": 909.3}, {"channel": "RICHER SOUNDS", "ch_inv": 885, "sell_out": 14, "pct": 894, "wos4": 252.9}, {"channel": "JOHN LEWIS", "ch_inv": 654, "sell_out": 26, "pct": 661, "wos4": 100.6}], "43QNED72B6B.AEK": [{"channel": "CURRYS", "ch_inv": 1436, "sell_out": 40, "pct": 1730, "wos4": 143.6}], "43QNED86B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}]}};
+
+    const Colors = {
+        mckNavy: '#001E62',
+        mckBlue: '#00558C',
+        mckOcean: '#007DB3',
+        mckSky: '#42B4E6',
+        mckGray: '#98A4AE',
+        mckOrange: '#f07d00',
+        accent: '#a50034',
+        lightGray: '#d9d9d9'
+    };
+
+    Chart.register(ChartDataLabels);
+
+    const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10, weight: 'bold' }, padding: 20 } },
+            datalabels: { display: false }
+        },
+        scales: {
+            y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
+            x: { grid: { display: false }, ticks: { font: { size: 10, weight: 'bold' } } }
+        }
+    };
+
+    // --- Charts Initialization ---
+    let mainMonthlyChart = null;
+    let channelWeeklyChart = null;
+    let channelBluChart = null;
+    let channelMonthlyChart = null;
+
+    function initAllCharts() {
+        // 1. Weekly Trend (General) - Synced dynamically with DATA_WEEKLY_TREND
+        const ctxWeekly = document.getElementById('weeklyTrendChart');
+        if (ctxWeekly && typeof DATA_WEEKLY_TREND !== 'undefined' && DATA_WEEKLY_TREND) {
+            new Chart(ctxWeekly, {
+                type: 'line',
+                data: {
+                    labels: DATA_WEEKLY_TREND.labels,
+                    datasets: [
+                        { 
+                            label: 'GDMi 실적', 
+                            data: DATA_WEEKLY_TREND.GDMi, 
+                            borderColor: Colors.mckNavy, 
+                            backgroundColor: Colors.mckNavy,
+                            borderWidth: 3, 
+                            tension: 0, 
+                            pointRadius: 5,
+                            pointStyle: 'circle',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null && v !== undefined ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '예측(FCST)', 
+                            data: DATA_WEEKLY_TREND.FCST, 
+                            borderColor: Colors.mckNavy, 
+                            borderWidth: 2, 
+                            borderDash: [5, 5],
+                            tension: 0, 
+                            pointRadius: 5,
+                            pointStyle: 'rect',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null && v !== undefined ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '전년(PY)', 
+                            data: DATA_WEEKLY_TREND.PY, 
+                            borderColor: Colors.lightGray, 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        },
+                        { 
+                            label: '계획(Plan)', 
+                            data: DATA_WEEKLY_TREND.Plan, 
+                            borderColor: '#f07d00', 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        legend: {
+                            ...commonOptions.plugins.legend,
+                            labels: {
+                                ...commonOptions.plugins.legend.labels,
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // 2. BLU Mix (General) - Synced dynamically with DATA_BLU_MIX
+        const ctxBlu = document.getElementById('bluMixChart');
+        if (ctxBlu && typeof DATA_BLU_MIX !== 'undefined' && DATA_BLU_MIX) {
+            new Chart(ctxBlu, {
+                type: 'bar',
+                data: {
+                    labels: DATA_BLU_MIX.labels,
+                    datasets: [
+                        { label: 'OLED', data: DATA_BLU_MIX.OLED_pct, backgroundColor: Colors.mckNavy },
+                        { label: 'QNED', data: DATA_BLU_MIX.QNED_pct, backgroundColor: Colors.mckBlue },
+                        { label: 'NANO', data: DATA_BLU_MIX.NANO_pct, backgroundColor: Colors.mckOcean },
+                        { label: 'UHD', data: DATA_BLU_MIX.UHD_pct, backgroundColor: Colors.mckSky },
+                        { label: 'FHD/STV', data: DATA_BLU_MIX.FHD_pct, backgroundColor: Colors.mckGray }
+                    ]
+                },
+                options: { 
+                    ...commonOptions, 
+                    scales: { 
+                        x: { grid: { display: false }, stacked: true }, 
+                        y: { 
+                            grid: { color: '#f1f5f9' }, 
+                            stacked: true, 
+                            ticks: { callback: (v) => Math.round(v).toLocaleString() },
+                            title: { display: true, text: 'Units (대)', font: { size: 10, weight: 'bold' } }
+                        } 
+                    },
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.y !== null && context.parsed.y !== undefined) {
+                                        label += Math.round(context.parsed.y) + '%';
+                                    } else {
+                                        label += '0%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: '#fff',
+                            font: { size: 9, weight: 'bold' },
+                            anchor: 'center',
+                            align: 'center',
+                            formatter: (value, context) => {
+                                if (value === null || value === undefined) return '';
+                                if (value < 1.5) return '';
+                                const dataIdx = context.dataIndex;
+                                const totalVolume = DATA_WEEKLY_TREND.GDMi[dataIdx];
+                                if (totalVolume === null || totalVolume === undefined || totalVolume === 0) return '';
+                                const actualVal = Math.round(value * totalVolume / 100);
+                                return actualVal.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 5. Inventory Chart - Synced dynamically with DATA_INVENTORY
+        const ctxInv = document.getElementById('inventoryChart');
+        if (ctxInv && typeof DATA_INVENTORY !== 'undefined' && DATA_INVENTORY) {
+            new Chart(ctxInv, {
+                type: 'bar',
+                data: {
+                    labels: DATA_INVENTORY.labels,
+                    datasets: [
+                        { label: 'WOS (Weeks)', type: 'line', data: DATA_INVENTORY.wos, borderColor: Colors.accent, yAxisID: 'y1', datalabels: { display: true, align: 'top', formatter: v => v + '주' } },
+                        { label: 'Inventory (Units)', data: DATA_INVENTORY.ch_inv, backgroundColor: Colors.mckNavy, yAxisID: 'y' }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        y: { position: 'left' },
+                        y1: { position: 'right', max: 15, grid: { display: false } }
+                    }
+                }
+            });
+        }
+    }
+
+    function initChannelCharts() {
+        const ctxWeekly = document.getElementById('channelWeeklyTrendChart');
+        if (ctxWeekly) {
+            channelWeeklyChart = new Chart(ctxWeekly, {
+                type: 'line',
+                data: {
+                    labels: ["9/7W", "9/14W", "9/21W", "9/28W", "10/5W", "10/12W", "10/19W", "10/26W"],
+                    datasets: [
+                        { 
+                            label: 'GDMi 실적', 
+                            data: [], 
+                            borderColor: Colors.mckNavy, 
+                            borderWidth: 3, 
+                            tension: 0, 
+                            pointRadius: 5, 
+                            pointStyle: 'circle',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '예측(FCST)', 
+                            data: [], 
+                            borderColor: Colors.mckNavy, 
+                            borderWidth: 2, 
+                            borderDash: [5, 5], 
+                            tension: 0, 
+                            pointRadius: 5, 
+                            pointStyle: 'rect',
+                            datalabels: {
+                                display: true,
+                                align: 'top',
+                                anchor: 'end',
+                                font: { size: 9, weight: 'bold' },
+                                formatter: (v) => v !== null ? v.toLocaleString() : ''
+                            }
+                        },
+                        { 
+                            label: '전년(PY)', 
+                            data: [], 
+                            borderColor: Colors.lightGray, 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        },
+                        { 
+                            label: '계획(Plan)', 
+                            data: [], 
+                            borderColor: '#f07d00', 
+                            borderWidth: 2, 
+                            tension: 0.3, 
+                            pointRadius: 0,
+                            datalabels: { display: false }
+                        }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    plugins: {
+                        ...commonOptions.plugins,
+                        legend: {
+                            ...commonOptions.plugins.legend,
+                            labels: {
+                                ...commonOptions.plugins.legend.labels,
+                                usePointStyle: true
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        const ctxBlu = document.getElementById('channelBluMixChart');
+        if (ctxBlu) {
+            channelBluChart = new Chart(ctxBlu, {
+                type: 'bar',
+                data: {
+                    labels: ["9/7W", "9/14W", "9/21W", "9/28W"],
+                    datasets: [
+                        { label: 'OLED', data: [], backgroundColor: Colors.mckNavy },
+                        { label: 'QNED', data: [], backgroundColor: Colors.mckBlue },
+                        { label: 'NANO', data: [], backgroundColor: Colors.mckOcean },
+                        { label: 'UHD', data: [], backgroundColor: Colors.mckSky },
+                        { label: 'FHD/STV', data: [], backgroundColor: Colors.mckGray }
+                    ]
+                },
+                options: { 
+                    ...commonOptions, 
+                    scales: { 
+                        x: { grid: { display: false }, stacked: true }, 
+                        y: { 
+                            grid: { color: '#f1f5f9' }, 
+                            stacked: true, 
+                            ticks: { callback: (v) => Math.round(v).toLocaleString() },
+                            title: { display: true, text: 'Units (대)', font: { size: 10, weight: 'bold' } }
+                        } 
+                    },
+                    plugins: {
+                        ...commonOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    const chart = context.chart;
+                                    const dataIndex = context.dataIndex;
+                                    let sum = 0;
+                                    chart.data.datasets.forEach(dataset => {
+                                        const val = dataset.data[dataIndex];
+                                        if (val !== null && val !== undefined) { sum += val; }
+                                    });
+                                    const val = context.parsed.y;
+                                    if (sum > 0 && val !== null && val !== undefined) {
+                                        const pct = Math.round((val / sum) * 100);
+                                        label += pct + '%';
+                                    } else {
+                                        label += '0%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: '#fff',
+                            font: { size: 9, weight: 'bold' },
+                            anchor: 'center',
+                            align: 'center',
+                            formatter: (value) => value ? value.toLocaleString() : ''
+                        }
+                    }
+                }
+            });
+        }
+
+        const ctxMonthly = document.getElementById('channelMonthlyTrendChart');
+        if (ctxMonthly) {
+            channelMonthlyChart = new Chart(ctxMonthly, {
+                type: 'bar',
+                data: {
+                    labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+                    datasets: [
+                        { label: '실적/예측', data: [], backgroundColor: Colors.mckNavy },
+                        { label: 'PY (전년)', data: [], backgroundColor: Colors.lightGray }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    layout: { padding: { top: 25, left: 15, right: 15, bottom: 0 } },
+                    scales: { 
+                        y: { grid: { color: '#f1f5f9' }, ticks: { callback: (v) => Math.round(v).toLocaleString() } },
+                        x: { grid: { display: false }, offset: true } 
+                    },
+                    plugins: {
+                        ...commonOptions.plugins,
+                        datalabels: {
+                            display: true,
+                            align: 'top',
+                            anchor: 'end',
+                            offset: 2,
+                            font: { size: 9, weight: 'bold' },
+                            formatter: (value) => value ? value.toLocaleString() : '0'
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    // --- Channel Analysis Repository & Functions ---
+    const channelDataRepo = DATA_CHANNEL;
+
+    function updateChannelView(channel) {
+        let data = channelDataRepo[channel];
+        if(!data && channelDataRepo) {
+            const availKeys = Object.keys(channelDataRepo);
+            if(availKeys.length > 0) data = channelDataRepo[availKeys[0]];
+        }
+        if(!data) return;
+        
+        document.querySelectorAll('.channel-btn').forEach(btn => btn.classList.toggle('active', btn.innerText === channel.toUpperCase()));
+        document.getElementById('current-channel-label').innerText = channel;
+
+        // Update Charts
+        channelWeeklyChart.data.datasets[0].data = data.weekly.slice(0, 4).concat([null, null, null, null]);
+        channelWeeklyChart.data.datasets[1].data = [null, null, null, data.weekly[3]].concat(data.weekly.slice(4, 8));
+        channelWeeklyChart.data.datasets[2].data = data.weekly_py;
+        channelWeeklyChart.data.datasets[3].data = data.weekly_plan;
+        channelWeeklyChart.update();
+
+        channelBluChart.data.datasets[0].data = data.blu[0];
+        channelBluChart.data.datasets[1].data = data.blu[1];
+        channelBluChart.data.datasets[2].data = data.blu[2];
+        channelBluChart.data.datasets[3].data = data.blu[3];
+        channelBluChart.data.datasets[4].data = data.blu[4];
+        channelBluChart.update();
+
+        channelMonthlyChart.data.datasets[0].data = data.monthly;
+        channelMonthlyChart.data.datasets[1].data = data.monthly_py;
+        channelMonthlyChart.update();
+
+        function fmt(v) {
+            return v !== null && v !== undefined ? v.toLocaleString() : '-';
+        }
+        
+        function pctClass(p) {
+            if (!p || p === '-') return '';
+            const val = parseInt(p);
+            if (val > 100 || p.startsWith('+')) return 'text-green-600 font-bold';
+            if (p.startsWith('-')) return 'text-red-600 font-bold';
+            return 'font-bold';
+        }
+
+        // Update KPI Table
+        const body = document.getElementById('channel-weekly-kpi-body');
+        if (body) {
+            let rowsHtml = `
+                <tr class="font-bold bg-slate-50">
+                    <td class="py-3 px-4 border-b border-slate-200 font-bold text-primary">${channel} TTL</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200">${fmt(data.kpi[0])}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 ${pctClass(data.kpi[1])}">${data.kpi[1]}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 border-r border-slate-200 ${pctClass(data.kpi[2])}">${data.kpi[2]}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 font-semibold text-slate-700">${fmt(data.kpi[3])}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 ${pctClass(data.kpi[4])}">${data.kpi[4]}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 border-r border-slate-200 ${pctClass(data.kpi[5])}">${data.kpi[5]}</td>
+                    <td class="py-3 px-4 text-right border-b border-slate-200 font-bold text-primary">${fmt(data.kpi[6])}</td>
+                </tr>
+            `;
+            
+            const cats = [
+                { key: "OLED", name: "OLED" },
+                { key: "QNED", name: "QNED" },
+                { key: "NANO", name: "NANO" },
+                { key: "UHD", name: "UHD" },
+                { key: "FHD_STV", name: "FHD/STV" }
+            ];
+            
+            cats.forEach(c => {
+                const cdata = data.categories[c.key];
+                rowsHtml += `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50/30">
+                        <td class="py-2.5 px-4 font-medium text-slate-700">${c.name}</td>
+                        <td class="py-2.5 px-4 text-right text-slate-600">${fmt(cdata.kpi[0])}</td>
+                        <td class="py-2.5 px-4 text-right ${pctClass(cdata.kpi[1])}">${cdata.kpi[1]}</td>
+                        <td class="py-2.5 px-4 text-right border-r border-slate-200 ${pctClass(cdata.kpi[2])}">${cdata.kpi[2]}</td>
+                        <td class="py-2.5 px-4 text-right text-slate-600">${fmt(cdata.kpi[3])}</td>
+                        <td class="py-2.5 px-4 text-right ${pctClass(cdata.kpi[4])}">${cdata.kpi[4]}</td>
+                        <td class="py-2.5 px-4 text-right border-r border-slate-200 ${pctClass(cdata.kpi[5])}">${cdata.kpi[5]}</td>
+                        <td class="py-2.5 px-4 text-right font-semibold text-slate-700">${fmt(cdata.kpi[6])}</td>
+                    </tr>
+                `;
+            });
+            body.innerHTML = rowsHtml;
+        }
+
+        // Update Monthly Table
+        const mBody = document.getElementById('channel-monthly-table-body');
+        if (mBody) {
+            const act = data.monthly;
+            const py = data.monthly_py;
+            const q_act = data.monthly_q;
+            const q_py = data.monthly_q_py;
+            const ttl_act = data.monthly_y;
+            const ttl_py = data.monthly_y_py;
+            
+            function get_pct_js(a, p) {
+                if (p) return Math.round((a / p) * 100) + '%';
+                return '0%';
+            }
+            
+            function get_pct_class(pct_str) {
+                const num = parseInt(pct_str);
+                if (num > 100) return 'text-green-600 font-bold';
+                if (num < 90) return 'text-red-600 font-bold';
+                return 'font-bold';
+            }
+            
+            mBody.innerHTML = `
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">Actual/FCST</td>
+                    ${act.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-600">${v.toLocaleString()}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70 border-l border-slate-200">${q_act[0].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[1].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[2].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[3].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-4 text-right font-black bg-slate-50/90 text-primary border-l border-slate-200">${ttl_act.toLocaleString()}</td>
+                </tr>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">PY (전년)</td>
+                    ${py.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-500">${v.toLocaleString()}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70 border-l border-slate-200">${q_py[0].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[1].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[2].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[3].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-4 text-right text-slate-500 font-bold bg-slate-50/90 border-l border-slate-200">${ttl_py.toLocaleString()}</td>
+                </tr>
+                <tr class="font-bold bg-slate-50/30">
+                    <td class="font-bold py-3 px-4 text-slate-800">vs. PY</td>
+                    ${act.map((v, i) => {
+                        const pct = get_pct_js(v, py[i]);
+                        return `<td class="num-cell py-2 px-2 text-right ${get_pct_class(pct)}">${pct}</td>`;
+                    }).join('')}
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[0], q_py[0]))} bg-slate-50/70 border-l border-slate-200">${get_pct_js(q_act[0], q_py[0])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[1], q_py[1]))} bg-slate-50/70">${get_pct_js(q_act[1], q_py[1])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[2], q_py[2]))} bg-slate-50/70">${get_pct_js(q_act[2], q_py[2])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[3], q_py[3]))} bg-slate-50/70">${get_pct_js(q_act[3], q_py[3])}</td>
+                    <td class="num-cell py-2 px-4 text-right ${get_pct_class(get_pct_js(ttl_act, ttl_py))} bg-slate-50/90 border-l border-slate-200">${get_pct_js(ttl_act, ttl_py)}</td>
+                </tr>
+            `;
+        }
+    }
+
+    const monthlyDataRepo = {"UK TTL": {"actual": [74577, 53302, 63189, 75259, 56792, 72387, 72599, 57401, 64985, 80002, 106995, 93184], "py": [102299, 74509, 69929, 102793, 85956, 66884, 68243, 46294, 53259, 73417, 109686, 86135], "table": {"q": [[191068, 204438, 194985, 280181, 870672], [246737, 255633, 167796, 269238, 939404], ["-23%", "-20%", "16%", "4%", "-7%"]]}, "inv": {"ch_inv": [85697, 111923, 109137, 117059, 118989, 104320, 90350, 90702, 90872, 107523, 105691, 71701], "py": [99349, 115939, 127496, 119497, 107995, 98720, 83346, 69332, 71897, 113559, 105574, 66397], "wos_4": [6.0, 8.2, 6.9, 8.1, 8.4, 5.8, 6.6, 6.3, 5.4, 6.9, 4.1, 4.3], "wos_8": [6.0, 7.2, 7.4, 7.3, 7.3, 7.4, 5.9, 5.6, 4.7, 4.9, 0.0, 0.0], "q_ch_inv": [109137, 104320, 90872, 71701, 71701], "q_py": [127496, 98720, 71897, 66397, 66397], "q_wos_4": [6.9, 5.8, 5.4, 4.3, 4.3], "q_wos_8": [7.4, 7.4, 4.7, 0.0, 0.0]}}, "OLED": {"actual": [17923, 12349, 12803, 16351, 12990, 18671, 17196, 14638, 13417, 16272, 28038, 21202], "py": [24232, 17707, 17598, 19920, 20228, 16721, 18780, 10521, 9682, 15296, 32158, 18789], "table": {"q": [[43075, 48012, 45251, 65512, 201850], [59537, 56869, 38983, 66243, 221632], ["-28%", "-16%", "16%", "-1%", "-9%"]]}, "inv": {"ch_inv": [20888, 26562, 27343, 30216, 31441, 23301, 19176, 21143, 21534, 25220, 22878, 13285], "py": [29501, 33113, 33412, 36244, 31105, 26652, 19285, 14214, 19035, 26235, 21335, 13399], "wos_4": [6.3, 8.2, 8.5, 9.6, 9.8, 5.0, 5.9, 5.8, 6.3, 7.7, 3.4, 3.8], "wos_8": [6.8, 8.0, 8.6, 7.7, 7.9, 6.7, 5.5, 6.5, 4.9, 4.6, 0.0, 0.0], "q_ch_inv": [27343, 23301, 21534, 13285, 13285], "q_py": [33412, 26652, 19035, 13399, 13399], "q_wos_4": [8.5, 5.0, 6.3, 3.8, 3.8], "q_wos_8": [8.6, 6.7, 4.9, 0.0, 0.0]}}, "QNED/MRGB": {"actual": [8632, 4860, 6125, 8979, 8411, 11496, 13498, 8662, 11620, 16327, 18941, 18879], "py": [5163, 3072, 3277, 4811, 5465, 3922, 3637, 3276, 3821, 5435, 10337, 9444], "table": {"q": [[19617, 28886, 33780, 54147, 136430], [11512, 14198, 10734, 25216, 61660], ["70%", "103%", "2%", "115%", "121%"]]}, "inv": {"ch_inv": [14532, 18175, 17763, 16148, 16957, 16302, 14804, 14857, 14105, 15730, 15695, 8303], "py": [5493, 7104, 7434, 6793, 5980, 6110, 6167, 6837, 7580, 14840, 16242, 13000], "wos_4": [9.1, 15.0, 11.9, 9.4, 8.1, 5.5, 5.4, 6.6, 4.4, 5.2, 3.4, 2.3], "wos_8": [10.8, 11.0, 9.4, 6.6, 6.1, 6.5, 5.8, 4.6, 3.5, 3.9, 0.0, 0.0], "q_ch_inv": [17763, 16302, 14105, 8303, 8303], "q_py": [7434, 6110, 7580, 13000, 13000], "q_wos_4": [11.9, 5.5, 4.4, 2.3, 2.3], "q_wos_8": [9.4, 6.5, 3.5, 0.0, 0.0]}}, "NANO": {"actual": [15204, 10133, 10216, 15268, 7848, 5406, 5103, 3178, 1573, 1075, 98, 68], "py": [2858, 1566, 1782, 2019, 1616, 3026, 6293, 7277, 8257, 10751, 13835, 16224], "table": {"q": [[35553, 28522, 9854, 1241, 75170], [6206, 6661, 21827, 40810, 75504], ["5%", "3%", "-55%", "-97%", "0%"]]}, "inv": {"ch_inv": [12133, 11383, 12725, 10612, 8767, 6440, 4031, 2493, 1266, 276, 192, 130], "py": [3699, 3649, 3752, 3692, 4871, 7127, 8424, 7582, 7635, 13281, 16567, 12162], "wos_4": [4.4, 4.3, 4.9, 3.6, 4.4, 4.8, 4.1, 3.3, 3.4, 1.3, 7.8, 10.0], "wos_8": [4.9, 3.9, 4.6, 6.4, 7.4, 6.7, 6.9, 8.1, 8.8, 14.2, 0.0, 0.0], "q_ch_inv": [12725, 6440, 1266, 130, 130], "q_py": [3752, 7127, 7635, 12162, 12162], "q_wos_4": [4.9, 4.8, 3.4, 10.0, 10.0], "q_wos_8": [4.6, 6.7, 8.8, 0.0, 0.0]}}, "UHD": {"actual": [19508, 16421, 19787, 18976, 15143, 20733, 20777, 18105, 23468, 32635, 45367, 40283], "py": [36211, 29888, 29933, 43080, 41492, 28180, 19867, 12437, 16950, 23626, 34117, 20641], "table": {"q": [[55716, 54852, 62350, 118285, 291203], [96032, 112752, 49254, 78384, 336422], ["-42%", "-51%", "27%", "51%", "-13%"]]}, "inv": {"ch_inv": [27393, 35550, 33868, 38369, 39694, 39374, 35804, 37843, 42819, 48562, 51048, 38916], "py": [34477, 43615, 45143, 39287, 32444, 22896, 21251, 22666, 19428, 31946, 27211, 16939], "wos_4": [6.8, 8.6, 6.9, 10.5, 10.5, 7.7, 9.6, 8.4, 7.2, 7.4, 4.6, 5.4], "wos_8": [6.1, 8.2, 9.1, 8.6, 8.5, 9.6, 6.9, 6.2, 5.5, 5.1, 0.0, 0.0], "q_ch_inv": [33868, 39374, 42819, 38916, 38916], "q_py": [45143, 22896, 19428, 16939, 16939], "q_wos_4": [6.9, 7.7, 7.2, 5.4, 5.4], "q_wos_8": [9.1, 9.6, 5.5, 0.0, 0.0]}}, "FHD / STV": {"actual": [13310, 9539, 14258, 15685, 12400, 16081, 16025, 12818, 14907, 13693, 14551, 12752], "py": [33835, 22276, 17339, 32963, 17155, 15035, 19666, 12783, 14549, 18309, 19239, 21037], "table": {"q": [[37107, 44166, 43750, 40996, 166019], [73450, 65153, 46998, 58585, 244186], ["-49%", "-32%", "-7%", "-30%", "-32%"]]}, "inv": {"ch_inv": [10751, 20253, 17438, 21714, 22130, 18903, 16535, 14366, 11148, 17735, 15878, 11067], "py": [26179, 28458, 37755, 33481, 33595, 35935, 28219, 18033, 18219, 27257, 24219, 10897], "wos_4": [4.0, 8.4, 4.9, 7.2, 7.1, 4.7, 5.3, 4.4, 2.9, 7.2, 4.4, 4.7], "wos_8": [3.6, 5.9, 5.6, 6.1, 6.1, 6.0, 4.7, 4.4, 3.7, 5.8, 0.0, 0.0], "q_ch_inv": [17438, 18903, 11148, 11067, 11067], "q_py": [37755, 35935, 18219, 10897, 10897], "q_wos_4": [4.9, 4.7, 2.9, 4.7, 4.7], "q_wos_8": [5.6, 6.0, 3.7, 0.0, 0.0]}}, "FHD/STV": {"actual": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "table": {"q": [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], ["0%", "0%", "0%", "0%", "0%"]]}, "inv": {"ch_inv": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "py": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "wos_4": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "wos_8": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "q_ch_inv": [0, 0, 0, 0, 0], "q_py": [0, 0, 0, 0, 0], "q_wos_4": [0.0, 0.0, 0.0, 0.0, 0.0], "q_wos_8": [0.0, 0.0, 0.0, 0.0, 0.0]}}};
+const inventoryDataRepo = {"highlights": [{"blu": "UK TTL", "ch_inv": 101273, "wos": 6.5, "status": "✓ Healthy"}, {"blu": "OLED", "ch_inv": 29761, "wos": 10.2, "status": "⛔ Critical"}, {"blu": "QNED/MRGB", "ch_inv": 14219, "wos": 4.7, "status": "✓ Healthy"}, {"blu": "NANO", "ch_inv": 1224, "wos": 4.1, "status": "✓ Healthy"}, {"blu": "UHD", "ch_inv": 46024, "wos": 7.9, "status": "✓ Healthy"}, {"blu": "FHD/STV", "ch_inv": 10045, "wos": 2.8, "status": "✓ Healthy"}], "models_list": [{"model": "43UA75006LA.AEK", "category": "UHD", "ch_inv": 856, "sell_out": 322, "wos4": 10.6, "wos8": 12.5, "status": "⚠ Warning"}, {"model": "OLED77G54LW.AEK", "category": "OLED", "ch_inv": 637, "sell_out": 216, "wos4": 11.8, "wos8": 9.0, "status": "🔍 Watch"}, {"model": "43NU850B6LA.AEK", "category": "UHD", "ch_inv": 607, "sell_out": 5, "wos4": 485.6, "wos8": 54.6, "status": "⛔ Critical"}, {"model": "32LQ63806LC.AEK", "category": "FHD/STV", "ch_inv": 511, "sell_out": 243, "wos4": 8.4, "wos8": 10.6, "status": "🔍 Watch"}, {"model": "50NU850B6LA.AEK", "category": "UHD", "ch_inv": 498, "sell_out": 2, "wos4": 996.0, "wos8": 86.6, "status": "⛔ Critical"}, {"model": "43QNED72B6B.AEI", "category": "QNED", "ch_inv": 496, "sell_out": 75, "wos4": 26.5, "wos8": 23.1, "status": "⛔ Critical"}, {"model": "55NU850B6LA.AEK", "category": "UHD", "ch_inv": 495, "sell_out": 1, "wos4": 1980.0, "wos8": 60.9, "status": "⛔ Critical"}, {"model": "50QNED7EB3C.AEK", "category": "QNED", "ch_inv": 460, "sell_out": 4, "wos4": 460.0, "wos8": 9.3, "status": "🔍 Watch"}, {"model": "43QNED7EB3C.AEK", "category": "QNED", "ch_inv": 421, "sell_out": 10, "wos4": 168.4, "wos8": 13.7, "status": "⛔ Critical"}, {"model": "55NU850B6LA.AEI", "category": "UHD", "ch_inv": 409, "sell_out": 96, "wos4": 17.0, "wos8": 9.1, "status": "🔍 Watch"}, {"model": "OLED55C64LA.AEI", "category": "OLED", "ch_inv": 354, "sell_out": 85, "wos4": 16.7, "wos8": 15.1, "status": "⛔ Critical"}, {"model": "55QNED72B6B.AEI", "category": "QNED", "ch_inv": 339, "sell_out": 54, "wos4": 25.1, "wos8": 10.0, "status": "⚠ Warning"}, {"model": "65QNED70A6A.AEK", "category": "QNED", "ch_inv": 310, "sell_out": 95, "wos4": 13.1, "wos8": 12.7, "status": "⛔ Critical"}, {"model": "55QNED70A6A.AEK", "category": "QNED", "ch_inv": 301, "sell_out": 90, "wos4": 13.4, "wos8": 10.2, "status": "⚠ Warning"}, {"model": "50QNED86A6C.AEK", "category": "QNED", "ch_inv": 291, "sell_out": 71, "wos4": 16.4, "wos8": 9.7, "status": "🔍 Watch"}, {"model": "50QNED72B6B.AEI", "category": "QNED", "ch_inv": 276, "sell_out": 34, "wos4": 32.5, "wos8": 12.0, "status": "⛔ Critical"}, {"model": "65QNED72B6B.AEI", "category": "QNED", "ch_inv": 222, "sell_out": 40, "wos4": 22.2, "wos8": 11.6, "status": "⚠ Warning"}, {"model": "OLED55B65LA.AEI", "category": "OLED", "ch_inv": 211, "sell_out": 21, "wos4": 40.2, "wos8": 10.6, "status": "⚠ Warning"}, {"model": "75NANO80A6B.AEK", "category": "NANO", "ch_inv": 152, "sell_out": 32, "wos4": 19.0, "wos8": 15.8, "status": "⛔ Critical"}, {"model": "75QNED9MA6B.AEK", "category": "QNED", "ch_inv": 142, "sell_out": 5, "wos4": 113.6, "wos8": 40.6, "status": "⛔ Critical"}, {"model": "OLED77C54LA.AEK", "category": "OLED", "ch_inv": 138, "sell_out": 47, "wos4": 11.7, "wos8": 9.0, "status": "🔍 Watch"}, {"model": "86QNED9MA6B.AEK", "category": "QNED", "ch_inv": 138, "sell_out": 4, "wos4": 138.0, "wos8": 61.3, "status": "⛔ Critical"}, {"model": "86QNED80A6A.AEK", "category": "QNED", "ch_inv": 137, "sell_out": 5, "wos4": 109.6, "wos8": 91.3, "status": "⛔ Critical"}, {"model": "75QNED80A6A.AEK", "category": "QNED", "ch_inv": 129, "sell_out": 12, "wos4": 43.0, "wos8": 19.8, "status": "⛔ Critical"}, {"model": "75NU850B6LA.AEK", "category": "UHD", "ch_inv": 120, "sell_out": 1, "wos4": 480.0, "wos8": 17.5, "status": "⛔ Critical"}, {"model": "75NANO90A6B.AEK", "category": "NANO", "ch_inv": 119, "sell_out": 14, "wos4": 34.0, "wos8": 34.0, "status": "⛔ Critical"}, {"model": "OLED42C64LA.AEI", "category": "OLED", "ch_inv": 105, "sell_out": 11, "wos4": 38.2, "wos8": 8.3, "status": "🔍 Watch"}, {"model": "OLED55C64LA.AEK", "category": "OLED", "ch_inv": 99, "sell_out": 1, "wos4": 396.0, "wos8": 14.1, "status": "⛔ Critical"}, {"model": "43QNED72B6B.AEK", "category": "QNED", "ch_inv": 83, "sell_out": 1, "wos4": 332.0, "wos8": 14.1, "status": "⛔ Critical"}, {"model": "65QNED86B6B.AEI", "category": "QNED", "ch_inv": 70, "sell_out": 20, "wos4": 14.0, "wos8": 9.3, "status": "🔍 Watch"}, {"model": "OLED83G54LW.AEK", "category": "OLED", "ch_inv": 66, "sell_out": 10, "wos4": 26.4, "wos8": 11.2, "status": "⚠ Warning"}], "channels_list": {"43NU850B6LA.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 392, "sell_out": 8, "pct": 65, "wos4": 196.0}, {"channel": "CURRYS", "ch_inv": 320, "sell_out": 3, "pct": 53, "wos4": 426.7}, {"channel": "ARGOS", "ch_inv": 176, "sell_out": 0, "pct": 29, "wos4": 0.0}], "50NU850B6LA.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 472, "sell_out": 4, "pct": 95, "wos4": 472.0}, {"channel": "AMAZON", "ch_inv": 330, "sell_out": 14, "pct": 66, "wos4": 94.3}, {"channel": "CURRYS", "ch_inv": 310, "sell_out": 4, "pct": 62, "wos4": 310.0}], "43QNED72B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "55NU850B6LA.AEK": [{"channel": "CURRYS", "ch_inv": 421, "sell_out": 4, "pct": 85, "wos4": 421.0}, {"channel": "AMAZON", "ch_inv": 243, "sell_out": 20, "pct": 49, "wos4": 48.6}, {"channel": "ARGOS", "ch_inv": 183, "sell_out": 0, "pct": 37, "wos4": 0.0}, {"channel": "JOHN LEWIS", "ch_inv": 116, "sell_out": 6, "pct": 23, "wos4": 77.3}], "43QNED7EB3C.AEK": [{"channel": "VERY", "ch_inv": 46, "sell_out": 8, "pct": 11, "wos4": 23.0}], "OLED55C64LA.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "65QNED70A6A.AEK": [{"channel": "CURRYS", "ch_inv": 168, "sell_out": 449, "pct": 54, "wos4": 1.5}, {"channel": "ARGOS", "ch_inv": 109, "sell_out": 33, "pct": 35, "wos4": 13.2}], "50QNED72B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}], "75NANO80A6B.AEK": [{"channel": "ARGOS", "ch_inv": 97, "sell_out": 32, "pct": 64, "wos4": 12.1}, {"channel": "JOHN LEWIS", "ch_inv": 43, "sell_out": 10, "pct": 28, "wos4": 17.2}], "75QNED9MA6B.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 79, "sell_out": 11, "pct": 56, "wos4": 28.7}], "86QNED9MA6B.AEK": [{"channel": "JOHN LEWIS", "ch_inv": 64, "sell_out": 6, "pct": 46, "wos4": 42.7}], "86QNED80A6A.AEK": [{"channel": "AMAZON", "ch_inv": 31, "sell_out": 0, "pct": 23, "wos4": 0.0}, {"channel": "VERY", "ch_inv": 21, "sell_out": 0, "pct": 15, "wos4": 0.0}], "75QNED80A6A.AEK": [{"channel": "VERY", "ch_inv": 12, "sell_out": 2, "pct": 9, "wos4": 24.0}, {"channel": "AO", "ch_inv": 6, "sell_out": 11, "pct": 5, "wos4": 2.2}], "75NU850B6LA.AEK": [{"channel": "AMAZON", "ch_inv": 164, "sell_out": 5, "pct": 137, "wos4": 131.2}, {"channel": "CURRYS", "ch_inv": 139, "sell_out": 13, "pct": 116, "wos4": 42.8}, {"channel": "ARGOS", "ch_inv": 70, "sell_out": 0, "pct": 58, "wos4": 0.0}], "75NANO90A6B.AEK": [{"channel": "ARGOS", "ch_inv": 107, "sell_out": 34, "pct": 90, "wos4": 12.6}], "OLED55C64LA.AEK": [{"channel": "CURRYS", "ch_inv": 1364, "sell_out": 6, "pct": 1378, "wos4": 909.3}, {"channel": "RICHER SOUNDS", "ch_inv": 885, "sell_out": 14, "pct": 894, "wos4": 252.9}, {"channel": "JOHN LEWIS", "ch_inv": 654, "sell_out": 26, "pct": 661, "wos4": 100.6}], "43QNED72B6B.AEK": [{"channel": "CURRYS", "ch_inv": 1436, "sell_out": 40, "pct": 1730, "wos4": 143.6}], "43QNED86B6B.AEI": [{"channel": "IRELAND_CURRYS", "ch_inv": 0, "sell_out": 0, "pct": 0, "wos4": 0.0}]}};
+
+    function updateInventoryView() {
+        const data = inventoryDataRepo;
+        
+        // 1. Render Highlights Cards
+        const highlightsContainer = document.getElementById('inventory-highlights-container');
+        if (highlightsContainer) {
+            function getCardStyles(status) {
+                const s = status.toLowerCase();
+                if (s.includes('critical') || s.includes('⛔')) {
+                    return {
+                        border: 'border-l-4 border-l-red-500 border-red-200',
+                        badge: 'bg-red-50 text-red-700 border border-red-200/50',
+                        badgeText: 'Critical'
+                    };
+                }
+                if (s.includes('warning') || s.includes('⚠')) {
+                    return {
+                        border: 'border-l-4 border-l-amber-500 border-amber-200',
+                        badge: 'bg-amber-50 text-amber-700 border border-amber-200/50',
+                        badgeText: 'Warning'
+                    };
+                }
+                if (s.includes('watch') || s.includes('🔍')) {
+                    return {
+                        border: 'border-l-4 border-l-blue-500 border-blue-200',
+                        badge: 'bg-blue-50 text-blue-700 border border-blue-200/50',
+                        badgeText: 'Watch'
+                    };
+                }
+                return {
+                    border: 'border-l-4 border-l-green-500 border-green-200',
+                    badge: 'bg-green-50 text-green-700 border border-green-200/50',
+                    badgeText: 'Healthy'
+                };
+            }
+
+            highlightsContainer.innerHTML = data.highlights.map(h => {
+                const styles = getCardStyles(h.status);
+                return `
+                    <div class="p-6 bg-slate-50/50 rounded-lg border ${styles.border} hover:shadow-md transition-all">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">${h.blu}</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-headline font-bold text-primary">${h.ch_inv.toLocaleString()}</span>
+                            <span class="text-[10px] text-slate-500">Units</span>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xs font-semibold text-slate-600 whitespace-nowrap">WOS: ${h.wos.toFixed(1)}주</span>
+                            <span class="px-2 py-0.5 text-[9px] font-bold rounded uppercase ${styles.badge}">${styles.badgeText}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 2. Render Models List Table
+        const listBody = document.getElementById('inventory-models-list-body');
+        if (listBody) {
+            function getListBadge(status) {
+                const s = status.toLowerCase();
+                if (s.includes('critical') || s.includes('⛔')) return '<span class="px-2 py-1 bg-red-50 text-red-600 border border-red-200/50 text-[9px] font-bold rounded uppercase">⛔ CRITICAL</span>';
+                if (s.includes('warning') || s.includes('⚠')) return '<span class="px-2 py-1 bg-amber-50 text-amber-600 border border-amber-200/50 text-[9px] font-bold rounded uppercase">⚠ WARNING</span>';
+                if (s.includes('watch') || s.includes('🔍')) return '<span class="px-2 py-1 bg-blue-50 text-blue-600 border border-blue-200/50 text-[9px] font-bold rounded uppercase">🔍 WATCH</span>';
+                return '<span class="px-2 py-1 bg-green-50 text-green-600 border border-green-200/50 text-[9px] font-bold rounded uppercase">✓ HEALTHY</span>';
+            }
+
+            listBody.innerHTML = data.models_list.map(m => `
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="py-3 px-4 font-bold text-slate-800">${m.model}</td>
+                    <td class="py-3 px-4 text-xs text-slate-500 font-semibold">${m.category}</td>
+                    <td class="py-3 px-4 text-right font-medium text-slate-700">${m.ch_inv.toLocaleString()}</td>
+                    <td class="py-3 px-4 text-right font-semibold text-slate-600 ${m.wos4 > 8 ? 'text-red-600' : ''}">${m.wos4.toFixed(1)}주</td>
+                    <td class="py-3 px-4 text-right font-semibold text-slate-600 ${m.wos8 > 8 ? 'text-red-600' : ''}">${m.wos8.toFixed(1)}주</td>
+                    <td class="py-3 px-4 text-center">${getListBadge(m.status)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // 3. Render Critical Channels progress cards (All Critical Models)
+        const channelsContainer = document.getElementById('inventory-critical-channels-container');
+        if (channelsContainer) {
+            const criticalModels = data.models_list.filter(m => 
+                m.status.toLowerCase().includes('critical') || 
+                m.status.toLowerCase().includes('⛔')
+            );
+            
+            channelsContainer.innerHTML = criticalModels.map(m => {
+                const items = data.channels_list[m.model];
+                if (!items || items.length === 0) return '';
+                
+                return `
+                    <div class="p-6 bg-slate-50/20 border border-slate-100 rounded-lg space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <span class="text-xs font-bold text-slate-800 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis" title="${m.model}">${m.model}</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 bg-red-50 text-red-600 border border-red-200/30 rounded uppercase">Critical</span>
+                        </div>
+                        <div class="space-y-3">
+                            ${items.map(ch => `
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[11px] font-medium">
+                                        <span class="text-slate-500 font-semibold">${ch.channel}</span>
+                                        <span class="font-bold text-slate-700">판매(W-4): ${ch.sell_out}, 재고: ${ch.ch_inv}</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                        <div class="bg-secondary h-full rounded-full" style="width: ${ch.pct}%"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    function updateMonthlyData(category) {
+        // Update Buttons
+        document.querySelectorAll('.slicer-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.getAttribute('data-category') === category) btn.classList.add('active');
+        });
+
+        // Update Chart
+        const data = monthlyDataRepo[category];
+        monthlyChartInstance.data.datasets[0].data = data.actual;
+        monthlyChartInstance.data.datasets[1].data = data.py;
+        monthlyChartInstance.update();
+
+        // Update Table Labels
+        const labelEl = document.getElementById('table-category-label');
+        if (labelEl) labelEl.innerText = category;
+        const invLabelEl = document.getElementById('inv-table-category-label');
+        if (invLabelEl) invLabelEl.innerText = category;
+
+        // Update Sell-out Table
+        const mBody = document.getElementById('monthly-table-body');
+        if (mBody) {
+            const act = data.actual;
+            const py = data.py;
+            const q_act = data.table.q[0];
+            const q_py = data.table.q[1];
+            
+            function get_pct_js(a, p) {
+                if (p) return Math.round((a / p) * 100) + '%';
+                return '0%';
+            }
+            
+            function get_pct_class(pct_str) {
+                const num = parseInt(pct_str);
+                if (num > 100) return 'text-green-600 font-bold';
+                if (num < 90) return 'text-red-600 font-bold';
+                return 'font-bold';
+            }
+            
+            mBody.innerHTML = `
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">Actual/FCST</td>
+                    ${act.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-600">${v.toLocaleString()}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70 border-l border-slate-200">${q_act[0].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[1].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[2].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${q_act[3].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-4 text-right font-black bg-slate-50/90 text-primary border-l border-slate-200">${q_act[4].toLocaleString()}</td>
+                </tr>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">PY (전년)</td>
+                    ${py.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-500">${v.toLocaleString()}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70 border-l border-slate-200">${q_py[0].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[1].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[2].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${q_py[3].toLocaleString()}</td>
+                    <td class="num-cell py-2 px-4 text-right text-slate-500 font-bold bg-slate-50/90 border-l border-slate-200">${q_py[4].toLocaleString()}</td>
+                </tr>
+                <tr class="font-bold bg-slate-50/30">
+                    <td class="font-bold py-3 px-4 text-slate-800">vs. PY</td>
+                    ${act.map((v, i) => {
+                        const pct = get_pct_js(v, py[i]);
+                        return `<td class="num-cell py-2 px-2 text-right ${get_pct_class(pct)}">${pct}</td>`;
+                    }).join('')}
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[0], q_py[0]))} bg-slate-50/70 border-l border-slate-200">${get_pct_js(q_act[0], q_py[0])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[1], q_py[1]))} bg-slate-50/70">${get_pct_js(q_act[1], q_py[1])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[2], q_py[2]))} bg-slate-50/70">${get_pct_js(q_act[2], q_py[2])}</td>
+                    <td class="num-cell py-2 px-2 text-right ${get_pct_class(get_pct_js(q_act[3], q_py[3]))} bg-slate-50/70">${get_pct_js(q_act[3], q_py[3])}</td>
+                    <td class="num-cell py-2 px-4 text-right ${get_pct_class(get_pct_js(q_act[4], q_py[4]))} bg-slate-50/90 border-l border-slate-200">${get_pct_js(q_act[4], q_py[4])}</td>
+                </tr>
+            `;
+        }
+
+        // Update Inventory & WOS Table
+        const invBody = document.getElementById('monthly-inv-table-body');
+        if (invBody && data.inv) {
+            const inv = data.inv;
+            
+            function fmtVal(v, isWos) {
+                if (v === null || v === undefined) return '-';
+                return isWos ? v.toFixed(1) : Math.round(v).toLocaleString();
+            }
+
+            function getWosClass(v) {
+                if (v !== null && v !== undefined && parseFloat(v) > 8.0) {
+                    return 'text-red-600 font-bold';
+                }
+                return 'text-slate-600 font-semibold';
+            }
+
+            invBody.innerHTML = `
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">Ch. Inv.</td>
+                    ${inv.ch_inv.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-600">${fmtVal(v, false)}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70 border-l border-slate-200">${fmtVal(inv.q_ch_inv[0], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${fmtVal(inv.q_ch_inv[1], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${fmtVal(inv.q_ch_inv[2], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right font-bold bg-slate-50/70">${fmtVal(inv.q_ch_inv[3], false)}</td>
+                    <td class="num-cell py-2 px-4 text-right font-black bg-slate-50/90 text-primary border-l border-slate-200">${fmtVal(inv.q_ch_inv[4], false)}</td>
+                </tr>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">PY (전년)</td>
+                    ${inv.py.map(v => `<td class="num-cell py-2 px-2 text-right text-slate-505">${fmtVal(v, false)}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70 border-l border-slate-200">${fmtVal(inv.q_py[0], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${fmtVal(inv.q_py[1], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${fmtVal(inv.q_py[2], false)}</td>
+                    <td class="num-cell py-2 px-2 text-right text-slate-500 font-semibold bg-slate-50/70">${fmtVal(inv.q_py[3], false)}</td>
+                    <td class="num-cell py-2 px-4 text-right text-slate-500 font-bold bg-slate-50/90 border-l border-slate-200">${fmtVal(inv.q_py[4], false)}</td>
+                </tr>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20">
+                    <td class="font-semibold bg-slate-50/50 py-3 px-4 text-slate-700">WOS(-4)</td>
+                    ${inv.wos_4.map(v => `<td class="num-cell py-2 px-2 text-right ${getWosClass(v)}">${fmtVal(v, true)}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 border-l border-slate-200 ${getWosClass(inv.q_wos_4[0])}">${fmtVal(inv.q_wos_4[0], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_4[1])}">${fmtVal(inv.q_wos_4[1], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_4[2])}">${fmtVal(inv.q_wos_4[2], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_4[3])}">${fmtVal(inv.q_wos_4[3], true)}</td>
+                    <td class="num-cell py-2 px-4 text-right bg-slate-50/90 border-l border-slate-200 ${getWosClass(inv.q_wos_4[4])}">${fmtVal(inv.q_wos_4[4], true)}</td>
+                </tr>
+                <tr class="border-b border-slate-100 hover:bg-slate-50/20 font-bold bg-slate-50/10">
+                    <td class="font-bold py-3 px-4 text-slate-800">WOS(+8)</td>
+                    ${inv.wos_8.map(v => `<td class="num-cell py-2 px-2 text-right ${getWosClass(v)}">${fmtVal(v, true)}</td>`).join('')}
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 border-l border-slate-200 ${getWosClass(inv.q_wos_8[0])}">${fmtVal(inv.q_wos_8[0], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_8[1])}">${fmtVal(inv.q_wos_8[1], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_8[2])}">${fmtVal(inv.q_wos_8[2], true)}</td>
+                    <td class="num-cell py-2 px-2 text-right bg-slate-50/70 ${getWosClass(inv.q_wos_8[3])}">${fmtVal(inv.q_wos_8[3], true)}</td>
+                    <td class="num-cell py-2 px-4 text-right bg-slate-50/90 border-l border-slate-200 ${getWosClass(inv.q_wos_8[4])}">${fmtVal(inv.q_wos_8[4], true)}</td>
+                </tr>
+            `;
+        }
+    }
+
+    // Initialize monthly chart on load
+                window.onload = function() {
+        if (typeof initAllCharts === 'function') {
+            initAllCharts();
+        }
+        if (typeof initMonthlyChart === 'function') {
+            initMonthlyChart();
+        }
+        if (typeof initChannelCharts === 'function') {
+            initChannelCharts();
+        }
+        if (typeof updateChannelView === 'function') {
+            updateChannelView('AMAZON');
+        }
+        if (typeof updateMonthlyData === 'function') {
+            updateMonthlyData('UK TTL');
+        }
+        if (typeof updateInventoryView === 'function') {
+            updateInventoryView();
+        }
+    };
+</script>
+<script>
+    (function() {
+        function hideSidebarIfIframe() {
+            if (window.self !== window.top) {
+                const aside = document.querySelector('aside');
+                if (aside) aside.style.setProperty('display', 'none', 'important');
+                const main = document.querySelector('main');
+                if (main) main.style.setProperty('margin-left', '0', 'important');
+                const header = document.querySelector('header');
+                if (header) header.style.setProperty('display', 'none', 'important');
+            }
+        }
+        
+        function handleHashTab() {
+            const hash = window.location.hash;
+            if (hash) {
+                let tabId = hash.replace('#', '');
+                if (tabId.startsWith('tab=')) {
+                    tabId = 'tab_' + tabId.replace('tab=', '');
+                }
+                if (typeof switchTab === 'function') {
+                    switchTab(tabId);
+                }
+                // Reset scroll position to top (prevent browser auto-scrolling to section ID)
+                window.scrollTo(0, 0);
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 20);
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 100);
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 300);
+            }
+        }
+        
+        window.addEventListener('hashchange', handleHashTab);
+        
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', () => {
+                hideSidebarIfIframe();
+                handleHashTab();
+            });
+        } else {
+            hideSidebarIfIframe();
+            handleHashTab();
+        }
+    })();
+</script>
+</body></html>

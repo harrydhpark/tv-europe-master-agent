@@ -101,6 +101,7 @@
           <div class="input-helpers">
             <div class="mention-shortcuts">
               <span class="text-xs text-slate-400 mr-1">직접 호출:</span>
+              <button class="mention-chip" data-mention="@전략보고서">@전략보고서</button>
               <button class="mention-chip" data-mention="@KPI">@KPI</button>
               <button class="mention-chip" data-mention="@PriceTracker">@PriceTracker</button>
               <button class="mention-chip" data-mention="@Simulator">@Simulator</button>
@@ -184,8 +185,9 @@
         <div class="form-group">
           <label for="modelSelect">추론 모델 선택</label>
           <select id="modelSelect" class="form-control">
-            <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (초고속 실시간 응답)</option>
-            <option value="gemini-1.5-pro">Gemini 1.5 Pro (복합 심층 분석용)</option>
+            <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (최신 최고속 실시간 응답)</option>
+            <option value="gemini-3.5-flash">Gemini 3.5 Flash (안정형 고속 응답)</option>
+            <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (복합 심층 분석용)</option>
             <option value="auto">Auto Router (작업 난이도별 자동 선택)</option>
           </select>
         </div>
@@ -223,6 +225,6 @@
   </div>
 
   <!-- Application Logic -->
-  <script src="app.js?v=20260917_05"></script>
+  <script src="app.js?v=20260921_01"></script>
 </body>
 </html>

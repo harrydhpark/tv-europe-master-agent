@@ -21,4 +21,5 @@ agent_bridge/progress/*
 # Python cache & backups
 *.bak
 __pycache__/
+*.duckdb
 
