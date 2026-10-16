@@ -116,13 +116,22 @@ def run_query(args):
 
     # ── Filter by year ──
     year = args.year or int(df['Year'].max())
-    df_filtered = df[df['Year'] == year].copy()
+    df_year = df[df['Year'] == year].copy()
+    df_filtered = df_year.copy()
 
     # ── Filter by period ──
-    latest_month = int(df_filtered['Month'].max()) if len(df_filtered) > 0 else 8
+    latest_month = int(df_year['Month'].max()) if len(df_year) > 0 else 8
+    requested_month = args.month
+    actual_month = args.month
     if args.month:
-        df_filtered = df_filtered[df_filtered['Month'] == args.month]
-        period_label = f'{year}년 {args.month}월'
+        df_month = df_filtered[df_filtered['Month'] == args.month]
+        if len(df_month) > 0:
+            df_filtered = df_month
+            period_label = f'{year}년 {args.month}월'
+        else:
+            actual_month = latest_month
+            df_filtered = df_filtered[df_filtered['Month'] == latest_month]
+            period_label = f'{year}년 {latest_month}월 최신 결산 기준 (요청: {args.month}월)'
     elif args.period == 'YTD':
         period_label = f'{year}년 누적 (1~{latest_month}월 YTD)'
     elif args.period == 'L3M':
@@ -143,7 +152,6 @@ def run_query(args):
     segment_filter = args.segment
     if segment_filter:
         seg_upper = segment_filter.upper()
-        # Map common aliases
         seg_map = {
             'OLED': 'OLED', 'QNED': 'QNED', 'MRGB': 'MRGB',
             'UHD': 'UHD', 'FHD': 'FHD', '올레드': 'OLED',
@@ -164,6 +172,7 @@ def run_query(args):
             'success': True,
             'subsidiary': sub_code,
             'subsidiary_name': SUB_NAMES.get(sub_code, sub_code),
+            'subsidiary_kr': SUB_NAMES.get(sub_code, sub_code),
             'period': period_label,
             'row_count': 0,
             'total': None,
@@ -177,7 +186,7 @@ def run_query(args):
 
     # ── GroupBy breakdown ──
     breakdown = []
-    groupby = args.groupby or 'none'
+    groupby = args.groupby or 'segment'
 
     if groupby == 'segment':
         groups = df_filtered.groupby('Segment')
@@ -197,20 +206,33 @@ def run_query(args):
     if groups is not None:
         for name, grp in groups:
             row = aggregate_group(grp)
-            row['label'] = str(name) if groupby != 'month' else f'{year}년 {int(name)}월'
+            lbl = str(name) if groupby != 'month' else f'{year}년 {int(name)}월'
+            row['label'] = lbl
+            row[groupby] = lbl
+            row['qty_share_pct'] = round(safe_div(row['qty'], total['qty']) * 100, 1)
             row['share_pct'] = round(safe_div(row['net_sales'], total['net_sales']) * 100, 1)
             breakdown.append(row)
 
-        # Sort by net_sales descending
         breakdown.sort(key=lambda x: x['net_sales'], reverse=True)
-
-        # Apply top-N limit
         if args.top and args.top > 0:
             breakdown = breakdown[:args.top]
 
-    # ── Monthly Trend (always include) ──
+    # ── Top Accounts Breakdown (always include top 8 accounts for profitability reports) ──
+    account_breakdown = []
+    if 'Clean_Account' in df_filtered.columns:
+        for acc_name, grp in df_filtered.groupby('Clean_Account'):
+            arow = aggregate_group(grp)
+            arow['label'] = str(acc_name)
+            arow['account'] = str(acc_name)
+            arow['qty_share_pct'] = round(safe_div(arow['qty'], total['qty']) * 100, 1)
+            arow['share_pct'] = round(safe_div(arow['net_sales'], total['net_sales']) * 100, 1)
+            account_breakdown.append(arow)
+        account_breakdown.sort(key=lambda x: x['net_sales'], reverse=True)
+        account_breakdown = account_breakdown[:8]
+
+    # ── Monthly Trend across the full year (1..latest_month) ──
     monthly_trend = []
-    for month_num, grp in df_filtered.groupby('Month'):
+    for month_num, grp in df_year.groupby('Month'):
         m = aggregate_group(grp)
         m['month'] = int(month_num)
         m['label'] = f'{year}.{int(month_num):02d}'
@@ -225,16 +247,26 @@ def run_query(args):
         'success': True,
         'subsidiary': sub_code,
         'subsidiary_name': SUB_NAMES.get(sub_code, sub_code),
+        'subsidiary_kr': SUB_NAMES.get(sub_code, sub_code),
         'period': period_label,
         'year': year,
         'latest_month': latest_month,
+        'requested_month': requested_month,
+        'actual_month': actual_month,
         'row_count': len(df_filtered),
         'total': total,
         'groupby': groupby,
+        'filters': {
+            'groupby': groupby,
+            'month': actual_month,
+            'requested_month': requested_month,
+            'period': args.period
+        },
         'breakdown': breakdown,
+        'account_breakdown': account_breakdown,
         'monthly_trend': monthly_trend,
         'available_segments': available_segments,
-        'available_accounts': available_accounts[:20],  # Limit for context size
+        'available_accounts': available_accounts[:20],
     }
 
     return result
@@ -254,8 +286,8 @@ def main():
     args = parser.parse_args()
     result = run_query(args)
 
-    # Output JSON to stdout
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    # Output ASCII-safe JSON to stdout so Node.js JSON.parse works across all Windows codepages
+    print(json.dumps(result, ensure_ascii=True, indent=2))
 
 
 if __name__ == '__main__':

@@ -10,6 +10,15 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 const { AGENTS, getAgentStatusSummary, getAgentById } = require('./agentRegistry');
 const { LocalRuleEngine } = require('./localRuleEngine');
+const {
+  listBrainConversations,
+  readConversationTranscript,
+  scanTaskDeliverables,
+  syncPortalBridgeFiles
+} = require('./scripts/antigravity_sidecar_engine');
+
+// Auto-sync Sales Portal Bridge UI assets & Sidecar config on load
+syncPortalBridgeFiles();
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -21,6 +30,8 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/tasks-archive', express.static(path.join(__dirname, 'Task')));
+app.use('/portal', express.static(path.resolve(__dirname, '..', '00. TV Europe Sales Management Portal')));
 
 // Initialize Local Deterministic Engine
 const ruleEngine = new LocalRuleEngine(__dirname);
@@ -174,23 +185,28 @@ app.post('/api/pipeline/run', (req, res) => {
   });
 });
 
-// API 6: Antigravity Bridge Task Creation
+// API 6: Antigravity Bridge Task Creation (Sales Portal & Master Agent UI)
 app.post('/api/bridge/task', (req, res) => {
   try {
-    const { query, apiKey } = req.body;
+    const { query, apiKey, conversationId, executionMode, source } = req.body;
     if (!query) return res.status(400).json({ error: "query is required" });
 
     const taskId = 'task_' + Date.now();
-    const inboxFile = path.join(__dirname, 'agent_bridge', 'inbox', `${taskId}.json`);
+    const inboxDir = path.join(__dirname, 'agent_bridge', 'inbox');
+    if (!fs.existsSync(inboxDir)) fs.mkdirSync(inboxDir, { recursive: true });
+    const inboxFile = path.join(inboxDir, `${taskId}.json`);
     const taskData = {
       taskId,
       query,
       apiKey: apiKey || undefined,
+      conversationId: conversationId || undefined,
+      executionMode: executionMode || 'autonomous',
+      source: source || 'sales_portal',
       createdAt: new Date().toISOString()
     };
 
     fs.writeFileSync(inboxFile, JSON.stringify(taskData, null, 2), 'utf8');
-    console.log(`[Bridge Server] Dispatched task ${taskId} to Antigravity Inbox`);
+    console.log(`[Bridge Server] Dispatched task ${taskId} (${taskData.source}) to Antigravity Inbox`);
 
     res.json({
       success: true,
@@ -199,6 +215,54 @@ app.post('/api/bridge/task', (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// API 6.1: List Active & Recent Antigravity Brain Conversations (Sidecar Session Picker)
+app.get('/api/bridge/conversations', (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit || '15', 10);
+    const conversations = listBrainConversations(limit);
+    res.json({
+      success: true,
+      count: conversations.length,
+      conversations
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// API 6.2: Live Mirror of Antigravity Conversation transcript.jsonl
+app.get('/api/bridge/transcript/:conversationId', (req, res) => {
+  try {
+    const { conversationId } = req.params;
+    const maxSteps = parseInt(req.query.maxSteps || '60', 10);
+    const transcript = readConversationTranscript(conversationId, maxSteps);
+    if (!transcript) {
+      return res.status(404).json({ success: false, error: "Transcript not found for conversationId" });
+    }
+    res.json({
+      success: true,
+      ...transcript
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// API 6.3: Recent Autonomous Task Archives & Downloadable Deliverables (Task/YYYYMMDD_...)
+app.get('/api/tasks/recent', (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit || '15', 10);
+    const tasks = scanTaskDeliverables(limit);
+    res.json({
+      success: true,
+      count: tasks.length,
+      tasks
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 
@@ -360,6 +424,13 @@ if (require.main === module) {
 
     // Start background file watcher
     watcher.start();
+
+    // Start Antigravity Sidecar & Inbox Bridge Worker in-process
+    try {
+      require('./watch_bridge');
+    } catch (err) {
+      console.warn('[Server] Could not start watch_bridge in-process:', err.message);
+    }
   });
 }
 

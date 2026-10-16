@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Portal ↔ Antigravity AXIS Master Agent 통합 자율 실행 아키텍처 보고서</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --navy: #0F172A;
+      --slate: #475569;
+      --border: #E2E8F0;
+      --teal: #0F766E;
+      --teal-soft: #F0FDFA;
+      --crimson: #A50034;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 36px 20px;
+      background: var(--bg);
+      color: var(--navy);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.65;
+    }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .hero h1 {
+      margin: 0 0 8px 0;
+      font-family: 'IBM Plex Sans', 'Pretendard', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      margin: 0;
+      color: #CBD5E1;
+      font-size: 0.9rem;
+    }
+    .badge {
+      background: #0D9488;
+      color: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .body {
+      padding: 32px 36px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--teal);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .kpi-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #64748B;
+      margin-bottom: 6px;
+    }
+    .kpi-val {
+      font-family: 'IBM Plex Sans', monospace;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .kpi-sub {
+      font-size: 0.74rem;
+      color: var(--teal);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    h2 {
+      font-family: 'IBM Plex Sans', 'Pretendard', sans-serif;
+      font-size: 1.12rem;
+      font-weight: 800;
+      border-left: 4px solid var(--navy);
+      padding-left: 12px;
+      margin: 28px 0 14px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin: 14px 0 24px 0;
+    }
+    th {
+      background: var(--navy);
+      color: #FFFFFF;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 700;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: #F1F5F9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0F172A;
+    }
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0 24px 0;
+    }
+    .flow-step {
+      background: var(--teal-soft);
+      border: 1px solid #CCFBF1;
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .flow-step-num {
+      display: inline-block;
+      background: var(--teal);
+      color: #FFFFFF;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .flow-step h4 {
+      margin: 0 0 6px 0;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+    .flow-step p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--slate);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div>
+        <h1>🤖 Sales Portal ↔ Antigravity AXIS Master Agent 통합 자율 실행 워크플로우</h1>
+        <p>00. TV Europe Sales Management Portal 상단 AI 커맨드 바에서 안티그래비티 IDE와 100% 동일한 수준의 출력 및 산출물 아카이빙을 제공하는 통합 브릿지</p>
+      </div>
+      <span class="badge">Stitch v1.0 Verified</span>
+    </div>
+    <div class="body">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">1. 포털 진입 UX</div>
+          <div class="kpi-val">Command Bar + Drawer</div>
+          <div class="kpi-sub">Ctrl+K / Enter / 우측 드로어</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">2. 엔진 연동 아키텍처</div>
+          <div class="kpi-val">Sidecar + Transcript</div>
+          <div class="kpi-sub">agentapi + transcript.jsonl 미러링</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">3. 자율 실행 범위</div>
+          <div class="kpi-val">100% 무인 실행</div>
+          <div class="kpi-sub">데이터 추출 ~ Task/ 아카이빙 완결</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">4. 원천 에이전트 커버리지</div>
+          <div class="kpi-val">15대 전문 에이전트</div>
+          <div class="kpi-sub">Parquet / DuckDB / Excel / Skills</div>
+        </div>
+      </div>
+
+      <h2>1. 4단계 End-to-End 자율 실행 업무 플로우</h2>
+      <div class="flow-grid">
+        <div class="flow-step">
+          <span class="flow-step-num">STEP 01</span>
+          <h4>포털 통합 AI 커맨드 바 입력</h4>
+          <p><code>00. TV Europe Sales Management Portal</code> 상단 검색창(<code>Ctrl+K</code>)에 자연어 프롬프트 입력 후 <code>Enter</code> 또는 <strong>AXIS AI 실행</strong> 클릭</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">STEP 02</span>
+          <h4>Sidecar & Master Agent 디스패치</h4>
+          <p><code>buildAxisMasterPrompt()</code>가 15대 서브에이전트·스킬·아카이빙 지침을 주입하여 <code>agentapi</code> 및 자율 코프로세서로 즉시 전달</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">STEP 03</span>
+          <h4>실시간 사고 과정 & 도구 미러링</h4>
+          <p>우측 슬라이드 드로어(<code>#axisAgentDrawer</code>)에서 실시간 에이전트 실행 단계와 IDE <code>transcript.jsonl</code> 사고/도구 호출 로그 스트리밍</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">STEP 04</span>
+          <h4>산출물 생성 & Task/ 무인 아카이빙</h4>
+          <p>분석 완료 즉시 <code>Task/YYYYMMDD_작업제목/</code> 폴더에 <code>.html</code> 리포트, <code>.csv</code> 추출표, <code>README.md</code> 자동 생성 및 다운로드 카드 렌더링</p>
+        </div>
+      </div>
+
+      <h2>2. 구현 및 배포된 핵심 모듈 명세</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>파일 경로</th>
+            <th>역할 및 핵심 기능</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sidecar 설정</strong></td>
+            <td><code>~/.gemini/config/sidecars/axis-portal-bridge/sidecar.json</code></td>
+            <td>Antigravity IDE 기동 시 <code>start_sidecar_bridge.js</code> 데몬 자동 실행 및 <code>agentapi</code> PATH 주입</td>
+          </tr>
+          <tr>
+            <td><strong>Sidecar 데몬</strong></td>
+            <td><code>99. Master Agent/start_sidecar_bridge.js</code></td>
+            <td><code>server.js</code>(Port 5050) + <code>watch_bridge.js</code> 통합 구동 및 Sidecar 이벤트 감시</td>
+          </tr>
+          <tr>
+            <td><strong>핵심 브릿지 엔진</strong></td>
+            <td><code>99. Master Agent/scripts/antigravity_sidecar_engine.js</code></td>
+            <td>프롬프트 오케스트레이션 래퍼, <code>agentapi</code> 디스패치, <code>transcript.jsonl</code> 실시간 파서, <code>Task/</code> 산출물 자동 생성기</td>
+          </tr>
+          <tr>
+            <td><strong>워커 & API 서버</strong></td>
+            <td><code>99. Master Agent/watch_bridge.js</code> & <code>server.js</code></td>
+            <td><code>/api/bridge/task</code>, <code>/api/bridge/conversations</code>, <code>/api/bridge/transcript/:id</code>, <code>/api/tasks/recent</code>, <code>/tasks-archive</code> 제공</td>
+          </tr>
+          <tr>
+            <td><strong>포털 프론트엔드</strong></td>
+            <td><code>00. TV Europe Sales Management Portal/axis_portal_bridge.js</code> & <code>.css</code></td>
+            <td>상단 통합 검색+AI 커맨드 바, 우측 3-Tab 슬라이드 드로어(실시간 리포트 / IDE Transcript 미러링 / Task 산출물 탐색기), 3단 전체화면 확장</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

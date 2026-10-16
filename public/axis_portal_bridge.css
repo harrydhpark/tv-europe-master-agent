@@ -1,0 +1,751 @@
+/* ==========================================================================
+   AXIS Sales Portal <-> Antigravity Master Agent Bridge UI Styles
+   Stitch Strategic Insight System (Global Design System v1.0 Compliant)
+   ========================================================================== */
+
+:root {
+  --axis-slate-900: #0F172A;
+  --axis-slate-800: #1E293B;
+  --axis-slate-600: #475569;
+  --axis-slate-400: #94A3B8;
+  --axis-teal-600: #0D9488;
+  --axis-teal-500: #14B8A6;
+  --axis-blue-600: #2563EB;
+  --axis-blue-500: #3B82F6;
+  --axis-bg-canvas: #F8FAFC;
+  --axis-bg-surface: #FFFFFF;
+  --axis-border: #E2E8F0;
+}
+
+/* 1. Upgraded Executive Search + AXIS AI Command Bar */
+.search-box-wrapper.axis-command-bar-enhanced {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 520px;
+  max-width: 760px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  padding-right: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.search-box-wrapper.axis-command-bar-enhanced:focus-within {
+  border-color: var(--axis-teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14), 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.axis-cmd-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding-left: 8px;
+  flex-shrink: 0;
+}
+
+.axis-kbd-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748B;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 2px 6px;
+  letter-spacing: -0.02em;
+  user-select: none;
+}
+
+.axis-cmd-run-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: #FFFFFF;
+  border: 1px solid #0F172A;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.axis-cmd-run-btn i {
+  color: #2DD4BF;
+  font-size: 0.92rem;
+}
+
+.axis-cmd-run-btn:hover {
+  background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
+  border-color: #0D9488;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+.axis-cmd-run-btn:hover i {
+  color: #FFFFFF;
+}
+
+.axis-drawer-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F8FAFC;
+  color: #0F172A;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.axis-drawer-toggle-btn:hover {
+  background: #F1F5F9;
+  border-color: #0F172A;
+}
+
+.axis-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  display: inline-block;
+}
+
+.axis-live-dot.offline {
+  background: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+/* 2. Slide-Over Drawer Backdrop & Panel */
+.axis-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.42);
+  backdrop-filter: blur(2px);
+  z-index: 9980;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.axis-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.axis-agent-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(760px, 94vw);
+  height: 100vh;
+  background: var(--axis-bg-canvas);
+  border-left: 1px solid var(--axis-border);
+  box-shadow: -16px 0 48px rgba(15, 23, 42, 0.22);
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(104%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.axis-agent-drawer.open {
+  transform: translateX(0);
+}
+
+/* 3. Drawer Header */
+.axis-drawer-header {
+  background: var(--axis-slate-900);
+  color: #FFFFFF;
+  padding: 18px 22px 0 22px;
+  border-bottom: 1px solid #1E293B;
+  flex-shrink: 0;
+}
+
+.axis-drawer-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.axis-drawer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.axis-black-bar {
+  width: 4px;
+  height: 22px;
+  background: #2DD4BF;
+  border-radius: 2px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.axis-brand-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.axis-brand-top h3 {
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.axis-bridge-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(13, 148, 136, 0.22);
+  border: 1px solid rgba(45, 212, 191, 0.45);
+  color: #5EEAD4;
+}
+
+.axis-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.axis-brand-texts p {
+  margin: 4px 0 0 0;
+  font-size: 0.76rem;
+  color: #94A3B8;
+}
+
+.axis-brand-texts code {
+  font-family: 'JetBrains Mono', monospace;
+  color: #E2E8F0;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.axis-drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.axis-hdr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.axis-hdr-btn:hover {
+  background: var(--axis-teal-600);
+  border-color: var(--axis-teal-500);
+}
+
+.axis-hdr-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #CBD5E1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.axis-hdr-close:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #FFFFFF;
+}
+
+/* Session Selector Bar */
+.axis-session-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.axis-session-select-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 240px;
+}
+
+.axis-session-select-group label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  white-space: nowrap;
+}
+
+.axis-conv-select {
+  flex: 1;
+  background: #0F172A;
+  color: #F8FAFC;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.axis-icon-mini-btn {
+  background: #1E293B;
+  color: #CBD5E1;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.axis-icon-mini-btn:hover {
+  color: #FFFFFF;
+  border-color: #2DD4BF;
+}
+
+.axis-auto-policy-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #93C5FD;
+  background: rgba(59, 130, 246, 0.16);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Quick Prompts */
+.axis-quick-prompts {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+
+.axis-prompt-chip {
+  background: rgba(255, 255, 255, 0.07);
+  color: #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 0.73rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.axis-prompt-chip:hover {
+  background: rgba(13, 148, 136, 0.28);
+  border-color: #2DD4BF;
+  color: #FFFFFF;
+}
+
+/* Drawer Tabs */
+.axis-drawer-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.axis-tab-btn {
+  flex: 1;
+  background: transparent;
+  color: #94A3B8;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  padding: 10px 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.axis-tab-btn:hover {
+  color: #E2E8F0;
+}
+
+.axis-tab-btn.active {
+  color: #2DD4BF;
+  border-bottom-color: #2DD4BF;
+  background: rgba(45, 212, 191, 0.06);
+}
+
+/* 4. Drawer Body & Cards */
+.axis-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px;
+}
+
+.axis-tab-pane {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.axis-tab-pane.active {
+  display: flex;
+}
+
+.axis-active-prompt-card {
+  background: #0F172A;
+  color: #F8FAFC;
+  border-radius: 10px;
+  padding: 12px 16px;
+  border-left: 4px solid #0D9488;
+}
+
+.axis-prompt-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #5EEAD4;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.axis-prompt-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.axis-section-card {
+  background: var(--axis-bg-surface);
+  border: 1px solid var(--axis-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.axis-card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.axis-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--axis-slate-900);
+}
+
+.axis-mini-bar {
+  width: 4px;
+  height: 15px;
+  background: var(--axis-slate-900);
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.axis-step-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #F1F5F9;
+  color: #475569;
+}
+
+.axis-step-counter.running {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.axis-step-counter.completed {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+/* Timeline Steps */
+.axis-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.axis-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  font-size: 0.8rem;
+}
+
+.axis-step-item.running {
+  border-color: #0D9488;
+  background: #F0FDFA;
+}
+
+.axis-step-item.completed {
+  border-left: 3px solid #10B981;
+}
+
+.axis-step-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: #0F172A;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.axis-step-desc {
+  color: #334155;
+  flex: 1;
+  line-height: 1.45;
+}
+
+/* Deliverables Grid */
+.axis-deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.axis-deliverable-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  text-decoration: none;
+  color: #0F172A;
+  transition: all 0.15s ease;
+}
+
+.axis-deliverable-item:hover {
+  border-color: #0D9488;
+  background: #F0FDFA;
+  transform: translateY(-1px);
+}
+
+.axis-deliv-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.axis-deliv-icon {
+  font-size: 1.2rem;
+  color: #0D9488;
+}
+
+.axis-deliv-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.axis-deliv-meta {
+  font-size: 0.68rem;
+  color: #64748B;
+}
+
+/* Markdown Report Styling */
+.axis-markdown-body {
+  font-size: 0.85rem;
+  color: #1E293B;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+
+.axis-markdown-body h2,
+.axis-markdown-body h3 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #0F172A;
+  border-left: 3.5px solid #0F172A;
+  padding-left: 9px;
+  margin: 16px 0 8px 0;
+}
+
+.axis-markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.78rem;
+}
+
+.axis-markdown-body th {
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 7px 10px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.axis-markdown-body td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.axis-markdown-body tr:nth-child(even) td {
+  background: #F8FAFC;
+}
+
+/* Mirror Stream & Archive Cards */
+.axis-mirror-stream,
+.axis-archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.axis-archive-card {
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #F8FAFC;
+}
+
+.axis-archive-card-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.axis-archive-folder {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.axis-archive-summary {
+  font-size: 0.78rem;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.axis-empty-state {
+  text-align: center;
+  padding: 28px 16px;
+  color: #64748B;
+  font-size: 0.82rem;
+}
+
+.axis-empty-state i {
+  font-size: 1.8rem;
+  color: #0D9488;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* 5. Drawer Sticky Footer */
+.axis-drawer-footer {
+  padding: 12px 18px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--axis-border);
+  flex-shrink: 0;
+}
+
+.axis-footer-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#axisDrawerPromptInput {
+  flex: 1;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 0.84rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+}
+
+#axisDrawerPromptInput:focus {
+  border-color: var(--axis-teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+.axis-drawer-send-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--axis-slate-900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.axis-drawer-send-btn:hover {
+  background: var(--axis-teal-600);
+}

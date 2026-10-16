@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[AXIS Executive Report] 20261016_9월_스위스_수익성_분석</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --slate-950: #020617; --slate-900: #0F172A; --slate-800: #1E293B; --teal-600: #0D9488; --blue-600: #2563EB; --bg: #F1F5F9; --border: #CBD5E1; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--slate-900); margin: 0; padding: 28px 20px 60px; line-height: 1.68; }
+    .toolbar-wrap { max-width: 1040px; margin: 0 auto 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .toolbar-left { font-size: 0.8rem; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 8px; }
+    .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-action { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; transition: all 0.15s ease; box-shadow: 0 1px 2px rgba(15,23,42,0.05); }
+    .btn-action:hover { background: #F8FAFC; border-color: #94A3B8; transform: translateY(-1px); }
+    .btn-action.primary { background: #0F172A; color: #FFFFFF; border-color: #0F172A; }
+    .btn-action.primary:hover { background: #1E293B; }
+    .btn-action.teal { background: #0D9488; color: #FFFFFF; border-color: #0D9488; }
+    .btn-action.teal:hover { background: #0F766E; }
+    .container { max-width: 1040px; margin: 0 auto; background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 32px rgba(15,23,42,0.08); overflow: hidden; }
+    .header { background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; padding: 26px 36px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 3px solid #0D9488; }
+    .header-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5EEAD4; margin-bottom: 6px; font-weight: 600; }
+    .header h1 { margin: 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; color: #FFFFFF; }
+    .badge { background: rgba(13,148,136,0.22); border: 1px solid #14B8A6; color: #5EEAD4; font-size: 0.74rem; padding: 5px 12px; border-radius: 999px; font-weight: 700; white-space: nowrap; }
+    .meta { padding: 14px 36px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; font-size: 0.82rem; color: #334155; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+    .meta-item strong { color: #0F172A; font-weight: 700; }
+    .content { padding: 32px 36px 40px; }
+    .content h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.22rem; font-weight: 700; color: #0F172A; background: #F8FAFC; border-left: 5px solid #0F172A; padding: 10px 14px; margin: 22px 0 14px; border-radius: 0 8px 8px 0; }
+    .content h2:first-child { margin-top: 0; }
+    .content h3 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.03rem; font-weight: 700; color: #0F172A; border-left: 4px solid #0D9488; padding-left: 10px; margin: 26px 0 12px; }
+    .content h4 { font-size: 0.94rem; font-weight: 700; color: #1E293B; margin: 18px 0 8px; }
+    .content blockquote { margin: 12px 0 20px; padding: 12px 16px; background: #F0FDFA; border-left: 4px solid #0D9488; border-radius: 0 8px 8px 0; color: #134E4A; font-size: 0.86rem; }
+    .content blockquote p { margin: 0; }
+    .content table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 0.84rem; border: 1px solid #CBD5E1; }
+    .content th { background: #0F172A; color: #FFFFFF; padding: 10px 12px; text-align: left; font-weight: 700; border: 1px solid #1E293B; white-space: nowrap; }
+    .content td { padding: 9px 12px; border: 1px solid #E2E8F0; color: #1E293B; }
+    .content tr:nth-child(even) td { background: #F8FAFC; }
+    .content tr:last-child td { border-bottom: 2px solid #0F172A; }
+    .content ul { padding-left: 20px; margin: 10px 0 18px; }
+    .content li { margin-bottom: 6px; font-size: 0.9rem; color: #1E293B; }
+    .content code { font-family: 'JetBrains Mono', monospace; background: #F1F5F9; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: #0F766E; }
+    .content hr { border: 0; border-top: 1px solid #E2E8F0; margin: 28px 0 16px; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #0F172A; color: #5EEAD4; border: 1px solid #0D9488; padding: 12px 18px; border-radius: 10px; font-size: 0.84rem; font-weight: 700; box-shadow: 0 10px 25px rgba(2,6,23,0.35); opacity: 0; pointer-events: none; transition: opacity 0.2s ease; z-index: 9999; }
+    .toast.show { opacity: 1; }
+    @media print {
+      body { background: #FFFFFF; padding: 0; }
+      .toolbar-wrap { display: none !important; }
+      .container { box-shadow: none; border: none; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar-wrap">
+    <div class="toolbar-left">
+      <span>📄 LGE Europe TV Executive HTML Document</span>
+      <span>•</span>
+      <span>Task ID: <code>20261016_9월_스위스_수익성_분석</code></span>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn-action teal" onclick="copyRichHtml()">📋 서식 유지 복사 (이메일/워드 붙여넣기용)</button>
+      <button class="btn-action" onclick="copyPlainText()">📝 순수 텍스트 복사</button>
+      <button class="btn-action primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+    </div>
+  </div>
+  <div class="container" id="executiveDocContainer">
+    <div class="header">
+      <div>
+        <div class="header-eyebrow">LGE EUROPE TV SALES STRATEGY • AXIS MASTER AI AGENT</div>
+        <h1>🤖 AXIS 전략 분석 리포트 — 20261016_9월_스위스_수익성_분석</h1>
+      </div>
+      <span class="badge">EXECUTIVE HTML REPORT</span>
+    </div>
+    <div class="meta">
+      <div class="meta-item"><strong>지시 프롬프트:</strong> 9월 스위스 수익성 분석 보고서 만들어줘</div>
+      <div class="meta-item"><strong>작성 일시:</strong> 2026-10-16 04:06:40</div>
+      <div class="meta-item"><strong>데이터 원천:</strong> NERP P&amp;L Parquet DB &amp; GfK M/S Trend</div>
+    </div>
+    <div class="content" id="reportBody"></div>
+  </div>
+  <div class="toast" id="copyToast">클립보드에 복사되었습니다.</div>
+  <script id="rawMd" type="text/plain">## [보고서] 2026년 9월 스위스 지점 수익성 및 영업 현황 분석
+
+**수신:** 유럽영업본부장
+**일자:** 2026.09.29
+**요약:** 스위스 지점은 8월 결산 기준 전년 대비 매출과 수익성이 모두 개선되었으나, **유통 재고(WOS)가 11.8주로 위험 수준**에 도달하여 9월 및 4분기 재고 건전성 확보가 시급한 상황입니다.
+
+### 1. 주요 손익 실적 요약 (2026.08 MTD 기준)
+스위스 지점은 프리미엄 믹스 개선을 통해 높은 수익성을 유지하고 있습니다.
+
+| 지표 | 실적 (MTD) | 전년 대비 (YoY) | 비고 |
+| :--- | :---: | :---: | :--- |
+| **매출액 (Net Sales)** | $3.66M | +9.1% ▲ | ASP 상승(+15.7%)이 매출 견인 |
+| **한계이익률 (MP%)** | 41.3% | +3.6%p ▲ | 수익 구조 안정화 |
+| **영업이익률 (COI%)** | 10.8% | +9.1%p ▲ | 본부 내 상위권 수익성 달성 |
+| **차감율 (SD%)** | 25.5% | -3.5%p ▼ | 효율적 판촉 집행 |
+
+### 2. 시장 점유율 및 경쟁 현황 (GfK 기준)
+OLED 시장 내 압도적 1위를 유지하고 있으나, 삼성의 추격이 거세지고 있습니다.
+
+| 구분 (2026.07) | LG Electronics | Samsung | Sony | Philips |
+| :--- | :---: | :---: | :---: | :---: |
+| **OLED M/S** | **40.8%** | 29.2% | 9.0% | 13.2% |
+| **Total TV M/S** | **24.3%** | - | - | - |
+
+*   **시장 동향:** 스위스 시장 내 OLED 금액 비중은 45.6%로 유럽 평균 대비 매우 높은 프리미엄 시장입니다.
+*   **경쟁사 상황:** 삼성의 OLED 점유율이 연초 30.5%에서 7월 29.2%로 소폭 하락했으나, 여전히 강력한 경쟁자로 포지셔닝 중입니다.
+
+### 3. 운영 리스크 및 환율 현황
+
+#### ① 유통 재고 (WOS) 경보
+*   **현재 재고 주수:** **11.8주** (적정 수준 6~8주 대비 과다)
+*   **진단:** 유럽본부 내 리스크 지역으로 분류됨. 9월 말 대형 프로모션을 통한 재고 소진 가속화 필요.
+
+#### ② 환율 변동 (CHF/USD)
+*   **9월 누적 평균 환율:** 1.233
+*   **추이:** 9월 초 1.237에서 9월 14일 1.224로 소폭 하락(강세) 추세로, 수입 원가 측면에서는 긍정적 요인으로 작용 중입니다.
+
+### 4. 전략적 시사점 및 제언
+1.  **재고 건전화 우선:** WOS 11.8주는 4분기 신모델 도입 및 물류 운영에 부담이 될 수 있으므로, 구모델(Carry-over) 중심의 Sell-out 촉진책이 필요합니다.
+2.  **OLED 리더십 수성:** 삼성(29.2%)과의 격차를 유지하기 위해 77형 이상 초대형 OLED 라인업의 점유율 확대를 추진해�� 합니다.
+3.  **수익성 방어:** 현재 10.8%의 높은 영업이익률을 유지하기 위해 과도한 가격 인하보다는 프리미엄 가치 제안 중심의 마케팅을 지속할 것을 권고합니다.</script>
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('copyToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    function applyInlineStylesForCopy(rootEl) {
+      rootEl.querySelectorAll('h2').forEach(el => {
+        el.setAttribute('style', 'font-family: Malgun Gothic, Arial, sans-serif; font-size: 15pt; font-weight: bold; color: #0F172A; background-color: #F8FAFC; border-left: 5px solid #0F172A; padding: 8px 12px; margin: 18px 0 10px 0;');
+      });
+      rootEl.querySelectorAll('h3').forEach(el => {
+        el.setAttribute('style', 'font-family: Malgun Gothic, Arial, sans-serif; font-size: 12pt; font-weight: bold; color: #0F172A; border-left: 4px solid #0D9488; padding-left: 8px; margin: 16px 0 8px 0;');
+      });
+      rootEl.querySelectorAll('h4').forEach(el => {
+        el.setAttribute('style', 'font-family: Malgun Gothic, Arial, sans-serif; font-size: 10.5pt; font-weight: bold; color: #1E293B; margin: 12px 0 6px 0;');
+      });
+      rootEl.querySelectorAll('blockquote').forEach(el => {
+        el.setAttribute('style', 'font-family: Malgun Gothic, Arial, sans-serif; font-size: 9.5pt; background-color: #F0FDFA; border-left: 4px solid #0D9488; padding: 10px 14px; margin: 10px 0 14px 0; color: #134E4A;');
+      });
+      rootEl.querySelectorAll('table').forEach(tbl => {
+        tbl.setAttribute('style', 'width: 100%; border-collapse: collapse; margin: 12px 0 18px 0; font-family: Malgun Gothic, Arial, sans-serif; font-size: 9.5pt; border: 1px solid #CBD5E1;');
+        const rows = tbl.querySelectorAll('tr');
+        rows.forEach((tr, rIdx) => {
+          const isTotalRow = /합계|Total/i.test(tr.innerText || '');
+          tr.querySelectorAll('th').forEach(th => {
+            th.setAttribute('style', 'background-color: #0F172A; color: #FFFFFF; padding: 8px 10px; border: 1px solid #1E293B; font-weight: bold; text-align: left;');
+          });
+          tr.querySelectorAll('td').forEach((td, cIdx) => {
+            const txt = (td.innerText || '').trim();
+            const isNum = cIdx > 0 && (/^[\$\+\-]?[0-9,]+(\.[0-9]+)?(%|%p|대|주|건)?$/.test(txt) || txt === '-');
+            const bg = isTotalRow ? '#F1F5F9' : (rIdx % 2 === 0 ? '#F8FAFC' : '#FFFFFF');
+            const fw = isTotalRow ? 'bold' : 'normal';
+            const align = isNum ? 'right' : 'left';
+            td.setAttribute('style', 'background-color: ' + bg + '; color: #0F172A; padding: 7px 10px; border: 1px solid #CBD5E1; text-align: ' + align + '; font-weight: ' + fw + ';');
+          });
+        });
+      });
+    }
+
+    const raw = document.getElementById('rawMd').textContent;
+    const bodyEl = document.getElementById('reportBody');
+    bodyEl.innerHTML = marked.parse(raw);
+    applyInlineStylesForCopy(bodyEl);
+
+    async function copyRichHtml() {
+      try {
+        const clone = document.getElementById('executiveDocContainer').cloneNode(true);
+        applyInlineStylesForCopy(clone);
+        const htmlStr = clone.outerHTML;
+        const plainStr = document.getElementById('executiveDocContainer').innerText;
+        if (navigator.clipboard && window.ClipboardItem) {
+          const item = new ClipboardItem({
+            'text/html': new Blob([htmlStr], { type: 'text/html' }),
+            'text/plain': new Blob([plainStr], { type: 'text/plain' })
+          });
+          await navigator.clipboard.write([item]);
+          showToast('✅ 서식 유지 HTML이 복사되었습니다! (아웃룩/워드/노션에 바로 Ctrl+V 붙여넣기 가능)');
+          return;
+        }
+        await navigator.clipboard.writeText(plainStr);
+        showToast('✅ 클립보드에 텍스트가 복사되었습니다.');
+      } catch (e) {
+        const sel = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById('executiveDocContainer'));
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        showToast('✅ 서식 유지 문서가 복사되었습니다!');
+      }
+    }
+
+    async function copyPlainText() {
+      const text = document.getElementById('reportBody').innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('✅ 순수 텍스트가 클립보드에 복사되었습니다!');
+      } catch (e) {
+        showToast('⚠️ 복사에 실패했습니다.');
+      }
+    }
+  </script>
+</body>
+</html>

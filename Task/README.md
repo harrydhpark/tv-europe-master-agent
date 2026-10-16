@@ -7,6 +7,15 @@
 ## 📌 실행 과제 아카이브 목록 (Task Registry)
 
 | 실행 일자 | Task 폴더 | 핵심 질문 요약 | 연계 에이전트 | 산출물 |
+| :---: | :--- | :--- | :--- | :---: |
+| **2026-10-16** | [20261016_9월_스위스_수익성_분석](./20261016_9월_스위스_수익성_분석) | 9월 스위스 수익성 분석 보고서 만들어줘 | Master AI Agent, P&L Analysis, KPI Sheet, MS Trend, FX-Monitor | 📄 보고서 |
+| **2026-10-16** | [20261016_AXIS작업지시Pilot이관](./20261016_AXIS작업지시Pilot이관) | /grill-me 기존의 프롬프트 창을 세일즈 포탈 대 | Master Agent, Global Sales Portal, P&L Analysis | 🌐 Web 리포트 |
+| **2026-10-16** | [20261016_워드보고서로_만들어줘](./20261016_워드보고서로_만들어줘) | 워드보고서로 만들어줘 | Master AI Agent, kpi-sheet, fx-monitor, price-tracker | 📄 보고서 |
+| **2026-10-16** | [20261016_9월_영국_수익성_분석](./20261016_9월_영국_수익성_분석) | 9월 영국 수익성 분석 보고서 만들어줘 | Master AI Agent, pnl-analysis, P&L Analysis, 수익성 Simulator, MS Trend, KPI Sheet | 📄 보고서 |
+| **2026-10-16** | [20261016_스위스_7월_제품군별_점유](./20261016_스위스_7월_제품군별_점유) | 스위스 7월 제품군별 점유율 확인해줘 | Master AI Agent, ms-trend | 📄 보고서 |
+| **2026-10-16** | [20261016_스위스_8월_제품군별_점유](./20261016_스위스_8월_제품군별_점유) | 스위스 8월 제품군별 점유율 확인해줘 | Master AI Agent, ms-trend, kpi-sheet | 📄 보고서 |
+| **2026-10-16** | [20261016_포털마스터에이전트연동](./20261016_포털마스터에이전트연동) | /grill-me sales portal에서 프롬프트로 | Sales Management Portal, Master AI Agent, Antigravity Sidecar (axis-portal-bridge) | 🌐 Web 리포트 |
+| **2026-10-15** | [20261015_27년BP_2차_QNED3만대감축정합](./20261015_27년BP_2차_QNED3만대감축정합) | 27년 사업계획 2차 회신 RAW 파일('③모델별RAW') QNED 30,001대 감축(1,877,751대→1,847,750대), 98"↑(53,521대) 완전 보존, 27년 신모델(M05~M12) 90" 미만 모델 최대잔여법 비례 차감 및 16개국 법인별 가이드 100% 정합(0오차, 음수 방지) 전수 감사 합격 | Master AI Agent, 사업계획_27년 Data Engineer, Lineup & P&L Engine | 📊 Excel, 📄 보고서 |
 | **2026-10-15** | [20261015_MSTrend8월업데이트](./20261015_MSTrend8월업데이트) | 2026년 8월 M/S Databook DB 업데이트 및 8월 vs 7월 Diff 대시보드 리포트 배포 (스위스 포함 14개 법인) | 08. MS Trend, Master Agent | 🌐 Web 배포(Firebase), 📄 보고서, 📊 JSON |
 | **2026-10-14** | [20261014_손익대시보드배포및다운로드검증](./20261014_손익대시보드배포및다운로드검증) | 유럽 15개국 TV 손익 대시보드 Firebase 라이브 배포 완료 및 스위스 대시보드 최신 9월 원본 엑셀(.xlsb, 112.7MB) 다운로드 링크 자동 연동·수신 100% 무결성 검증 | 05. TV P&L Analysis, Dashboard Publisher | 🌐 Web 배포(Firebase), 📊 Excel, 📄 보고서 |
 | **2026-10-14** | [20261014_유럽15개국9월손익업데이트](./20261014_유럽15개국9월손익업데이트) | 유럽 15개국(AG, BN, CK, Swiss, ES, FS, HS, IS, LA, MK, PL, PT, RO, SW, UK) TV 2026년 9월 NERP 실적 분석 및 개별 대시보드·포털(index.html) 전사 일괄 업데이트 완료 (RA/AK/UR 제외) | 05. TV P&L Analysis, Financial Analyst, Dashboard Publisher | 🌐 Web 대시보드 15개, 📄 포털 리포트 |

@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadAgentsAndStatus();
   loadChatHistory();
   initSSEListener();
+
+  // Check URL query parameter ?q= from Sales Portal Command Bar / Drawer expansion
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const autoQuery = params.get('q');
+    if (autoQuery && autoQuery.trim() && elements.chatInput) {
+      elements.chatInput.value = autoQuery.trim();
+      // Clear query param from URL without reloading to avoid duplicate runs on refresh
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setTimeout(() => handleSendMessage(), 250);
+    }
+  } catch (e) {}
 });
 
 // SSE Live Event Listener for Automated Excel Ingestion & Deployment
@@ -417,6 +429,10 @@ async function handleSendMessage() {
     removeMessage(tempMsgId);
 
     if (result) {
+      if (result.deliverables && result.artifact) {
+        result.artifact.deliverables = result.deliverables;
+        result.artifact.archiveInfo = result.archiveInfo;
+      }
       appendMessage({
         sender: 'agent',
         text: result.answerMarkdown,
@@ -430,7 +446,12 @@ async function handleSendMessage() {
       if (result.artifact) {
         renderArtifactToCanvas(result.artifact, result.answerMarkdown);
       } else if (result.answerMarkdown) {
-        renderArtifactToCanvas({ title: "안티그래비티 AI 분석 보고서", markdown: result.answerMarkdown }, result.answerMarkdown);
+        renderArtifactToCanvas({
+          title: "안티그래비티 AI 분석 보고서",
+          markdown: result.answerMarkdown,
+          deliverables: result.deliverables,
+          archiveInfo: result.archiveInfo
+        }, result.answerMarkdown);
       }
     }
   } catch (error) {
@@ -710,6 +731,45 @@ function renderArtifactToCanvas(artifact, answerMarkdown) {
         </div>
       </div>
     `;
+  }
+
+  // 7. Autonomous Task Deliverables (HTML Report, CSV/XLSX, README.md)
+  if (artifact.deliverables && artifact.deliverables.length > 0) {
+    const taskGroup = artifact.deliverables[0];
+    const files = taskGroup.files || [];
+    const bridgeBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '' : 'http://localhost:5050';
+    if (files.length > 0) {
+      html += `
+        <div style="margin-top:16px; background:#F0FDFA; border:1px solid #CCFBF1; border-radius:10px; padding:12px 14px;">
+          <div style="font-size:12.5px; font-weight:700; color:#0F766E; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="display:flex; align-items:center; gap:6px;">
+              <i class="ri-folder-shield-2-line"></i>
+              <span>무인 아카이빙 산출물 패키지 (Task/${escapeHtml(taskGroup.folderName)})</span>
+            </span>
+            <span style="font-size:10.5px; padding:2px 8px; background:#0F766E; color:#FFFFFF; border-radius:999px; font-weight:700;">
+              100% Autonomous Output
+            </span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            ${files.map(f => `
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:8px 12px;">
+                <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+                  <span style="font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px; background:#F1F5F9; color:#334155; font-family:monospace;">
+                    ${escapeHtml((f.ext || '').replace('.', '').toUpperCase() || 'FILE')}
+                  </span>
+                  <span style="font-size:12px; font-weight:700; color:#0F172A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    ${escapeHtml(f.name)}
+                  </span>
+                </div>
+                <a href="${bridgeBase}${f.webUrl}" target="_blank" style="font-size:11px; font-weight:700; color:#FFFFFF; background:#0F766E; padding:4px 10px; border-radius:6px; text-decoration:none; white-space:nowrap;">
+                  열기 / 다운로드 ↗
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
   }
 
   elements.canvasBody.innerHTML = html;

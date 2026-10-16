@@ -1,0 +1,14 @@
+{
+  "display_name": "AXIS Sales Portal <-> Master Agent Bridge",
+  "description": "Bridges prompts from TV Europe Sales Management Portal directly into the Antigravity AXIS Master Agent session via agentapi and mirrors live transcript.jsonl + Task deliverables.",
+  "command": "node",
+  "args": [
+    "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\99. Master Agent\\start_sidecar_bridge.js"
+  ],
+  "restart_policy": "always",
+  "env": {
+    "PORT": "5050",
+    "ANTIGRAVITY_BRAIN_DIR": "C:\\Users\\harry.park\\.gemini\\antigravity\\brain",
+    "MASTER_AGENT_ROOT": "d:\\TV 유럽영업\\15. AX Task\\2026 AX 실행과제\\99. Master Agent"
+  }
+}
