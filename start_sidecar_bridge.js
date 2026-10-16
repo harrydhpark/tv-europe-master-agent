@@ -31,12 +31,6 @@ console.log('🚀 [AXIS Sidecar Bridge] Starting Server + Bridge Worker...');
 console.log(`📂 Workspace: ${ROOT_DIR}`);
 console.log('================================================================');
 
-try {
-  require('./scripts/install_pilot_tab');
-} catch (e) {
-  console.warn('[AXIS Sidecar Bridge] Pilot tab sync warning:', e.message);
-}
-
 // 1. Start Express HTTP/SSE Server (if not already bound)
 const app = require('./server');
 const PORT = process.env.PORT || 5050;
